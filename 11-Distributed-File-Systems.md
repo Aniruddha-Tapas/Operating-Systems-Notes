@@ -110,6 +110,7 @@ Keeps no state; Okay with extreme models, but can't support 'practical' model|Ke
 <td>On failure, lose portion of data<br>load balancing harder, if not balanced, then hot-spots possible</td>
 </tr>
 </table>
+
 * Can combine both techniques
 	- Replicate each partition!
     
