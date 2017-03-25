@@ -62,10 +62,10 @@ Keeps no state; Okay with extreme models, but can't support 'practical' model|Ke
 
 ![cachingstate.png](images/cachingstate.png)
 
-|How|When|
----|----|----|----|
-SMP|Write-update/Write-invalidate|On write
-DFS|Client/Server-driven|On demand, periodically, on open.. 
+|System|How|When|
+|---|----|----|
+|SMP|Write-update/Write-invalidate|On write|
+|DFS|Client/Server-driven|On demand, periodically, on open..| 
 
 * Files or File blocks can be (with 1 server and multiple clients) cached in:
 	- in client memory
@@ -88,17 +88,29 @@ DFS|Client/Server-driven|On demand, periodically, on open..
 
 # Replication vs Partitioning
 
-|Replication | Partitioning
------|------------|-----------
-|Each machine holds all files|Each machine has subset of files
-Advantages|Load balancing, availibility, fault tolerance|Availibility vs single server DFS;<br>Scalability with file system size;<br>single file writes simpler 
-Disadvantages|Write becomes more complex<br>- Synchronous to all<br>- or, write to one, then propagate to others<br>replicas must be reconciled e.g. Voting|On failure, lose portion of data<br>load balancing harder, if not balanced, then hot-spots possible
-
+<table>
+<tr>
+<th></th>
+<th>Replication</th>
+<th>Partitioning</th>
+</tr>
+<tr>
+<td></td>
+<td>Each machine holds all files</td>
+<td>Each machine has subset of files</td>
+</tr>
+<tr>
+<td>Advantages</td>
+<td>Load balancing, availibility, fault tolerance </td>
+<td>Availibility vs single server DFS;<br>Scalability with file system size;<br>single file writes simpler</td>
+</tr>
+<tr>
+<td>Disadvantages</td>
+<td>Write becomes more complex<br>- Synchronous to all<br>- or, write to one, then propagate to others<br>replicas must be reconciled e.g. Voting</td>
+<td>On failure, lose portion of data<br>load balancing harder, if not balanced, then hot-spots possible</td>
+</tr>
+</table>
 * Can combine both techniques
 	- Replicate each partition!
     
-<hr>    
-
-
-    
-    
+<hr>

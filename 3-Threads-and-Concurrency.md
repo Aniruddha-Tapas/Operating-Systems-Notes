@@ -485,14 +485,14 @@ but dynamic thread creation is expensive!
     
 ### Threads and Signal Handling
 
-![tshandling](tshandling.png)
+![tshandling](images/tshandling.png)
 
 **Case 1 :**
 
 * User-Level-Thread mask = 1
 * Kernel-Level-Thread mask = 1
 
-![case1](case1.png)
+![case1](images/case1.png)
 
 **Case 2 :**
 
@@ -500,7 +500,7 @@ but dynamic thread creation is expensive!
 * Kernel-Level-Thread mask = 1
 * another User-Level-Thread mask = 1
 
-![case2](case2.png)
+![case2](images/case2.png)
 
 **Case 3 :**
 
@@ -509,7 +509,7 @@ but dynamic thread creation is expensive!
 * another User-Level-Thread mask = 1
 * another Kernel-Level-Thread mask = 1
 
-![case3](case3.png)
+![case3](images/case3.png)
 
 **Case 4 :**
 
@@ -517,7 +517,7 @@ but dynamic thread creation is expensive!
 * Kernel-Level-Thread mask = 1
 * all User-Level-Thread mask = 0
 
-![case4](case4.png)
+![case4](images/case4.png)
 
 **Optimize common case**
 
@@ -615,15 +615,11 @@ Eg [Apache Web Server](https://en.wikipedia.org/wiki/Apache_HTTP_Server)
 
 ![apachewebserver.png](images/apachewebserver.png)
 
-*Core : basic server skeleton
-*Modules : per functionality
+* Core : basic server skeleton
+* Modules : per functionality
 * Flow of Control : Similar to Event Driven model
 * But its an combination of MP + MT,
 	- each process = boss/worker with dynamic thread pool
     - number of processes can also be dynamically adjusted
     
 <hr>    
-
-
-
-

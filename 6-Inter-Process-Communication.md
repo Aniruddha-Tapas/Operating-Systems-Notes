@@ -46,24 +46,24 @@
 ### Forms of Message Passing IPC
 
 #### 1. Pipes 
-	- Carry byte stream between 2 process
-    - e.g connect output from 1 process to input of another
+- Carry byte stream between 2 process
+- e.g connect output from 1 process to input of another
     
 ![pipes.png](images/pipes.png)    
 
 #### 2. Message queues
-	- Carry "messages" among processes
-    - OS management includes priorities, scheduling of message delivery 
-    - APIs : Sys-V and POSIX
+- Carry "messages" among processes
+- OS management includes priorities, scheduling of message delivery 
+- APIs : Sys-V and POSIX
     
 ![msgq.png](images/msgq.png)        
 
 #### 3. Sockets
-	- send() and recv() : pass message buffers
-    - socket() : create kernel level socket buffer
-    - associated neccessary kernel processing (TCP-IP,..)
-    - If different machines, channel between processes and network devices
-    - If same machine, bypass full protocol stack
+- send() and recv() : pass message buffers
+- socket() : create kernel level socket buffer
+- associated neccessary kernel processing (TCP-IP,..)
+- If different machines, channel between processes and network devices
+- If same machine, bypass full protocol stack
     
 ![sockets.png](images/sockets.png)        
 
