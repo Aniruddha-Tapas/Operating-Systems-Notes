@@ -29,7 +29,7 @@ Context switch, enter user mode, set PC and go! <= Thread is dispatched on CPU.
     
 ### "Run-to-completion" Scheduling
 
--Initial assumptions
+- Initial assumptions
 	- group of tasks/jobs
     - known execution time
     - no preemption
@@ -70,6 +70,7 @@ runqueue = tree()
 ```
 
 For SJF,
+
 * Throughput = 3/(1+10+1) = 3/12 = 0.25s
 * Average completion time = (1 + 2 + 12)/3 = 5s
 * Average wait time = (0+1+2)/3 = 1s
@@ -98,7 +99,7 @@ runqueue = tree() ordered on priority
 ```
 
 * low priority task stuck in runqueue => starvation
-- "priority aging" 
+* "priority aging" 
 	- priority = f(actual priority, time spent in runqueue)
     - eventually tasks will run
     - prevents starvation
@@ -129,12 +130,14 @@ runqueue = tree() ordered on priority
 ![rr4](images/rr4.png)    
 
 **Advantages**<br>
+
 * Short tasks finish sooner
 * More responsive
 * Lengthy I/O operations initiated sooner
 	- best to keep timeslice > context-switch-time
     
 **Disdvantages**<br>    
+
 * Overheads
 
 #### How long should a timeslice be be?

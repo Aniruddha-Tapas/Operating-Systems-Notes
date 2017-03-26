@@ -160,6 +160,7 @@ Strict Consistency => updates visible everywhere immediately
 ![seq.png](images/seq.png)
 
 Sequential consistency =>
+
 * memory updates from different  processors may be arbitrarily interleaved
 * All processes will see the same interleaving
 * Operations from the same process always appearin order they were issued

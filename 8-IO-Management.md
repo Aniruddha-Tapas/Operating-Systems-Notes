@@ -1,6 +1,7 @@
 # I/O Management
 
 Operating system
+
 - Has protocols 
 	- Interfaces for device I/O
 - Has dedicated handlers
@@ -42,6 +43,7 @@ Operating system
 OS representation of a device : special device file
 
 UNIX like systems:
+
 * /dev
 * tmpfs
 * devfs

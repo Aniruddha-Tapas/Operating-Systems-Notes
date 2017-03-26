@@ -39,19 +39,24 @@
     4x data copies
     
 **Advantages**<br> 
+
 * simplicity : kernel does channel management and synchronization
+
 **Disadvantages**<br> 
+
 * Overheads 
 
 ### Forms of Message Passing IPC
 
 #### 1. Pipes 
+
 - Carry byte stream between 2 process
 - e.g connect output from 1 process to input of another
     
 ![pipes.png](images/pipes.png)    
 
 #### 2. Message queues
+
 - Carry "messages" among processes
 - OS management includes priorities, scheduling of message delivery 
 - APIs : Sys-V and POSIX
@@ -59,6 +64,7 @@
 ![msgq.png](images/msgq.png)        
 
 #### 3. Sockets
+
 - send() and recv() : pass message buffers
 - socket() : create kernel level socket buffer
 - associated neccessary kernel processing (TCP-IP,..)
@@ -80,8 +86,11 @@
 ![sharedmemoryipc.png](images/sharedmemoryipc.png)
 
 **Advantages**<br>
+
 * System calls only for setup data copies potentially reduced (but not eliminated)
+
 **Disdvantages**<br>
+
 * explicit synchronization
 * communication protocol, shared buffer management
     - programmer's responsibility
@@ -113,10 +122,12 @@ CPU cycles to copy data to/from port | CPU cycles to map memory into address spa
 Use threads accessing shared state in a single addressing space, but for process
 
 Synchronization method:
+
 1. mechanism supported by processing threading library (pthreads)
 2. OS supported IPC for sync
 
 Either method must coordinate
+
 * no of concurrent access to shared segment
 * when data is available and ready for consumption
 

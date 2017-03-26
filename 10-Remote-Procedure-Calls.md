@@ -12,6 +12,7 @@ Example : GetFile App
 * common steps related to remote IPC 
 
 #### Remote Procedure Calls (RPC)
+
 * Intended to simplify the development of cross address space and cross machine interactions
 
 **\+** Higher-level interface for data movement and communication<br>
@@ -41,6 +42,7 @@ Example : GetFile App
 
 (-1.) register : server registers procedure, arg types, location<br>
 (0.) bind : client finds and binds to desired server
+
 1. call : client make RPC call; control passed to stub, client code blocks
 2. marshal : client stub "marshals" args (serialize args into buffer)
 3. send : client sends message to server
@@ -61,7 +63,7 @@ RPC can use IDL that is
 
 1. Language agnostic
 	- XDR in SunRPC
-1. Language specific
+2. Language specific
 	- Java in JavaRMI
     
 ## Marshalling

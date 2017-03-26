@@ -1,6 +1,7 @@
 # Memory Management
 
 Operating systems:
+
 - uses intelligently size containers
 	- memory pages of segments
 - Not all parts are needed at once 
@@ -21,10 +22,12 @@ Operating systems:
 	- address translation and validation
     
 #### Page-based Memory Management    
+
 - Allocate => pages => page frames
 - Arbitrate => page tables
 
 #### Segment-based Memory Management    
+
 - Allocate => segments
 - Arbitrate => segment registers
 
@@ -34,18 +37,22 @@ Operating systems:
 ![hardwaresupport.png](images/hardwaresupport.png)
 
 ### Memory Management Unit (MMU)  
+
 * translate virtual to physical address 
 * reports faults (illegal access, permission, not present in memory)
 
 ### Registers
+
 * pointers to page tables
 * base and limit size, number of segments
 
 ### Cache 
+
 * Translation lookaside buffer
 * Valid VA-PA translations using TLB
 
 ### Translation
+
 * Actual PA generation done in hardware
 
 ## Page Tables
@@ -62,6 +69,7 @@ Operating systems:
 ![pfn.png](images/pfn.png)
 
 #### Flags
+
 * Present (valid/invalid)
 * Dirty (written to)
 * Accessed (for read or write)
@@ -72,6 +80,7 @@ Operating systems:
 ![pfnx86.png](images/pfnx86.png)
 
 #### Flags
+
 * Present 
 * Dirty 
 * Accessed
@@ -135,21 +144,25 @@ On malloc, a new internal page table may be allocated.
 * don't need an inner table for each 1MB virtual memory gap
 
 Additional Layers
+
 * page table directory pointer (3rd level)
 * page table directory map (4th level)
 
--Important on 64 bit architectures
--larger and more sparse => larger gaps would save more internal page table components
+- Important on 64 bit architectures
+- larger and more sparse => larger gaps would save more internal page table components
 
 ![hierarchicalpt2.png](images/hierarchicalpt2.png)
 
 ### Tradeoffs of Multilevel Page Tables
 
 **Advantages**<br>
+
 * Smaller internal page tables/directories 
 * Granularity of coverage
 	- Potentially reduced page table size
+
 **Disadvantages**<br>
+
 * More memory accesses required for translation
 * increased translation latency
 
@@ -169,6 +182,7 @@ which results in slowdown.
 ![ptcache.png](images/ptcache.png)
 
 #### Translation Lookaside Buffer
+
 - MMU level address translation cache
 - On TLB miss => page table access from memory
 - has protection/validity bits
@@ -222,10 +236,12 @@ In real world examples,
 |reduction factor on page table size|x512|x1024|
 
 **Advantages**<br>
+
 * larger pages
 	- fewer page table entries, smaller page tables, more TLB hits
     
 **Disadvantages**<br>
+
 * internal fragmentation => wastes memory
 
 ## Memory Allocation
@@ -248,6 +264,7 @@ In real world examples,
     - physical page frame saved and restored to/from secondary storage
     
 ### Demand paging:
+
 - pages swapped in/out of memory & a swap partition (e.g. on a disk)
     
 ![demandpaging.png](images/demandpaging.png)
@@ -277,14 +294,17 @@ In real world examples,
     - failure may be unavoidable but can restart from checkpoint, so recovery would be faster
 
 #### Simple Approach
+
 - pause and save
     
 #### Better Approach
+
 - write-protect and copy everything at once 
 - copy diffs of dirties pages for incremental checkpoints
 	- rebuild from multiple diffs, or in background
 
 Checkpointing can also be used in other services:
+
 * Debugging
 	- Rewind-Replay
     - rewind = restart from checkpoint 

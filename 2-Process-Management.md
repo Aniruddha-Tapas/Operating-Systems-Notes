@@ -28,6 +28,7 @@ Process is a state of a program when executing and loaded in memory (active stat
 ## How does the OS know what a process is doing?
 
 Using:
+
 * Program counter
 * CPU registers
 * Stack pointer
@@ -80,6 +81,7 @@ CPU is able to execute a process when the process is in Running or Ready state.
 CPU scheduler determines which one of the currently ready processes will be dispatched to the CPU to start running, and how long it should run for.
 
 OS must :
+
 * preempt => interrupt and save current context
 * schedule => run scheduler to choose next process
 * dispatch => dispatch process 2 switch into its context
@@ -102,13 +104,14 @@ A process can make way in the ready queue in a number of ways.
 #### Inter Process communication:
 
 IPC mechanisms:
+
 - transfer data/info between address space
 - maintain protection and isolation
 - provide flexibility and performance
 
 Two types of IPC models:
 
-1. **Message Passing IPC**
+####  1. **Message Passing IPC**
 
 ![messagepassing](images/messagepassing.png)
 
@@ -118,7 +121,7 @@ Two types of IPC models:
 **Advantages**: OS manages the channel<br>
 **Disadvantages**: Overheads
     
-1. **Shared Memory IPC**
+#### 2. **Shared Memory IPC**
 
 ![sharedmemory](images/sharedmemory.png)
 

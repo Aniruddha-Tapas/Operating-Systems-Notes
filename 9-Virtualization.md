@@ -95,6 +95,7 @@ Commodity hardware has more than two protection levels
 ## Binary Translation
 
 **Goal** : Full Virtualization i.e. guest OS is not modified
+
 **Approach** : Dynamic Binary Translation
 
 1. Inspect code blocks to be executed
@@ -106,7 +107,9 @@ Commodity hardware has more than two protection levels
 ## Paravirtualization
 
 **Goal** : Performance; give up on modified guest OSs
+
 **Approach** : Paravirtualization : modify guest OSs so that 
+
 - it knows it is running virtualized
 - it makes explicit calls to hyperisor (hypercalls)
 - hypercalls (~ system calls)
@@ -157,8 +160,11 @@ Approach: VMM-level-driver configures device access permissions
 ![passthrough.png](images/passthrough.png)
 
 **Advantages**<br>
+
 * VM provided with exclusive and direct (VMM bypass) access to the device
+
 **Disadvantages**<br>
+
 * Device sharing difficult
 * VMM must have exact type of device as what VM expects
 * VM migration tricky
@@ -166,6 +172,7 @@ Approach: VMM-level-driver configures device access permissions
 ### 2. Hypervisor - Direct model
 
 Approach: 
+
 - VMM interrupts all device accesses
 - Emulate device operations
 	- translate to generic I/O operations
@@ -175,15 +182,19 @@ Approach:
 ![hypervisordirect.png](images/hypervisordirect.png)    
 
 **Advantages**<br>
+
 * VM decoupled from physical device
 * Sharing, migration, dealing with device specifics
+
 **Disadvantages**<br>
+
 * Latency of device operations
 * Device driver ecosystem complexities in Hypervisor
 
 ### 3. Split Device-Driver model
 
 Approach: 
+
 - Device access control split between
 - Emulate device operations
 	- front-end driver in guest VM (device API)
@@ -194,6 +205,7 @@ Approach:
 ![splitdevicedriver.png](images/splitdevicedriver.png)          
 
 **Advantages**<br>
+
 * Eliminate emulation overhead
 * Allow for better management of shared devices
 

@@ -1,6 +1,7 @@
 # Threads and Concurrency
 
 **Thread**:
+
 - is an active
 	- entity executing unit of a process
 - works simultaneously with others
@@ -129,6 +130,7 @@ if (read_count == 1)
 ```
 
 State of shared resource:
+
 * free : resource_counter = 0
 * reading : resource_counter > 0
 * writing : resource_counter = -1
@@ -183,40 +185,46 @@ Pre-check for cycles and then delay process or change code
 
 Three types of models:
 
-1. **One to One model**:
+#### 1. **One to One model**:
 
 ![onetoone](images/onetoone.png)
 
 **Advantages**: 
+
 * OS sees threads
 * Synchronization
 * Blocking
 
 **Disadvantages**: 
+
 * Must go to OS for all operations
 * OS may have limits on policies, threads
 * Portability
 
-2. **Many to One model**:
+#### 2. **Many to One model**:
 
 ![manytoone](images/manytoone.png)
 
 **Advantages**: 
+
 * Totally Portable 
 * Doesn't depend on OS limits and policies
 
 **Disadvantages**: 
+
 * OS may block entire process if one user-level thread blocks on I/O
 
-3. **Many to Many model**:
+#### 3. **Many to Many model**:
 
 ![manytomany](images/manytomany.png)
 
 **Advantages**: 
+
 * Best of both worlds
 * Can have bound or unbound threads
 
 **Disadvantages**: 
+
 * Requires coordination between user and kernel level thread managers
 
 ## Multithreading patterns
@@ -244,9 +252,11 @@ How many workers?
 - static vs dynamic (i.e dynamically increasing size according to work)
 
 **Advantages**: 
+
 * Simplicity
 
 **Disadvantages**: 
+
 * Thread pool management
 * Locality
 
@@ -352,6 +362,7 @@ gcc -o main main.c -pthread
 ### Hard vs Light Process states
 
 PCB is divided into multiple data structures classified as follows:
+
 - Light Process states
 	- Signal mask 
     - System call args
@@ -533,9 +544,11 @@ How to best provide concurrency?
 ### Multi-Processing (MP)
 
 **Advantages**<br> 
+
 * Simple programming
 
 **Disadvantages**<br> 
+
 * High memory usage
 * Costs context switch
 * costly to maintain shared state (tricky port setup)
@@ -543,11 +556,13 @@ How to best provide concurrency?
 ### Multi-Threading (MP)
 
 **Advantages**<br> 
+
 * Shared address space
 * Shared state (no sys calls to other threads)
 * Cheap context switch
 
 **Disadvantages**<br> 
+
 * Complex implementation
 * Requires synchronization
 * Requires underlying support for threads
@@ -567,6 +582,7 @@ Dispatcher : acts as a state machine and accepts any external events
 When call handler => jump to code
 
 The handler:
+
 * Runs to completion
 * if they need to block
 	- initiate blocking operation and pass control to dispatch loop
@@ -580,6 +596,7 @@ The handler:
 	- then switch to another request
     
 **Advantages**<br>    
+
 * Single address space
 * Single flow of control
 * Smaller memory requirement
@@ -588,6 +605,7 @@ The handler:
 * No synchronization
 
 **Disadvantages**<br>    
+
 * A blocking request/handler will block entire process
 
 ### Asynchronous I/O operations
@@ -604,10 +622,12 @@ Since asynchronous calls are not easily avalible, helpers can be used to impleme
 ### Asymmetric Multi-Process Event Driven model (AMPED & AMTED)
 
 **Advantages**<br>
+
 * Resolve portability limitations of basic event driven model
 * Smaller footprint than regular worker thread
 
 **Disadvantages**<br>
+
 * Applicability to certain classes of applications
 * Event routing on multi CPU systems
 
