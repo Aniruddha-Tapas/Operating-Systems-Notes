@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="None">
+  
+  <link rel="shortcut icon" href="./img/favicon.ico">
+  <title>Operating Systems Overview - Operating System Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Operating Systems Overview";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Operating System Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href=".">Home</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href=".">Operating Systems Overview</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#operating-systems-overview">Operating Systems Overview</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#what-is-an-operating-system">What is an Operating System?</a></li>
+        
+            <li><a class="toctree-l3" href="#operating-system-definition">Operating System definition:</a></li>
+        
+            <li><a class="toctree-l3" href="#operating-system-examples">Operating System examples:</a></li>
+        
+            <li><a class="toctree-l3" href="#os-elements">OS Elements</a></li>
+        
+            <li><a class="toctree-l3" href="#os-design-principles">OS Design Principles</a></li>
+        
+            <li><a class="toctree-l3" href="#user-kernel-protection-boundary">User/ Kernel Protection Boundary</a></li>
+        
+            <li><a class="toctree-l3" href="#system-call-flowcart">System call Flowcart</a></li>
+        
+            <li><a class="toctree-l3" href="#basic-os-services">Basic OS services</a></li>
+        
+            <li><a class="toctree-l3" href="#linux-system-calls">Linux System Calls</a></li>
+        
+            <li><a class="toctree-l3" href="#linux-architecture">Linux Architecture</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="2-Process-Management/">Processes and Process Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="3-Threads-and-Concurrency/">Threads and Concurrency</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="4-Scheduling/">Scheduling</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="5-Memory-Management/">Memory Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="6-Inter-Process-Communication/">Inter-Process Communication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="7-Synchronization/">Synchronization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="8-IO-Management/">I/O Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="9-Virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="10-Remote-Procedure-Calls/">Remote Procedure Calls</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="11-Distributed-File-Systems/">Distributed File Systems</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="12-Distributed-Shared-Systems/">Distributed Shared Memory</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Operating System Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Operating Systems Overview</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="operating-systems-overview">Operating Systems Overview</h1>
+<hr>
+
+<p><strong>Operating Systems</strong> :</p>
+<ul>
+<li>Direct operational resources [CPU, memory, devices]</li>
+<li>Enforces working policies [Resource usage, access]</li>
+<li>Mitigates difficulty of complex tasks [abstract hardware details (using system calls)]</li>
+</ul>
+<h2 id="what-is-an-operating-system">What is an Operating System?</h2>
+<ul>
+<li>Intermediate between Hardware and Software applications</li>
+<li>Hides hardware complexity (Read/write file storage, send/receive socket network)</li>
+<li>Handles resource management (CPU scheduling, Memory management)</li>
+<li>Provide isolation and protection (allocate different parts of memory to different applications so that applications don't overwrite other memory locations)</li>
+</ul>
+<h2 id="operating-system-definition">Operating System definition:</h2>
+<p>An <strong>Operating System</strong> is a layer of systems software that:</p>
+<ul>
+<li>directly has privileged access to the underlying hardware;</li>
+<li>hides the hardware complexity;</li>
+<li>manages hardware on behalf of one or more application according to some predifined policies.</li>
+<li>In addition, it ensures that applications are isolated and protected from one another.</li>
+</ul>
+<h2 id="operating-system-examples">Operating System examples:</h2>
+<table>
+<thead>
+<tr>
+<th>Desktop</th>
+<th>Embedded devices</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Microsoft Windows</td>
+<td>Android OS</td>
+</tr>
+<tr>
+<td>MAC OS X (BSD)</td>
+<td>iOS</td>
+</tr>
+<tr>
+<td>LINUX</td>
+<td>Symbian</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<h2 id="os-elements">OS Elements</h2>
+<ul>
+<li><strong>Abstractions</strong> (corresponds to applications that OS executes)<ul>
+<li>process, thread, file, socket,  memory page</li>
+</ul>
+</li>
+<li><strong>Mechanisms</strong>  (on top of Abstractions)<ul>
+<li>create, schedule, open, write, allocate</li>
+</ul>
+</li>
+<li><strong>Policies</strong> (how mechanisms are used to manage underlying hardware)    <ul>
+<li>Least Recently Used (LRU) , Earliest Deadline First (EDF), etc.</li>
+</ul>
+</li>
+</ul>
+<h4 id="example">Example :</h4>
+<p><em>Memory Management:</em></p>
+<ul>
+<li><strong>Abstractions</strong>: Memory page</li>
+<li><strong>Mechanisms</strong>: Allocate, map to a process</li>
+<li><strong>Policies</strong>: LRU</li>
+</ul>
+<h2 id="os-design-principles">OS Design Principles</h2>
+<ul>
+<li>Seperation of mechanism and policy<ul>
+<li>implement flexible mechanisms to support many policies </li>
+<li>e.g. LRU, LFU, random</li>
+</ul>
+</li>
+<li>Optimize for common case <ul>
+<li>Where will the OS be used?</li>
+<li>What will the user want to execute on that machine?</li>
+<li>What are the workload requirements?</li>
+</ul>
+</li>
+</ul>
+<h2 id="user-kernel-protection-boundary">User/ Kernel Protection Boundary</h2>
+<ul>
+<li>user-level =&gt; applications [underprivileged mode]</li>
+<li>kernel-level =&gt; OS Kernel [privileged access, hardware access]</li>
+</ul>
+<p><img alt="userkernelprotectionboundary" src="./images/userkernelprotectionboundary.png" /></p>
+<ul>
+<li>User-Kernel switch is supported by hardware.<ul>
+<li>using trap instructions</li>
+<li>system calls like:<ul>
+<li>open (file)</li>
+<li>send (socket)</li>
+<li>malloc (memory)</li>
+</ul>
+</li>
+<li>signals</li>
+</ul>
+</li>
+</ul>
+<h2 id="system-call-flowcart">System call Flowcart</h2>
+<p><img alt="systemcallflowchart" src="./images/systemcallflowchart.png" /></p>
+<ul>
+<li>To make a system call, an application must:<ul>
+<li>write arguments</li>
+<li>save relevant data ast well defined location</li>
+<li>make system calls using system call number</li>
+</ul>
+</li>
+<li>In synchronous mode : wait until system call completes.</li>
+</ul>
+<h2 id="basic-os-services">Basic OS services</h2>
+<ul>
+<li>process management</li>
+<li>file management</li>
+<li>device management</li>
+<li>memory management</li>
+<li>storage management</li>
+<li>security</li>
+</ul>
+<h2 id="linux-system-calls">Linux System Calls</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Commands</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Process Control</td>
+<td>fork (); exit(); wait();</td>
+</tr>
+<tr>
+<td>File Manipulation</td>
+<td>open(); read(); write();</td>
+</tr>
+<tr>
+<td>Device Manipulation</td>
+<td>ioctl(); read(); write();</td>
+</tr>
+<tr>
+<td>Information Maintenance</td>
+<td>getpid(); alarm(); sleep();</td>
+</tr>
+<tr>
+<td>Communication</td>
+<td>pipe(); shmget(); mmap();</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>chmod(); umask(); chown();</td>
+</tr>
+</tbody>
+</table>
+<h2 id="linux-architecture">Linux Architecture</h2>
+<p><img alt="linuxarchitecture" src="./images/linuxarch.png" /></p>
+<hr>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="2-Process-Management/" class="btn btn-neutral float-right" title="Processes and Process Management">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="2-Process-Management/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="./js/theme.js"></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.16.2
+Build Date UTC : 2017-03-26 19:41:30
+-->

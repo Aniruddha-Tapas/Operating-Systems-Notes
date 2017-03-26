@@ -1,0 +1,19 @@
+site_name: Operating System Notes
+pages: 
+    - Home: index.md
+    - Operating Systems Overview: index.md
+    - Processes and Process Management: 2-Process-Management.md
+    - Threads and Concurrency: 3-Threads-and-Concurrency.md
+    - Scheduling: 4-Scheduling.md
+    - Memory Management: 5-Memory-Management.md
+    - Inter-Process Communication: 6-Inter-Process-Communication.md
+    - Synchronization: 7-Synchronization.md
+    - I/O Management: 8-IO-Management.md
+    - Virtualization: 9-Virtualization.md
+    - Remote Procedure Calls: 10-Remote-Procedure-Calls.md
+    - Distributed File Systems: 11-Distributed-File-Systems.md
+    - Distributed Shared Memory: 12-Distributed-Shared-Systems.md
+    - About: about.md
+theme: readthedocs    
+
+

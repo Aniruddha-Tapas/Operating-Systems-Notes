@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Distributed File Systems - Operating System Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Distributed File Systems";
+    var mkdocs_page_input_path = "11-Distributed-File-Systems.md";
+    var mkdocs_page_url = "/11-Distributed-File-Systems/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Operating System Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Operating Systems Overview</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-Process-Management/">Processes and Process Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-Threads-and-Concurrency/">Threads and Concurrency</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-Scheduling/">Scheduling</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-Memory-Management/">Memory Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../6-Inter-Process-Communication/">Inter-Process Communication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-Synchronization/">Synchronization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../8-IO-Management/">I/O Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../9-Virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-Remote-Procedure-Calls/">Remote Procedure Calls</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Distributed File Systems</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#distributed-file-systems">Distributed File Systems</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#dfs-models">DFS models</a></li>
+        
+            <li><a class="toctree-l3" href="#remote-file-service-extremes">Remote File Service : Extremes</a></li>
+        
+            <li><a class="toctree-l3" href="#remote-file-service-a-compromise">Remote File Service : A compromise</a></li>
+        
+            <li><a class="toctree-l3" href="#stateless-vs-stateful-file-server">Stateless vs Stateful File server</a></li>
+        
+            <li><a class="toctree-l3" href="#caching-state-in-a-dfs">Caching state in a DFS</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#replication-vs-partitioning">Replication vs Partitioning</a></li>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12-Distributed-Shared-Systems/">Distributed Shared Memory</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Operating System Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Distributed File Systems</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="distributed-file-systems">Distributed File Systems</h1>
+<ul>
+<li>Accessed via well defined interface<ul>
+<li>access via Virtual File Systems</li>
+</ul>
+</li>
+<li>Focus on consistent state<ul>
+<li>tracking state, file update, cache coherence</li>
+</ul>
+</li>
+<li>Mixed distribution models possible <ul>
+<li>replicates vs partitioned, peer-like systems</li>
+</ul>
+</li>
+</ul>
+<h2 id="dfs-models">DFS models</h2>
+<ul>
+<li>Client Server on different machines</li>
+<li>File server distributed on multiple machines <ul>
+<li>replicated (each server : all files)</li>
+<li>partitioned (each server : parts of files)</li>
+<li>both (files partitioned, each partition replicates)</li>
+</ul>
+</li>
+<li>Files stored on and served from all machines (peers)<ul>
+<li>blurred distinction between clients and servers</li>
+</ul>
+</li>
+</ul>
+<h2 id="remote-file-service-extremes">Remote File Service : Extremes</h2>
+<p><img alt="extremes" src="../images/extremes.png" /></p>
+<p><img alt="extremes2" src="../images/extremes2.png" /></p>
+<ol>
+<li>Extreme1 : Upload/Download<ul>
+<li>like FTP, SVN </li>
+<li><strong>+</strong> local read/writes at client</li>
+<li><strong>-</strong> entire file download/upload evn for small accesses</li>
+<li><strong>-</strong> server gives up contro;</li>
+</ul>
+</li>
+<li>Extreme2 : True Remote File Access<ul>
+<li>Every access to remote file, nothing done locally</li>
+<li><strong>+</strong> file access centralized, easy to reason about consistency</li>
+<li><strong>-</strong> every file operation pays network cost, limits server scalablity</li>
+</ul>
+</li>
+</ol>
+<h2 id="remote-file-service-a-compromise">Remote File Service : A compromise</h2>
+<p>A more practical Remote File access (with Caching)</p>
+<ol>
+<li>Allow clients to store parts of files locally (blocks)<ul>
+<li><strong>+</strong> low latency on file operations</li>
+<li><strong>+</strong> server load reduces =&gt; more scalable</li>
+</ul>
+</li>
+<li>Force clients to interact with server (frequently)   <ul>
+<li><strong>+</strong> server has insights into what clients are doing</li>
+<li><strong>+</strong> server has control into which accesses can be permitted =&gt; easier to maintain consistency</li>
+<li><strong>-</strong> server more complex, requires different file sharing semantics</li>
+</ul>
+</li>
+</ol>
+<h2 id="stateless-vs-stateful-file-server">Stateless vs Stateful File server</h2>
+<table>
+<thead>
+<tr>
+<th>Stateless</th>
+<th>Stateful</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keeps no state; Okay with extreme models, but can't support 'practical' model</td>
+<td>Keeps client state needed for 'practical' model to track what is cached/accessed</td>
+</tr>
+<tr>
+<td><strong>-</strong> Can't support caching and consistency management</td>
+<td><strong>+</strong> Can support locking, caching, incremental operations</td>
+</tr>
+<tr>
+<td><strong>-</strong> Every request self-contained. =&gt; more bits transferred</td>
+<td><strong>-</strong> Overheads to maintain state and consistency. Depends on caching mechanism and consistency protocol.</td>
+</tr>
+<tr>
+<td><strong>+</strong> No resources are used on server side (CPU, MM). On failure just restart</td>
+<td><strong>-</strong> On failure, need checkpoining and recovery mechanisms</td>
+</tr>
+</tbody>
+</table>
+<h2 id="caching-state-in-a-dfs">Caching state in a DFS</h2>
+<ul>
+<li>Locally clients maintain portion of state (e.g. file blocks)</li>
+<li>Locally clients perform operations on cached state (e.g. open/read/write)</li>
+<li>requires coherent mechanisms</li>
+</ul>
+<p><img alt="cachingstate.png" src="../images/cachingstate.png" /></p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>How</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMP</td>
+<td>Write-update/Write-invalidate</td>
+<td>On write</td>
+</tr>
+<tr>
+<td>DFS</td>
+<td>Client/Server-driven</td>
+<td>On demand, periodically, on open..</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>Files or File blocks can be (with 1 server and multiple clients) cached in:</p>
+<ul>
+<li>in client memory</li>
+<li>on client  storage device (HDD/SDD)</li>
+<li>in buffer cache in memory on server<ul>
+<li>(usefulness will depend on client load, request interleaving)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>File Sharing Semantics in DFS</p>
+</li>
+<li>
+<p>Session semantics (between open-close =&gt; Session)</p>
+<ul>
+<li>write-back on close(), update on open()</li>
+<li>easy to reason, but may be insufficient</li>
+</ul>
+</li>
+<li>Periodic updates<ul>
+<li>client writes-back periodically<ul>
+<li>clients have a "lease" on cached data (not exclusively necessary)</li>
+</ul>
+</li>
+<li>servers invalidates periodically =&gt; provides biunds on "inconsistency"</li>
+<li>augment with flush()/sync() API</li>
+</ul>
+</li>
+<li>Immutable files =&gt; never modify, new files created</li>
+<li>Transactions =&gt; all changes atomic</li>
+</ul>
+<h1 id="replication-vs-partitioning">Replication vs Partitioning</h1>
+<table>
+<tr>
+<th></th>
+<th>Replication</th>
+<th>Partitioning</th>
+</tr>
+<tr>
+<td></td>
+<td>Each machine holds all files</td>
+<td>Each machine has subset of files</td>
+</tr>
+<tr>
+<td>Advantages</td>
+<td>Load balancing, availibility, fault tolerance </td>
+<td>Availibility vs single server DFS;<br>Scalability with file system size;<br>single file writes simpler</td>
+</tr>
+<tr>
+<td>Disadvantages</td>
+<td>Write becomes more complex<br>- Synchronous to all<br>- or, write to one, then propagate to others<br>replicas must be reconciled e.g. Voting</td>
+<td>On failure, lose portion of data<br>load balancing harder, if not balanced, then hot-spots possible</td>
+</tr>
+</table>
+
+<ul>
+<li>Can combine both techniques<ul>
+<li>Replicate each partition!</li>
+</ul>
+</li>
+</ul>
+<hr>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../12-Distributed-Shared-Systems/" class="btn btn-neutral float-right" title="Distributed Shared Memory">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../10-Remote-Procedure-Calls/" class="btn btn-neutral" title="Remote Procedure Calls"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../10-Remote-Procedure-Calls/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../12-Distributed-Shared-Systems/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

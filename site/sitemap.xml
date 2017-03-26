@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/2-Process-Management/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/3-Threads-and-Concurrency/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/4-Scheduling/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/5-Memory-Management/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/6-Inter-Process-Communication/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/7-Synchronization/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/8-IO-Management/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/9-Virtualization/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/10-Remote-Procedure-Calls/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/11-Distributed-File-Systems/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/12-Distributed-Shared-Systems/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/about/</loc>
+     <lastmod>2017-03-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+</urlset>

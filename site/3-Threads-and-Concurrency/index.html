@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Threads and Concurrency - Operating System Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Threads and Concurrency";
+    var mkdocs_page_input_path = "3-Threads-and-Concurrency.md";
+    var mkdocs_page_url = "/3-Threads-and-Concurrency/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Operating System Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Operating Systems Overview</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-Process-Management/">Processes and Process Management</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Threads and Concurrency</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#threads-and-concurrency">Threads and Concurrency</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#process-vs-thread">Process vs Thread</a></li>
+        
+            <li><a class="toctree-l3" href="#why-are-threads-useful">Why are threads useful?</a></li>
+        
+            <li><a class="toctree-l3" href="#what-do-we-need-to-support-threads">What do we need to support threads?</a></li>
+        
+            <li><a class="toctree-l3" href="#concurrency-control-and-coordination">Concurrency control and Coordination</a></li>
+        
+            <li><a class="toctree-l3" href="#threads-and-threads-creation">Threads and Threads creation</a></li>
+        
+            <li><a class="toctree-l3" href="#mutual-exclusion">Mutual Exclusion</a></li>
+        
+            <li><a class="toctree-l3" href="#producer-consumer-problem">Producer Consumer problem</a></li>
+        
+            <li><a class="toctree-l3" href="#readers-writer-problem">Readers / Writer problem</a></li>
+        
+            <li><a class="toctree-l3" href="#avoiding-common-mistakes">Avoiding common mistakes</a></li>
+        
+            <li><a class="toctree-l3" href="#spuriousunnecessary-wake-ups">Spurious(Unnecessary) Wake ups</a></li>
+        
+            <li><a class="toctree-l3" href="#deadlocks">Deadlocks</a></li>
+        
+            <li><a class="toctree-l3" href="#kernel-vs-user-level-threads">Kernel vs User level Threads</a></li>
+        
+            <li><a class="toctree-l3" href="#multithreading-patterns">Multithreading patterns</a></li>
+        
+            <li><a class="toctree-l3" href="#pthreads">PThreads</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#include-in-main-file">include in main file</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#pthread-mutexes">PThread mutexes</a></li>
+        
+            <li><a class="toctree-l3" href="#safety-tips">Safety tips</a></li>
+        
+            <li><a class="toctree-l3" href="#thread-design-considerations">Thread Design Considerations</a></li>
+        
+            <li><a class="toctree-l3" href="#comparison-of-interrupts-and-signals">Comparison of Interrupts and Signals</a></li>
+        
+            <li><a class="toctree-l3" href="#multi-processing-vs-multi-threading">Multi-processing vs Multi-threading</a></li>
+        
+            <li><a class="toctree-l3" href="#event-driven-model">Event Driven model</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-Scheduling/">Scheduling</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-Memory-Management/">Memory Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../6-Inter-Process-Communication/">Inter-Process Communication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-Synchronization/">Synchronization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../8-IO-Management/">I/O Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../9-Virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-Remote-Procedure-Calls/">Remote Procedure Calls</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11-Distributed-File-Systems/">Distributed File Systems</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12-Distributed-Shared-Systems/">Distributed Shared Memory</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Operating System Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Threads and Concurrency</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="threads-and-concurrency">Threads and Concurrency</h1>
+<p><strong>Thread</strong>:</p>
+<ul>
+<li>is an active<ul>
+<li>entity executing unit of a process</li>
+</ul>
+</li>
+<li>works simultaneously with others<ul>
+<li>many threads execute together</li>
+</ul>
+</li>
+<li>requires coordination<ul>
+<li>sharing of I/O devices, CPUs, memory</li>
+</ul>
+</li>
+</ul>
+<h2 id="process-vs-thread">Process vs Thread</h2>
+<p><img alt="processvthread" src="../images/processvthread.png" /></p>
+<h2 id="why-are-threads-useful">Why are threads useful?</h2>
+<ul>
+<li>Parallelization =&gt; Speedup</li>
+<li>Specialization =&gt; Hot cache</li>
+<li>Efficiency =&gt; lower memory requirement &amp; cheaper IPC</li>
+<li>Time for context switch in threads is less, since memory is shared, hence mapping is not required between virtual and physical memory.<ul>
+<li>Therefore multithreading can be used to hide latency.</li>
+</ul>
+</li>
+<li>Benefits to both applicatioons and OS code <ul>
+<li>Multithreaded OS kernel<ul>
+<li>threads working on behalf of applications</li>
+<li>OS level services like daemons and drivers</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="what-do-we-need-to-support-threads">What do we need to support threads?</h2>
+<ul>
+<li>Threads data structure<ul>
+<li>Identify threads, keep track of resource usage..</li>
+</ul>
+</li>
+<li>Mechanisms to create and manage threads</li>
+<li>Mechanisms to safely coordinate among threads running concurrently in the same address space</li>
+</ul>
+<h2 id="concurrency-control-and-coordination">Concurrency control and Coordination</h2>
+<ul>
+<li>Mutual exclusion <ul>
+<li>Exclusive access to only one thread at a time</li>
+<li><strong>mutex</strong></li>
+</ul>
+</li>
+<li>Waiting on other threads<ul>
+<li>Specific condition before proceeding</li>
+<li><strong>condition variable</strong></li>
+</ul>
+</li>
+<li>Waking up other threads from wait state</li>
+</ul>
+<h2 id="threads-and-threads-creation">Threads and Threads creation</h2>
+<ul>
+<li>
+<p>Thread data structure: </p>
+<ul>
+<li>Thread type, Thread ID, PC, SP, registers, stack, attributes.</li>
+</ul>
+</li>
+<li>
+<p><strong>Fork</strong>(proc, args)</p>
+<ul>
+<li>create a thread</li>
+<li>not UNIX fork </li>
+</ul>
+</li>
+</ul>
+<pre><code>t1 = fork(proc, args)   
+</code></pre>
+
+<ul>
+<li><strong>Join</strong>(thread)<ul>
+<li>terminate a thread</li>
+</ul>
+</li>
+</ul>
+<pre><code>child_result = join(t1)   
+</code></pre>
+
+<h3 id="example">Example:</h3>
+<pre><code>Thread  t1;
+Shared_List list;
+t1 = fork(safe_insert, 4);
+safe_insert(6);
+join(t1); //Optional
+</code></pre>
+
+<p>The list can be accessed by reading shared variable.</p>
+<h2 id="mutual-exclusion">Mutual Exclusion</h2>
+<ul>
+<li>Mutex data structure:<ul>
+<li>locked?, owner, blocked_threads</li>
+</ul>
+</li>
+</ul>
+<pre><code>lock(mutex){
+    //Critical Section
+    //Only one thread can access at a time
+}
+unlock(mutex)
+</code></pre>
+
+<p><img alt="mutex" src="../images/mutex.png" /></p>
+<h2 id="producer-consumer-problem">Producer Consumer problem</h2>
+<p>What if the processing you wish to perform with mutual exclusion needs to occur under certai conditions?</p>
+<p>For e.g. The producer appends items to a list until the list is full, and the consumer has to print out all the items of the list once the list if full and then empty the list. Thus we have to execute the Consumer thread only under a certain condition (here- when the list becomes empty, print items).</p>
+<p>Solution: Use <strong>Condition Variables</strong></p>
+<ul>
+<li>
+<p>Wait(mutex, condition)</p>
+<ul>
+<li>mutex is automatically released and reaquired on wait</li>
+<li>The consumer applies <em>Wait</em> until the list is full</li>
+</ul>
+</li>
+<li>
+<p>Signal(condition)    </p>
+<ul>
+<li>Notify only one thread waiting on condition</li>
+<li>The Producer applies <em>Signal</em> to the Consumer thread when the list is full</li>
+</ul>
+</li>
+<li>Broadcast(condition)    <ul>
+<li>Notify all waiting threads</li>
+</ul>
+</li>
+</ul>
+<p><img alt="producerconsumer" src="../images/producerconsumer.png" />    </p>
+<h2 id="readers-writer-problem">Readers / Writer problem</h2>
+<ul>
+<li>0 or more readers can access a resource</li>
+<li>
+<p>0 or 1 writer can write the resource concurrently at the same time</p>
+</li>
+<li>
+<p>One solution:</p>
+<ul>
+<li>lock on resource<ul>
+<li>good for writer</li>
+<li>too restrictive for readers</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Better solution:</p>
+</li>
+</ul>
+<pre><code>if ((read_count == 0) &amp; (read_count == 0))
+    R okay, W okay
+if (read_count &gt; 0)
+    R okay    
+if (read_count == 1)
+    R not-okay, W not-okay    
+</code></pre>
+
+<p>State of shared resource:</p>
+<ul>
+<li>free : resource_counter = 0</li>
+<li>reading : resource_counter &gt; 0</li>
+<li>writing : resource_counter = -1</li>
+</ul>
+<p>Thus essentially we can apply mutex on the new proxy 'resource_counter' variable that represents the state of the shared resource.</p>
+<h2 id="avoiding-common-mistakes">Avoiding common mistakes</h2>
+<ul>
+<li>keep track of mutex/lock variable used with a resource<ul>
+<li>e.g. mutex_type m1; // mutex for file1</li>
+</ul>
+</li>
+<li>check that you are always and correctly using lock and unlock     - Compilers can be used as they generate errors/warnings to correct this type of mistake    </li>
+<li>Use a single mutex to access a single resource</li>
+<li>check that you are signalling correct condition</li>
+<li>check that you are not using signal when broadcast is needed<ul>
+<li>signal : only 1 thread is will proceed, remaining threads will wait</li>
+</ul>
+</li>
+<li>check thread execution order to be controlled by signals to condition variables</li>
+</ul>
+<h2 id="spuriousunnecessary-wake-ups">Spurious(Unnecessary) Wake ups</h2>
+<p>When we wake up threads knowing they may not be able to proceed.</p>
+<h2 id="deadlocks">Deadlocks</h2>
+<p>Two or more competing threads are said to be in a deadlock if they are waiting on each other to complete, but none of them ever do.</p>
+<p><img alt="deadlock" src="../images/deadlock.png" /></p>
+<p>Here T1 and T2 are in deadlock.</p>
+<h3 id="how-to-avoid-this">How to avoid this?</h3>
+<ol>
+<li>Unlock T1 before locking T2<ul>
+<li>Fine-grained locking but T1 nad T2 may both be required</li>
+</ul>
+</li>
+<li>Use one mega lock, get all locks upfront, then release at end<ul>
+<li>For some applications this may be ok. But generally its too restrictive and limits parallelism</li>
+</ul>
+</li>
+<li>Maintain lock order<ul>
+<li>first m_T1</li>
+<li>then m_T2 <ul>
+<li>this will prevent cycles in wait graph</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>A cycle in wait graph is necessary and sufficient for deadlock to occur.<br> 
+(thread-waiting-on-resource ---edge---&gt; thread-owning-resource)</p>
+<ul>
+<li>
+<p>Deadlock prevention =&gt; Expensive<br>
+Pre-check for cycles and then delay process or change code</p>
+</li>
+<li>
+<p>Deadlock Detection and Recovery =&gt; Rollback</p>
+</li>
+</ul>
+<h2 id="kernel-vs-user-level-threads">Kernel vs User level Threads</h2>
+<p><img alt="kernelvuserthread" src="../images/kernelvuserthread.png" /></p>
+<p>Three types of models:</p>
+<h4 id="1-one-to-one-model">1. <strong>One to One model</strong>:</h4>
+<p><img alt="onetoone" src="../images/onetoone.png" /></p>
+<p><strong>Advantages</strong>: </p>
+<ul>
+<li>OS sees threads</li>
+<li>Synchronization</li>
+<li>Blocking</li>
+</ul>
+<p><strong>Disadvantages</strong>: </p>
+<ul>
+<li>Must go to OS for all operations</li>
+<li>OS may have limits on policies, threads</li>
+<li>Portability</li>
+</ul>
+<h4 id="2-many-to-one-model">2. <strong>Many to One model</strong>:</h4>
+<p><img alt="manytoone" src="../images/manytoone.png" /></p>
+<p><strong>Advantages</strong>: </p>
+<ul>
+<li>Totally Portable </li>
+<li>Doesn't depend on OS limits and policies</li>
+</ul>
+<p><strong>Disadvantages</strong>: </p>
+<ul>
+<li>OS may block entire process if one user-level thread blocks on I/O</li>
+</ul>
+<h4 id="3-many-to-many-model">3. <strong>Many to Many model</strong>:</h4>
+<p><img alt="manytomany" src="../images/manytomany.png" /></p>
+<p><strong>Advantages</strong>: </p>
+<ul>
+<li>Best of both worlds</li>
+<li>Can have bound or unbound threads</li>
+</ul>
+<p><strong>Disadvantages</strong>: </p>
+<ul>
+<li>Requires coordination between user and kernel level thread managers</li>
+</ul>
+<h2 id="multithreading-patterns">Multithreading patterns</h2>
+<p><strong>1. Boss-Workers pattern</strong></p>
+<ul>
+<li>Boss- assigns work</li>
+<li>Workers- perform entire task</li>
+</ul>
+<p>Throughput of system is limited by boss thread. Hence boss thread must be kept efficient.</p>
+<p>Throughput = 1/boss-time-orders</p>
+<p>Boss assigns works by:
+1. Directly signalling specific works
+    - <strong>+</strong> workers don't need to sync
+    - <strong>-</strong> boss must keep track of everyone
+2. Placing work in queue
+    - <strong>+</strong> boss doesn't neeed to know details about workers
+    - <strong>-</strong> queue synchronization</p>
+<p>How many workers?
+- on demand
+- pool of workers
+- static vs dynamic (i.e dynamically increasing size according to work)</p>
+<p><strong>Advantages</strong>: </p>
+<ul>
+<li>Simplicity</li>
+</ul>
+<p><strong>Disadvantages</strong>: </p>
+<ul>
+<li>Thread pool management</li>
+<li>Locality</li>
+</ul>
+<p><strong>1B. Boss-Workers pattern variant</strong></p>
+<ul>
+<li>Here workers are specialized for certain tasks opposite to the previous equally created workers</li>
+</ul>
+<p><strong>Advantages</strong>: 
+<em> Better locality
+</em> Quality of Service management</p>
+<p><strong>Disadvantages</strong>: 
+* Load balancing</p>
+<p><strong>2. Pipeline pattern</strong></p>
+<ul>
+<li>Threads assigned one subtask in the system</li>
+<li>Entire task = Pipeline of threads</li>
+<li>Multiple tasks concurrently run in the system, in different pipeline stages</li>
+<li>Throughput depends on weakest link</li>
+<li>Shared buffer based communication between stages</li>
+</ul>
+<p><strong>3. Layered pattern</strong></p>
+<ul>
+<li>Layers of threads are assigned group of related subtasks</li>
+<li>End to end task must pass up and down through all layers</li>
+</ul>
+<p><strong>Advantages</strong>: 
+<em> Specialization
+</em> Less fine-grained than pipeline</p>
+<p><strong>Disadvantages</strong>: 
+<em> Not suitable for all applications
+</em> Synchronization</p>
+<h3 id="example_1">Example:</h3>
+<p><strong>Q)</strong> For 6 step toy order application we have 2 solutions:</p>
+<ol>
+<li>Boss-workers solution</li>
+<li>Pipeline solution</li>
+</ol>
+<p>Both have 6 threads. In the boss-workers solution, a worker produces a toy order in 120 ms. In the pipeline solution, each of 6 stages take 20 ms.</p>
+<p>How long will it take for these solutions to complete 10 toy orders and 11 toy orders?</p>
+<p><strong>A)</strong> 6 threads means for Boss-workers, 1 thread is for boss, 5 for workers. In pipeline 6 threads are equally used.</p>
+<p>For 10 toy orders:</p>
+<pre><code>Boss-workers(10) = 120 + 120 = 240 ms
+Pipeline(10) = 120 + (9*20) = 300 ms
+</code></pre>
+
+<p>Here Boss-workers is better than Pipeline.</p>
+<p>For 11 toy orders:</p>
+<pre><code>Boss-workers(11) = 120 + 120 + 120 = 360 ms
+Pipeline(11) = 120 + (10*20) = 320 ms
+</code></pre>
+
+<p>Here Pipeline is better than Boss-workers.</p>
+<p>This proves that choosing a better pattern depends on the number of threads and the work required to be done.</p>
+<h2 id="pthreads">PThreads</h2>
+<p>PThreads == POSIX Threads</p>
+<p>POSIX = Portable OS interface</p>
+<h3 id="compiling-pthreads">Compiling PThreads</h3>
+<ol>
+<li>
+<h1 id="include-in-main-file">include<pthread.h> in main file</h1>
+</li>
+<li>Compile source with -lpthread or -pthread</li>
+</ol>
+<pre><code>gcc -o main main.c -lpthread
+gcc -o main main.c -pthread
+</code></pre>
+
+<ol>
+<li>Check return values of common examples</li>
+</ol>
+<h3 id="pthread-mutexes">PThread mutexes</h3>
+<ul>
+<li>to solve mutual exclusion problems among concurrent threads</li>
+</ul>
+<h3 id="safety-tips">Safety tips</h3>
+<ul>
+<li>Shared data should always be accessed through single mutex</li>
+<li>Mutex scope must be visible to all</li>
+<li>Globally order locks<ul>
+<li>for all threads, lock mutexes in order</li>
+</ul>
+</li>
+<li>Always unlock a mutex (correctly)</li>
+</ul>
+<h2 id="thread-design-considerations">Thread Design Considerations</h2>
+<h3 id="kernel-vs-user-level-threads_1">Kernel vs User Level Threads</h3>
+<p><img alt="userlevelvkernellevel" src="../images/userlevelvkernellevel.png" /></p>
+<h3 id="thread-related-data-structures">Thread related data structures</h3>
+<p><img alt="threadds" src="../images/threadds.png" /></p>
+<h3 id="hard-vs-light-process-states">Hard vs Light Process states</h3>
+<p>PCB is divided into multiple data structures classified as follows:</p>
+<ul>
+<li>Light Process states<ul>
+<li>Signal mask </li>
+<li>System call args</li>
+</ul>
+</li>
+<li>Heavy Process states <ul>
+<li>virtual address mapping</li>
+</ul>
+</li>
+</ul>
+<h4 id="rationale-for-multiple-data-structures">Rationale for Multiple Data Structures:</h4>
+<table>
+<thead>
+<tr>
+<th>Single PCB</th>
+<th>Multiple DS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Large continuos DS</td>
+<td>Smaller DS</td>
+</tr>
+<tr>
+<td>Private for each entity</td>
+<td>Easier to share</td>
+</tr>
+<tr>
+<td>Saved and restored on each context switch</td>
+<td>Save and Restore only what needs to change on context switch</td>
+</tr>
+<tr>
+<td>Update for any changes</td>
+<td>User lever library need to only update portion of the state</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Thus the following disadvantages for single PCB become advantages for Multiple DS : </li>
+<li>Scalability</li>
+<li>Overheads</li>
+<li>Performance</li>
+<li>Flexibility</li>
+</ul>
+<h2 id="comparison-of-interrupts-and-signals">Comparison of Interrupts and Signals</h2>
+<ul>
+<li>
+<p>Handled in specific ways
+        - interrupt and signal handlers</p>
+<ul>
+<li>Can be ignored<ul>
+<li>interrupt and signal mask</li>
+</ul>
+</li>
+<li>Expected or unexpected    <ul>
+<li>appear synchronously or asynchronously        </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Difference:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Interrupts</th>
+<th>Signals</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Events generated externally by components other than CPU (I/O devices, timers, other CPUs)</td>
+<td>Events triggered by CPU and software running on it</td>
+</tr>
+<tr>
+<td>Determined based on physical platform</td>
+<td>Determined based on OS</td>
+</tr>
+<tr>
+<td>Appear asynchronously</td>
+<td>Appear synchronously or asynchronously</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Similarities:<ul>
+<li>Have a unique ID depending on h/w or OS</li>
+<li>Can be masked and disabled/suspended via corresponding mask<ul>
+<li>per-CPU interrupt mask, preprocess signal mask</li>
+</ul>
+</li>
+<li>if enabled, trigger corresponding to handler   <ul>
+<li>interrupt handler set for entire system by OS</li>
+<li>signal handler set on per process basis by process</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>An interrupt is like a snowstorm alarm<br>
+A signal is like a low battery warning</p>
+</blockquote>
+<h3 id="interrupts">Interrupts</h3>
+<p><img alt="interrupts" src="../images/interrupts.png" /></p>
+<h3 id="signals">Signals</h3>
+<p><img alt="signals" src="../images/signals.png" /></p>
+<h4 id="handlers-actions">Handlers / Actions</h4>
+<ul>
+<li>Default actions<ul>
+<li>Terminate, ignore</li>
+<li>Terminate and core dump</li>
+<li>Stop or continue</li>
+</ul>
+</li>
+<li>Process Installs Handler<ul>
+<li>signal(), sigaction()</li>
+<li>for most signals, some cannot be "caught"</li>
+</ul>
+</li>
+<li><strong>Synchronous</strong><ul>
+<li>SIGSEGV (access to protected memory)</li>
+<li>SIGFPE (divided by zero)</li>
+<li>SIGKILL (kill, id)<ul>
+<li>can be directed to a specific thread</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Asynchronous</strong>*        <ul>
+<li>SIGKILL (kill)</li>
+<li>SIGALARM</li>
+</ul>
+</li>
+</ul>
+<h3 id="why-disable-interrupts-or-signals">Why disable Interrupts or Signals</h3>
+<p><img alt="disableis" src="../images/disableis.png" /></p>
+<p>Here PC: First instruction in handler<br>
+SP : thread stack</p>
+<p>To prevent deadlock,</p>
+<ol>
+<li>Keep handler code simple<ul>
+<li>avoid mutex</li>
+<li><strong>-</strong> too restrictive</li>
+</ul>
+</li>
+<li>Control interruptions by handler code<ul>
+<li>Use interrupt/signal masks</li>
+<li>0011100110.. (0: disabled, 1: enabled)</li>
+</ul>
+</li>
+</ol>
+<pre><code>clear_field_in_mask(mask)
+lock(mutex)
+{
+
+#disabled =&gt; remaining pending
+
+}
+unlock(mutex)
+reset_field_in_mask(mask)
+
+#enabled =&gt; execute handler code
+</code></pre>
+
+<ul>
+<li>
+<p>Interrupt masks are per CPU </p>
+<ul>
+<li>if mask disables interrupt, hardware interrupt rounting mechanism will not deliver interrupt</li>
+</ul>
+</li>
+<li>
+<p>Signal are per execution context (User-level thread on top of Kernel-level thread)</p>
+<ul>
+<li>if mask disables signal, kernel sees mask and will not interrupt corresponding thread</li>
+</ul>
+</li>
+</ul>
+<h3 id="types-of-signals">Types of Signals</h3>
+<ol>
+<li>One-shot Signals<ul>
+<li>"n signals pending == 1 signal pending" : atleast once </li>
+<li>must be explicitly re-enabled</li>
+</ul>
+</li>
+<li>Realtime Signals <ul>
+<li>"if n signals raised, then handler is called n times"</li>
+</ul>
+</li>
+</ol>
+<h3 id="handling-interrupts-as-threads">Handling interrupts as threads</h3>
+<p><img alt="interruptsasthreads" src="../images/interruptsasthreads.png" /></p>
+<p>but dynamic thread creation is expensive!</p>
+<ul>
+<li>Dynamic decision<ul>
+<li>if handler doesn't lock<ul>
+<li>execute on interrupted threads stack</li>
+</ul>
+</li>
+<li>if handler can block<ul>
+<li>turn into real thread        </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Optimization        <ul>
+<li>pre-create and pre-initialize thread structure for interrupt routines</li>
+</ul>
+</li>
+</ul>
+<h3 id="threads-and-signal-handling">Threads and Signal Handling</h3>
+<p><img alt="tshandling" src="../images/tshandling.png" /></p>
+<p><strong>Case 1 :</strong></p>
+<ul>
+<li>User-Level-Thread mask = 1</li>
+<li>Kernel-Level-Thread mask = 1</li>
+</ul>
+<p><img alt="case1" src="../images/case1.png" /></p>
+<p><strong>Case 2 :</strong></p>
+<ul>
+<li>User-Level-Thread mask = 0</li>
+<li>Kernel-Level-Thread mask = 1</li>
+<li>another User-Level-Thread mask = 1</li>
+</ul>
+<p><img alt="case2" src="../images/case2.png" /></p>
+<p><strong>Case 3 :</strong></p>
+<ul>
+<li>User-Level-Thread mask = 0</li>
+<li>Kernel-Level-Thread mask = 1</li>
+<li>another User-Level-Thread mask = 1</li>
+<li>another Kernel-Level-Thread mask = 1</li>
+</ul>
+<p><img alt="case3" src="../images/case3.png" /></p>
+<p><strong>Case 4 :</strong></p>
+<ul>
+<li>User-Level-Thread mask = 0</li>
+<li>Kernel-Level-Thread mask = 1</li>
+<li>all User-Level-Thread mask = 0</li>
+</ul>
+<p><img alt="case4" src="../images/case4.png" /></p>
+<p><strong>Optimize common case</strong></p>
+<ul>
+<li>signals less frequennt than signal mask updates</li>
+<li>system calls avoided<ul>
+<li>cheaper to update user-level mask</li>
+</ul>
+</li>
+<li>signal handling more expensive    </li>
+</ul>
+<h2 id="multi-processing-vs-multi-threading">Multi-processing vs Multi-threading</h2>
+<p>How to best provide concurrency?</p>
+<h3 id="multi-processing-mp">Multi-Processing (MP)</h3>
+<p><strong>Advantages</strong><br> </p>
+<ul>
+<li>Simple programming</li>
+</ul>
+<p><strong>Disadvantages</strong><br> </p>
+<ul>
+<li>High memory usage</li>
+<li>Costs context switch</li>
+<li>costly to maintain shared state (tricky port setup)</li>
+</ul>
+<h3 id="multi-threading-mp">Multi-Threading (MP)</h3>
+<p><strong>Advantages</strong><br> </p>
+<ul>
+<li>Shared address space</li>
+<li>Shared state (no sys calls to other threads)</li>
+<li>Cheap context switch</li>
+</ul>
+<p><strong>Disadvantages</strong><br> </p>
+<ul>
+<li>Complex implementation</li>
+<li>Requires synchronization</li>
+<li>Requires underlying support for threads</li>
+</ul>
+<h2 id="event-driven-model">Event Driven model</h2>
+<p><img alt="eventdrivenmodel" src="../images/eventdrivenmodel.png" /></p>
+<p>Features:</p>
+<ul>
+<li>Single address space</li>
+<li>Single process</li>
+<li>Single thread of control</li>
+</ul>
+<p>Dispatcher : acts as a state machine and accepts any external events</p>
+<p>When call handler =&gt; jump to code</p>
+<p>The handler:</p>
+<ul>
+<li>Runs to completion</li>
+<li>if they need to block<ul>
+<li>initiate blocking operation and pass control to dispatch loop</li>
+</ul>
+</li>
+</ul>
+<h3 id="concurrent-execution-in-event-driven-models">Concurrent execution in Event-driven models</h3>
+<ul>
+<li>MP &amp; MT :  1 request per execution context (process/thread)</li>
+<li>Event Driven : Many requests interleaved in an execution context</li>
+<li>Single thread switches among processing of different requests</li>
+<li>Process requests until wait is necessary<ul>
+<li>then switch to another request</li>
+</ul>
+</li>
+</ul>
+<p><strong>Advantages</strong><br>    </p>
+<ul>
+<li>Single address space</li>
+<li>Single flow of control</li>
+<li>Smaller memory requirement<ul>
+<li>Event Driven model requires less memory than Boss-workers/Pipeline model, where the extra memory is required for helper thread for concurrent blocking I/O not for all concurrent requests.</li>
+</ul>
+</li>
+<li>No context switches</li>
+<li>No synchronization</li>
+</ul>
+<p><strong>Disadvantages</strong><br>    </p>
+<ul>
+<li>A blocking request/handler will block entire process</li>
+</ul>
+<h3 id="asynchronous-io-operations">Asynchronous I/O operations</h3>
+<p>Asynchronous I/O operations fit well with Event-driven models   </p>
+<p>Since asynchronous calls are not easily avalible, helpers can be used to implement the async call functionality:</p>
+<ul>
+<li>designated for blocking I/O operations only</li>
+<li>pipe/socket based communication with event dispatcher<ul>
+<li>select()/ poll() still okay</li>
+</ul>
+</li>
+<li>helper blocks, but main event loop (&amp; process) will not</li>
+</ul>
+<h3 id="asymmetric-multi-process-event-driven-model-amped-amted">Asymmetric Multi-Process Event Driven model (AMPED &amp; AMTED)</h3>
+<p><strong>Advantages</strong><br></p>
+<ul>
+<li>Resolve portability limitations of basic event driven model</li>
+<li>Smaller footprint than regular worker thread</li>
+</ul>
+<p><strong>Disadvantages</strong><br></p>
+<ul>
+<li>Applicability to certain classes of applications</li>
+<li>Event routing on multi CPU systems</li>
+</ul>
+<p>Eg <a href="https://en.wikipedia.org/wiki/Apache_HTTP_Server">Apache Web Server</a></p>
+<p><img alt="apachewebserver.png" src="../images/apachewebserver.png" /></p>
+<ul>
+<li>Core : basic server skeleton</li>
+<li>Modules : per functionality</li>
+<li>Flow of Control : Similar to Event Driven model</li>
+<li>But its an combination of MP + MT,<ul>
+<li>each process = boss/worker with dynamic thread pool</li>
+<li>number of processes can also be dynamically adjusted</li>
+</ul>
+</li>
+</ul>
+<hr>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../4-Scheduling/" class="btn btn-neutral float-right" title="Scheduling">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../2-Process-Management/" class="btn btn-neutral" title="Processes and Process Management"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../2-Process-Management/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../4-Scheduling/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

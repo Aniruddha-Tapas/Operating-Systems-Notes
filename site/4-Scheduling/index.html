@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Scheduling - Operating System Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Scheduling";
+    var mkdocs_page_input_path = "4-Scheduling.md";
+    var mkdocs_page_url = "/4-Scheduling/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Operating System Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Operating Systems Overview</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-Process-Management/">Processes and Process Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-Threads-and-Concurrency/">Threads and Concurrency</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Scheduling</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#scheduling">Scheduling</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#cpu-scheduler">CPU Scheduler</a></li>
+        
+            <li><a class="toctree-l3" href="#scheduling-algorithms">Scheduling algorithms:</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-Memory-Management/">Memory Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../6-Inter-Process-Communication/">Inter-Process Communication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-Synchronization/">Synchronization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../8-IO-Management/">I/O Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../9-Virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-Remote-Procedure-Calls/">Remote Procedure Calls</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11-Distributed-File-Systems/">Distributed File Systems</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12-Distributed-Shared-Systems/">Distributed Shared Memory</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Operating System Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Scheduling</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="scheduling">Scheduling</h1>
+<p>Operating System perform scheduling in the following simple ways:</p>
+<ul>
+<li>Dispatch orders immediately<ul>
+<li>scheduling is simple FIFO (First-Come-First-Serve)</li>
+</ul>
+</li>
+<li>Dispatch simple orders first<ul>
+<li>maximize number of orders processed over time</li>
+<li>maximize throughput (SJF)</li>
+</ul>
+</li>
+<li>Dispatch complex orders first<ul>
+<li>maximize utilization of CPU, devices, memory</li>
+</ul>
+</li>
+</ul>
+<h2 id="cpu-scheduler">CPU Scheduler</h2>
+<ul>
+<li>Decides how and when process (and their threads) access shared CPUs</li>
+<li>Schedules tasks running at user level processes/threads as well as kernel level threads</li>
+<li>Chooses one of the ready tasks to run on CPU</li>
+<li>Runs when<ul>
+<li>CPU becomes idle</li>
+<li>new task becomes ready</li>
+<li>timeslice expired timeout</li>
+</ul>
+</li>
+</ul>
+<p>Context switch, enter user mode, set PC and go! &lt;= Thread is dispatched on CPU.</p>
+<ul>
+<li>Which task should be selected?<ul>
+<li>Scheduling policy/algorithm</li>
+</ul>
+</li>
+<li>How is this done?<ul>
+<li>Depends on runqueue data structure</li>
+</ul>
+</li>
+</ul>
+<h3 id="run-to-completion-scheduling">"Run-to-completion" Scheduling</h3>
+<ul>
+<li>Initial assumptions<ul>
+<li>group of tasks/jobs</li>
+<li>known execution time</li>
+<li>no preemption</li>
+<li>single CPU</li>
+</ul>
+</li>
+<li>Metrics<ul>
+<li>throughput</li>
+<li>average job completion time</li>
+<li>average job wait time</li>
+<li>CPU utilization</li>
+</ul>
+</li>
+</ul>
+<h2 id="scheduling-algorithms">Scheduling algorithms:</h2>
+<h3 id="1-first-come-first-serve-fcfs">1. First Come First Serve (FCFS)</h3>
+<ul>
+<li>Schedules tasks in order of arrival</li>
+</ul>
+<pre><code>runqueue = queue(FIFO)
+</code></pre>
+
+<p>If T1, T2, T3 arrive in the given order and T1 has execution time 1s, T2 10s and T3 1s then :</p>
+<ul>
+<li>Throughput = 3/(1+10+1) = 3/12 = 0.25s</li>
+<li>Average completion time = (1 + 11 + 12)/3 = 8s</li>
+<li>Average wait time = (1+1+11)/3 = 4s</li>
+</ul>
+<h3 id="2-shortest-job-first-sjf">2. Shortest Job First (SJF)</h3>
+<ul>
+<li>Schedules tasks in order of execution time</li>
+<li>Therefore for the above example, T1(1s) &gt; T3(1s) &gt; T2(10s)</li>
+</ul>
+<pre><code>runqueue = ordered(queue)
+
+//or
+
+runqueue = tree()
+</code></pre>
+
+<p>For SJF,</p>
+<ul>
+<li>Throughput = 3/(1+10+1) = 3/12 = 0.25s</li>
+<li>Average completion time = (1 + 2 + 12)/3 = 5s</li>
+<li>Average wait time = (0+1+2)/3 = 1s</li>
+</ul>
+<h3 id="preemptive-scheduling">Preemptive Scheduling</h3>
+<ul>
+<li>SJF + Preemption</li>
+</ul>
+<p>T2 arrives first.</p>
+<p><img alt="preemptive" src="../images/preemptive.png" /></p>
+<h3 id="priority-scheduling">Priority Scheduling</h3>
+<ul>
+<li>Tasks have different priority levels</li>
+<li>Run highest priority task next (preemption)</li>
+</ul>
+<p><img alt="priority" src="../images/priority.png" /></p>
+<pre><code>runqueue = per priority_queue()
+
+//or 
+
+runqueue = tree() ordered on priority
+</code></pre>
+
+<ul>
+<li>low priority task stuck in runqueue =&gt; starvation</li>
+<li>"priority aging" <ul>
+<li>priority = f(actual priority, time spent in runqueue)</li>
+<li>eventually tasks will run</li>
+<li>prevents starvation</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-round-robin-scheduling">3. Round-Robin Scheduling</h3>
+<ul>
+<li>Pick up the first task from queue (like FCFS)</li>
+<li>Task may yield to wait on I/O (unlike FCFCS)</li>
+</ul>
+<p><img alt="rr1" src="../images/rr1.png" /></p>
+<p><img alt="rr2" src="../images/rr2.png" /></p>
+<p><img alt="rr3" src="../images/rr3.png" /></p>
+<h4 id="timeslicing">Timeslicing</h4>
+<ul>
+<li>Timeslice = max amount of uninterrupted time given to a task</li>
+<li>task may run less than timeslice<ul>
+<li>has to wait on I/O sync<ul>
+<li>will be placed on queue</li>
+</ul>
+</li>
+<li>higher priority task becomes runnable</li>
+</ul>
+</li>
+<li>using timeslice tasks are interleaved<ul>
+<li>timesharing the CPU</li>
+<li>CPU bound tasks =&gt; preemption after timeslice</li>
+</ul>
+</li>
+</ul>
+<p><img alt="rr4" src="../images/rr4.png" />    </p>
+<p><strong>Advantages</strong><br></p>
+<ul>
+<li>Short tasks finish sooner</li>
+<li>More responsive</li>
+<li>Lengthy I/O operations initiated sooner<ul>
+<li>best to keep timeslice &gt; context-switch-time</li>
+</ul>
+</li>
+</ul>
+<p><strong>Disdvantages</strong><br>    </p>
+<ul>
+<li>Overheads</li>
+</ul>
+<h4 id="how-long-should-a-timeslice-be-be">How long should a timeslice be be?</h4>
+<ul>
+<li>should balance benefits and overheads</li>
+</ul>
+<h3 id="for-cpu-bound-tasks">For CPU bound tasks:</h3>
+<p><img alt="cputs" src="../images/cputs.png" />    </p>
+<ul>
+<li>Hence, for CPU bound tasks, larger timeslice values are better</li>
+</ul>
+<h3 id="for-io-bound-tasks">For I/O bound tasks:</h3>
+<p><img alt="iots" src="../images/iots.png" />    </p>
+<ul>
+<li>Hence, for I/O bound tasks, smaller timeslice values are better<ul>
+<li>Keeps CPU and I/P devices busy, I/O bound tasks run quickly, makes I/O requests responds to a user.</li>
+</ul>
+</li>
+</ul>
+<h3 id="summary">Summary</h3>
+<ul>
+<li>
+<p>CPU bound tasks prefer longer timeslices</p>
+<ul>
+<li>limits context switching overheads</li>
+<li>keeps CPU utilization and throughput</li>
+</ul>
+</li>
+<li>
+<p>I/O bound tasks prefer smaller timeslices </p>
+<ul>
+<li>However, if all the tasks in contention are I/O bound, it may not make such a difference</li>
+<li>If a portion of them are I/O smaller timeslices keeps CPU and device utilization high</li>
+<li>Provides better user-perceived performance</li>
+</ul>
+</li>
+</ul>
+<hr>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../5-Memory-Management/" class="btn btn-neutral float-right" title="Memory Management">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../3-Threads-and-Concurrency/" class="btn btn-neutral" title="Threads and Concurrency"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../3-Threads-and-Concurrency/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../5-Memory-Management/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

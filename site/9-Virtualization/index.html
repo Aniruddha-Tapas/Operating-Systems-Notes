@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Virtualization - Operating System Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Virtualization";
+    var mkdocs_page_input_path = "9-Virtualization.md";
+    var mkdocs_page_url = "/9-Virtualization/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Operating System Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Operating Systems Overview</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-Process-Management/">Processes and Process Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-Threads-and-Concurrency/">Threads and Concurrency</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-Scheduling/">Scheduling</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-Memory-Management/">Memory Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../6-Inter-Process-Communication/">Inter-Process Communication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-Synchronization/">Synchronization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../8-IO-Management/">I/O Management</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Virtualization</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#virtualization">Virtualization</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#defining-virtual-machine">Defining Virtual Machine</a></li>
+        
+            <li><a class="toctree-l3" href="#vmm-goals">VMM goals</a></li>
+        
+            <li><a class="toctree-l3" href="#virtualization-advantages">Virtualization advantages</a></li>
+        
+            <li><a class="toctree-l3" href="#two-main-virtualization-models">Two main Virtualization Models:</a></li>
+        
+            <li><a class="toctree-l3" href="#virtualization-requirements">Virtualization requirements</a></li>
+        
+            <li><a class="toctree-l3" href="#hardware-protection-levels">Hardware protection levels</a></li>
+        
+            <li><a class="toctree-l3" href="#process-virtualization-trap-and-emulate">Process Virtualization (Trap-and-Emulate)</a></li>
+        
+            <li><a class="toctree-l3" href="#problems-with-trap-and-emulate">Problems with Trap-and-Emulate</a></li>
+        
+            <li><a class="toctree-l3" href="#binary-translation">Binary Translation</a></li>
+        
+            <li><a class="toctree-l3" href="#paravirtualization">Paravirtualization</a></li>
+        
+            <li><a class="toctree-l3" href="#memory-virtualization">Memory virtualization</a></li>
+        
+            <li><a class="toctree-l3" href="#device-virtualization">Device Virtualization</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-Remote-Procedure-Calls/">Remote Procedure Calls</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11-Distributed-File-Systems/">Distributed File Systems</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12-Distributed-Shared-Systems/">Distributed Shared Memory</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Operating System Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Virtualization</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="virtualization">Virtualization</h1>
+<p>Virtualization allows concurrent execution of multiple OSs and their applications on the same physical machine.</p>
+<p><img alt="virtualization.png" src="../images/virtualization.png" /></p>
+<ul>
+<li>Virtual resources : each OS thinks that ot "owns" hardware resources</li>
+<li>Virtual machine (VM) : OS + applications + virtual resources (guest domain)</li>
+<li>Virtualization layer : management of physical hardware (virtual machine monitor, hypervisor)</li>
+</ul>
+<h2 id="defining-virtual-machine">Defining Virtual Machine</h2>
+<p>A Virtual Machine is an efficient, isolated duplicate of the real machine.</p>
+<ul>
+<li>Supported by a Virtual Machine Monitor (VMM):<ol>
+<li>provides environment essentially identical with the original machine</li>
+<li>programs show only minor decrease in speed at worst</li>
+<li>VMM is in complete control of the system resources</li>
+</ol>
+</li>
+</ul>
+<h2 id="vmm-goals">VMM goals</h2>
+<ul>
+<li>Fidelity</li>
+<li>Performance</li>
+<li>Safety and Isolation</li>
+</ul>
+<h2 id="virtualization-advantages">Virtualization advantages</h2>
+<ul>
+<li>consolidation<ul>
+<li>decrease cost, improve manageability</li>
+</ul>
+</li>
+<li>migration<ul>
+<li>availibility, reliability</li>
+</ul>
+</li>
+<li>security, debugging, support for legacy OS</li>
+</ul>
+<h2 id="two-main-virtualization-models">Two main Virtualization Models:</h2>
+<h3 id="1-bare-metal-or-hypervisor-based-type-1">1. Bare-metal or Hypervisor based (Type 1)</h3>
+<p><img alt="hypervisor.png" src="../images/hypervisor.png" /></p>
+<ul>
+<li>VMM (hypervisor) manages all hardware resources abd supports execution of VMs</li>
+<li>privileged, secure VM to deal with devices (and other configuration and management tasks)</li>
+<li>Adopted by Xen(Opensource or Citriol Xen Server) and ESX (VMware)</li>
+</ul>
+<h3 id="1-hosted-type-2">1. Hosted (Type 2)</h3>
+<p><img alt="hosted.png" src="../images/hosted.png" /></p>
+<ul>
+<li>Host owns all hardware</li>
+<li>Special VMM modle provides hardware interfaces to VMs and deals with VM context switching</li>
+</ul>
+<h2 id="virtualization-requirements">Virtualization requirements</h2>
+<ul>
+<li>Present virtual platform interface to VMs<ul>
+<li>virtualize CPU, memory, devices</li>
+</ul>
+</li>
+<li>Provide isolation across VMs<ul>
+<li>preemption, MMU for address translation and validation</li>
+</ul>
+</li>
+<li>Protect guest OS from applications<ul>
+<li>can't run guest OS and applications at same protection level</li>
+</ul>
+</li>
+<li>Protect VMs from guest OS<ul>
+<li>can't run guest OS and VMMs at same protection level</li>
+</ul>
+</li>
+</ul>
+<h2 id="hardware-protection-levels">Hardware protection levels</h2>
+<p>Commodity hardware has more than two protection levels</p>
+<p><img alt="hwprotectionlevels" src="../images/hwprotectionlevels.png" /></p>
+<ul>
+<li>x86 has 4 protection levels (rings)<ul>
+<li>ring 3 : lowest privilege (applications)</li>
+<li>ring 1 : OS</li>
+<li>ring 0 : highest privilege (hypervisor)</li>
+</ul>
+</li>
+<li>and 2 protection modes<ul>
+<li>non root : VMs <ul>
+<li>ring 3 : apps</li>
+<li>ring 0 : OS</li>
+</ul>
+</li>
+<li>root : <ul>
+<li>ring 0 : hypervisor</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="process-virtualization-trap-and-emulate">Process Virtualization (Trap-and-Emulate)</h2>
+<ul>
+<li>Guest instruments<ul>
+<li>executed directly by hardware</li>
+<li>for non-privileged operations : hardware speeds =&gt; efficiency</li>
+<li>for privileged operations : trap to hypervisor</li>
+</ul>
+</li>
+<li>Hypervisor determines what needs to be done:<ul>
+<li>if illegal operation : terminate VM</li>
+<li>if legal operation : emulate the behaviour the guest OS was expecting from the hardware</li>
+</ul>
+</li>
+</ul>
+<h2 id="problems-with-trap-and-emulate">Problems with Trap-and-Emulate</h2>
+<ul>
+<li>17 privileged information do not trao but fail silently</li>
+<li>Hypervisor doesn't know, so it doesn't try to change settings</li>
+<li>OS doesn't know, so assumes change was successful</li>
+</ul>
+<h2 id="binary-translation">Binary Translation</h2>
+<p><strong>Goal</strong> : Full Virtualization i.e. guest OS is not modified</p>
+<p><strong>Approach</strong> : Dynamic Binary Translation</p>
+<ol>
+<li>Inspect code blocks to be executed</li>
+<li>If needed, translate to alternate instruction sequence<ul>
+<li>e.g. to emulate desired behaviour, possibly avoid traps</li>
+</ul>
+</li>
+<li>Otherwise run at hardware speeds<ul>
+<li>cache translated blocks to ammortize translation costs</li>
+</ul>
+</li>
+</ol>
+<h2 id="paravirtualization">Paravirtualization</h2>
+<p><strong>Goal</strong> : Performance; give up on modified guest OSs</p>
+<p><strong>Approach</strong> : Paravirtualization : modify guest OSs so that </p>
+<ul>
+<li>it knows it is running virtualized</li>
+<li>it makes explicit calls to hyperisor (hypercalls)</li>
+<li>hypercalls (~ system calls)<ul>
+<li>package context information</li>
+<li>specify desired hypercall</li>
+<li>trap to VMM</li>
+</ul>
+</li>
+<li>Xen : opensource hypervisor</li>
+</ul>
+<h2 id="memory-virtualization">Memory virtualization</h2>
+<ul>
+<li>Full virtualization<ul>
+<li>all guests expect contiguous physical memory starting at 0</li>
+<li>virtual vs physical vs machine addresses and page frame numbers</li>
+<li>still leverages hardware (MMU, TLB..)    </li>
+</ul>
+</li>
+<li>Option 1<ul>
+<li>guest page table : VA =&gt; PA</li>
+<li>hypervisor : PA =&gt; MA</li>
+<li>too expensive!</li>
+</ul>
+</li>
+<li>Option 2<ul>
+<li>guest page tables : VA =&gt; PA</li>
+<li>hypervisor shadow PT : VA =&gt; MA</li>
+<li>hypervisor maintains consistence<ul>
+<li>e.g. invalidate on context switch, write protect guest PT to track new mappings</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Paravirtualized <ul>
+<li>guest aware of virtualization</li>
+<li>no longer strict requirement on contiguous physical memory starting at 0</li>
+<li>explicitly registers page tables with hypervisor</li>
+<li>can "batch" page tables updates to reduce VM exits</li>
+<li>other optimazations</li>
+</ul>
+</li>
+</ul>
+<p>Overheads eliminated or reduced on newer platforms</p>
+<h2 id="device-virtualization">Device Virtualization</h2>
+<ul>
+<li>For CPUs and Memory<ul>
+<li>less diversity, Intruction-Set-Architecture(ISA) level</li>
+<li>Standardization of interface</li>
+</ul>
+</li>
+<li>For Devices<ul>
+<li>high diversity</li>
+<li>lack of standard specification of device interface and behaviour</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-key-models-for-device-virtualization">3 key models for Device Virtualization:</h4>
+<h3 id="1-pass-through-model">1. Pass through model</h3>
+<p>Approach: VMM-level-driver configures device access permissions</p>
+<p><img alt="passthrough.png" src="../images/passthrough.png" /></p>
+<p><strong>Advantages</strong><br></p>
+<ul>
+<li>VM provided with exclusive and direct (VMM bypass) access to the device</li>
+</ul>
+<p><strong>Disadvantages</strong><br></p>
+<ul>
+<li>Device sharing difficult</li>
+<li>VMM must have exact type of device as what VM expects</li>
+<li>VM migration tricky</li>
+</ul>
+<h3 id="2-hypervisor-direct-model">2. Hypervisor - Direct model</h3>
+<p>Approach: </p>
+<ul>
+<li>VMM interrupts all device accesses</li>
+<li>Emulate device operations<ul>
+<li>translate to generic I/O operations</li>
+<li>traverse VMM-resident I/O stack</li>
+<li>invoke VMM-resident driver</li>
+</ul>
+</li>
+</ul>
+<p><img alt="hypervisordirect.png" src="../images/hypervisordirect.png" />    </p>
+<p><strong>Advantages</strong><br></p>
+<ul>
+<li>VM decoupled from physical device</li>
+<li>Sharing, migration, dealing with device specifics</li>
+</ul>
+<p><strong>Disadvantages</strong><br></p>
+<ul>
+<li>Latency of device operations</li>
+<li>Device driver ecosystem complexities in Hypervisor</li>
+</ul>
+<h3 id="3-split-device-driver-model">3. Split Device-Driver model</h3>
+<p>Approach: </p>
+<ul>
+<li>Device access control split between</li>
+<li>Emulate device operations<ul>
+<li>front-end driver in guest VM (device API)</li>
+<li>back-end driver in service VM (or Host)</li>
+<li>modified guest drivers<ul>
+<li>i.e. limited to paravirtualized guests</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="splitdevicedriver.png" src="../images/splitdevicedriver.png" />          </p>
+<p><strong>Advantages</strong><br></p>
+<ul>
+<li>Eliminate emulation overhead</li>
+<li>Allow for better management of shared devices</li>
+</ul>
+<hr>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../10-Remote-Procedure-Calls/" class="btn btn-neutral float-right" title="Remote Procedure Calls">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../8-IO-Management/" class="btn btn-neutral" title="I/O Management"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../8-IO-Management/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../10-Remote-Procedure-Calls/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Memory Management - Operating System Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Memory Management";
+    var mkdocs_page_input_path = "5-Memory-Management.md";
+    var mkdocs_page_url = "/5-Memory-Management/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Operating System Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Operating Systems Overview</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-Process-Management/">Processes and Process Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-Threads-and-Concurrency/">Threads and Concurrency</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-Scheduling/">Scheduling</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Memory Management</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#memory-management">Memory Management</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#memory-management-goals">Memory Management Goals</a></li>
+        
+            <li><a class="toctree-l3" href="#hardware-support">Hardware Support</a></li>
+        
+            <li><a class="toctree-l3" href="#page-tables">Page Tables</a></li>
+        
+            <li><a class="toctree-l3" href="#page-table-entry-pte">Page Table Entry (PTE)</a></li>
+        
+            <li><a class="toctree-l3" href="#page-table-entry-on-x86">Page Table Entry on x86</a></li>
+        
+            <li><a class="toctree-l3" href="#page-faults">Page faults</a></li>
+        
+            <li><a class="toctree-l3" href="#page-table-size">Page Table Size</a></li>
+        
+            <li><a class="toctree-l3" href="#hierarchical-page-tables">Hierarchical Page Tables</a></li>
+        
+            <li><a class="toctree-l3" href="#overheads-of-address-translation">Overheads of Address Translation</a></li>
+        
+            <li><a class="toctree-l3" href="#page-table-cache">Page Table Cache</a></li>
+        
+            <li><a class="toctree-l3" href="#segmentation">Segmentation</a></li>
+        
+            <li><a class="toctree-l3" href="#page-size">Page Size</a></li>
+        
+            <li><a class="toctree-l3" href="#memory-allocation">Memory Allocation</a></li>
+        
+            <li><a class="toctree-l3" href="#demand-paging">Demand Paging</a></li>
+        
+            <li><a class="toctree-l3" href="#checkpointing">Checkpointing</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../6-Inter-Process-Communication/">Inter-Process Communication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-Synchronization/">Synchronization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../8-IO-Management/">I/O Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../9-Virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-Remote-Procedure-Calls/">Remote Procedure Calls</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11-Distributed-File-Systems/">Distributed File Systems</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12-Distributed-Shared-Systems/">Distributed Shared Memory</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Operating System Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Memory Management</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="memory-management">Memory Management</h1>
+<p>Operating systems:</p>
+<ul>
+<li>uses intelligently size containers<ul>
+<li>memory pages of segments</li>
+</ul>
+</li>
+<li>Not all parts are needed at once <ul>
+<li>tasks operate on subset of memory</li>
+</ul>
+</li>
+<li>Optimized for performance<ul>
+<li>reduce time to access state in memory<ul>
+<li>leads to better performance!</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="memory-management-goals">Memory Management Goals</h2>
+<p><img alt="mmgoals.png" src="../images/mmgoals.png" /></p>
+<h4 id="virtual-vs-physical-memory">Virtual vs Physical memory</h4>
+<ul>
+<li>Allocate <ul>
+<li>allocation, replacement</li>
+</ul>
+</li>
+<li>Arbitrate<ul>
+<li>address translation and validation</li>
+</ul>
+</li>
+</ul>
+<h4 id="page-based-memory-management">Page-based Memory Management</h4>
+<ul>
+<li>Allocate =&gt; pages =&gt; page frames</li>
+<li>Arbitrate =&gt; page tables</li>
+</ul>
+<h4 id="segment-based-memory-management">Segment-based Memory Management</h4>
+<ul>
+<li>Allocate =&gt; segments</li>
+<li>Arbitrate =&gt; segment registers</li>
+</ul>
+<h2 id="hardware-support">Hardware Support</h2>
+<p><img alt="hardwaresupport.png" src="../images/hardwaresupport.png" /></p>
+<h3 id="memory-management-unit-mmu">Memory Management Unit (MMU)</h3>
+<ul>
+<li>translate virtual to physical address </li>
+<li>reports faults (illegal access, permission, not present in memory)</li>
+</ul>
+<h3 id="registers">Registers</h3>
+<ul>
+<li>pointers to page tables</li>
+<li>base and limit size, number of segments</li>
+</ul>
+<h3 id="cache">Cache</h3>
+<ul>
+<li>Translation lookaside buffer</li>
+<li>Valid VA-PA translations using TLB</li>
+</ul>
+<h3 id="translation">Translation</h3>
+<ul>
+<li>Actual PA generation done in hardware</li>
+</ul>
+<h2 id="page-tables">Page Tables</h2>
+<p><img alt="pagetables.png" src="../images/pagetables.png" /></p>
+<ul>
+<li>OS creates page table per process</li>
+<li>On context switch, switch to valid page table</li>
+<li>Updates register that points to correct page table.
+    E.g CR3 on x86 architecture</li>
+</ul>
+<h2 id="page-table-entry-pte">Page Table Entry (PTE)</h2>
+<p><img alt="pfn.png" src="../images/pfn.png" /></p>
+<h4 id="flags">Flags</h4>
+<ul>
+<li>Present (valid/invalid)</li>
+<li>Dirty (written to)</li>
+<li>Accessed (for read or write)</li>
+<li>Protection bits =&gt; RWX</li>
+</ul>
+<h2 id="page-table-entry-on-x86">Page Table Entry on x86</h2>
+<p><img alt="pfnx86.png" src="../images/pfnx86.png" /></p>
+<h4 id="flags_1">Flags</h4>
+<ul>
+<li>Present </li>
+<li>Dirty </li>
+<li>Accessed</li>
+<li>R/W permission bit 0: R only, 1: R/W</li>
+<li>U/S permission bit 0: usermode, 1: superviser mode only</li>
+<li>others: caching related info (write through, caching disabled)</li>
+<li>unused: for future use</li>
+</ul>
+<h2 id="page-faults">Page faults</h2>
+<p><img alt="pagefaults.png" src="../images/pagefaults.png" /></p>
+<h2 id="page-table-size">Page Table Size</h2>
+<p><img alt="pts.png" src="../images/pts.png" /></p>
+<ul>
+<li>32 bit architecture<ul>
+<li>Page Table Entry (PTE) = 4 Bytes, including PFN + flags</li>
+<li>Virtual Page Number (VPN) = 2^32/page_size</li>
+<li>Page size = 4KB (...8KB, 2MB, 4MB, 1GB)</li>
+</ul>
+</li>
+</ul>
+<p>Therefore Page Table Size = (2^32 * 2^12)*4B = 4MB (per process)</p>
+<ul>
+<li>for 64 bit architecture<ul>
+<li>Page Table Entry (PTE) = 8 Bytes</li>
+<li>Page size = 4KB</li>
+</ul>
+</li>
+</ul>
+<p>Page Table Size = (2^64 * 2^12)*8B = 32PB (per process!)</p>
+<ul>
+<li>processes don't use entire address space</li>
+<li>even on 32 bit architecture, it will not always use all 4GB</li>
+</ul>
+<p>But Page Table assumes an entry per VPN regardless, of whether corresponding virtual memory is needed or not.</p>
+<h2 id="hierarchical-page-tables">Hierarchical Page Tables</h2>
+<p><img alt="hierarchicalpt.png" src="../images/hierarchicalpt.png" /></p>
+<p>On malloc, a new internal page table may be allocated.</p>
+<h4 id="address-split">Address split:</h4>
+<table>
+  <tr>
+    <th colspan="2">Page Number</th>
+    <th>offset</th>
+  </tr>
+  <tr>
+    <td>P1</td>
+    <td>P2</td>
+    <td>d</td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td>10</td>
+    <td>10</td>
+  </tr>
+</table>
+
+<ul>
+<li>inner table addresses =&gt; 2^10 * page_size = 2^10*2^10 = 1MB</li>
+<li>don't need an inner table for each 1MB virtual memory gap</li>
+</ul>
+<p>Additional Layers</p>
+<ul>
+<li>page table directory pointer (3rd level)</li>
+<li>
+<p>page table directory map (4th level)</p>
+</li>
+<li>
+<p>Important on 64 bit architectures</p>
+</li>
+<li>larger and more sparse =&gt; larger gaps would save more internal page table components</li>
+</ul>
+<p><img alt="hierarchicalpt2.png" src="../images/hierarchicalpt2.png" /></p>
+<h3 id="tradeoffs-of-multilevel-page-tables">Tradeoffs of Multilevel Page Tables</h3>
+<p><strong>Advantages</strong><br></p>
+<ul>
+<li>Smaller internal page tables/directories </li>
+<li>Granularity of coverage<ul>
+<li>Potentially reduced page table size</li>
+</ul>
+</li>
+</ul>
+<p><strong>Disadvantages</strong><br></p>
+<ul>
+<li>More memory accesses required for translation</li>
+<li>increased translation latency</li>
+</ul>
+<h2 id="overheads-of-address-translation">Overheads of Address Translation</h2>
+<p>For each memory reference :</p>
+<table>
+<thead>
+<tr>
+<th>Single level page table</th>
+<th>Four level page table</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x1 access to PTE</td>
+<td>x4 accesses to PTE</td>
+</tr>
+<tr>
+<td>x1 access to mem</td>
+<td>x1 access to mem</td>
+</tr>
+</tbody>
+</table>
+<p>which results in slowdown.</p>
+<h2 id="page-table-cache">Page Table Cache</h2>
+<p><img alt="ptcache.png" src="../images/ptcache.png" /></p>
+<h4 id="translation-lookaside-buffer">Translation Lookaside Buffer</h4>
+<ul>
+<li>MMU level address translation cache</li>
+<li>On TLB miss =&gt; page table access from memory</li>
+<li>has protection/validity bits</li>
+<li>
+<p>small number of cached address =&gt; high TLB hit rate</p>
+<ul>
+<li>temporal and spatial locality</li>
+</ul>
+</li>
+<li>
+<p>Example</p>
+<ul>
+<li>x86 Core i7<ul>
+<li>per core : 64-entry data TLB <br> 128-entry instruction TLB </li>
+<li>512-entry shared second-level TLB </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="inverted-page-tables">Inverted Page Tables</h3>
+<p><img alt="invertedpt.png" src="../images/invertedpt.png" /></p>
+<h3 id="hashing-page-tables">Hashing Page Tables</h3>
+<p><img alt="hashingpt.png" src="../images/hashingpt.png" /></p>
+<h2 id="segmentation">Segmentation</h2>
+<p>Segmentation is the process of mapping virtual to physical memory using segments.</p>
+<ul>
+<li>Segments: arbitrary granularity (size)<ul>
+<li>e.g. code, heap, data, stack..</li>
+<li>address = segment - selector + offset</li>
+</ul>
+</li>
+<li>Segment<ul>
+<li>contiguous physical memory</li>
+<li>segment size = segment base + limit registers</li>
+</ul>
+</li>
+</ul>
+<p><img alt="segmentation.png" src="../images/segmentation.png" /></p>
+<h4 id="segmentation-paging">Segmentation + Paging</h4>
+<p><img alt="segmentationpaging.png" src="../images/segmentationpaging.png" /></p>
+<h2 id="page-size">Page Size</h2>
+<ul>
+<li>10 bit offset =&gt; 1 KB page size [2^10]</li>
+<li>12 bit offset =&gt; 4 KB page size [2^12]</li>
+</ul>
+<p>In real world examples,</p>
+<ul>
+<li>Linux/x86 : 4 KB, 2MB, 1GB</li>
+<li>Solaris/Sparse: 8kB, 4MB, 2GB</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Large</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page size</td>
+<td>2 MB</td>
+</tr>
+<tr>
+<td>offset bits</td>
+<td>21 bits</td>
+</tr>
+<tr>
+<td>reduction factor on page table size</td>
+<td>x512</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Advantages</strong><br></p>
+<ul>
+<li>larger pages<ul>
+<li>fewer page table entries, smaller page tables, more TLB hits</li>
+</ul>
+</li>
+</ul>
+<p><strong>Disadvantages</strong><br></p>
+<ul>
+<li>internal fragmentation =&gt; wastes memory</li>
+</ul>
+<h2 id="memory-allocation">Memory Allocation</h2>
+<ul>
+<li>
+<p>Memory allocator</p>
+<ul>
+<li>determines VA to PA mapping</li>
+<li>address translation, page tables
+    =&gt; simply determine PA from VA and check validity/permsissions </li>
+</ul>
+</li>
+<li>
+<p>Kernel Level Allocators</p>
+<ul>
+<li>kernel state, static process state</li>
+</ul>
+</li>
+<li>User Level Allocators<ul>
+<li>dynamic process state (heap), malloc/free</li>
+<li>e.g. d/malloc, jemalloc, Hoard, tcmalloc</li>
+</ul>
+</li>
+</ul>
+<h2 id="demand-paging">Demand Paging</h2>
+<ul>
+<li>Virtual Memory &gt;&gt; Physical Memory<ul>
+<li>virtual memory page is not always in physical memory</li>
+<li>physical page frame saved and restored to/from secondary storage</li>
+</ul>
+</li>
+</ul>
+<h3 id="demand-paging_1">Demand paging:</h3>
+<ul>
+<li>pages swapped in/out of memory &amp; a swap partition (e.g. on a disk)</li>
+</ul>
+<p><img alt="demandpaging.png" src="../images/demandpaging.png" /></p>
+<ul>
+<li>Original PA != PA after swapping<ul>
+<li>if page is "pinned", swapping is disabled</li>
+</ul>
+</li>
+</ul>
+<h4 id="when-pages-should-be-swapped">When pages should be swapped?</h4>
+<ul>
+<li>page(out) daemon</li>
+<li>when memory usage is above threshold</li>
+<li>when CPU usage is below threshold</li>
+</ul>
+<h4 id="which-page-should-be-swapped-out">Which page should be swapped out?</h4>
+<ul>
+<li>pages that won't be used</li>
+<li>history based prediction<ul>
+<li>Least Recently Used (LRU policy). Access bit tracks if page is referenced.</li>
+</ul>
+</li>
+<li>page that don't need to be written out<ul>
+<li>Dirty bit to track if modified</li>
+</ul>
+</li>
+<li>avoid non-swappable pages    </li>
+</ul>
+<h2 id="checkpointing">Checkpointing</h2>
+<ul>
+<li>Failure and Recovery management technique<ul>
+<li>periodically save process state</li>
+<li>failure may be unavoidable but can restart from checkpoint, so recovery would be faster</li>
+</ul>
+</li>
+</ul>
+<h4 id="simple-approach">Simple Approach</h4>
+<ul>
+<li>pause and save</li>
+</ul>
+<h4 id="better-approach">Better Approach</h4>
+<ul>
+<li>write-protect and copy everything at once </li>
+<li>copy diffs of dirties pages for incremental checkpoints<ul>
+<li>rebuild from multiple diffs, or in background</li>
+</ul>
+</li>
+</ul>
+<p>Checkpointing can also be used in other services:</p>
+<ul>
+<li>
+<p>Debugging</p>
+<ul>
+<li>Rewind-Replay</li>
+<li>rewind = restart from checkpoint </li>
+<li>gradually go back to earlier checkpoints until error is found</li>
+</ul>
+</li>
+<li>
+<p>Migration</p>
+</li>
+<li>continue on another machine</li>
+<li>disaster recovery</li>
+<li>consolidation</li>
+<li>repeated checkpoints in a fast loop until pause and copy becomes acceptable (or unavoidable)</li>
+</ul>
+<hr>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../6-Inter-Process-Communication/" class="btn btn-neutral float-right" title="Inter-Process Communication">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../4-Scheduling/" class="btn btn-neutral" title="Scheduling"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../4-Scheduling/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../6-Inter-Process-Communication/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

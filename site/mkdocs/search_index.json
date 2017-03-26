@@ -1,0 +1,1249 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Operating Systems Overview\n\n\n\n\n\nOperating Systems\n :\n\n\n\n\nDirect operational resources [CPU, memory, devices]\n\n\nEnforces working policies [Resource usage, access]\n\n\nMitigates difficulty of complex tasks [abstract hardware details (using system calls)]\n\n\n\n\nWhat is an Operating System?\n\n\n\n\nIntermediate between Hardware and Software applications\n\n\nHides hardware complexity (Read/write file storage, send/receive socket network)\n\n\nHandles resource management (CPU scheduling, Memory management)\n\n\nProvide isolation and protection (allocate different parts of memory to different applications so that applications don't overwrite other memory locations)\n\n\n\n\nOperating System definition:\n\n\nAn \nOperating System\n is a layer of systems software that:\n\n\n\n\ndirectly has privileged access to the underlying hardware;\n\n\nhides the hardware complexity;\n\n\nmanages hardware on behalf of one or more application according to some predifined policies.\n\n\nIn addition, it ensures that applications are isolated and protected from one another.\n\n\n\n\nOperating System examples:\n\n\n\n\n\n\n\n\nDesktop\n\n\nEmbedded devices\n\n\n\n\n\n\n\n\n\n\nMicrosoft Windows\n\n\nAndroid OS\n\n\n\n\n\n\nMAC OS X (BSD)\n\n\niOS\n\n\n\n\n\n\nLINUX\n\n\nSymbian\n\n\n\n\n\n\n...\n\n\n...\n\n\n\n\n\n\n\n\nOS Elements\n\n\n\n\nAbstractions\n (corresponds to applications that OS executes)\n\n\nprocess, thread, file, socket,  memory page\n\n\n\n\n\n\nMechanisms\n  (on top of Abstractions)\n\n\ncreate, schedule, open, write, allocate\n\n\n\n\n\n\nPolicies\n (how mechanisms are used to manage underlying hardware)    \n\n\nLeast Recently Used (LRU) , Earliest Deadline First (EDF), etc.\n\n\n\n\n\n\n\n\nExample :\n\n\nMemory Management:\n\n\n\n\nAbstractions\n: Memory page\n\n\nMechanisms\n: Allocate, map to a process\n\n\nPolicies\n: LRU\n\n\n\n\nOS Design Principles\n\n\n\n\nSeperation of mechanism and policy\n\n\nimplement flexible mechanisms to support many policies \n\n\ne.g. LRU, LFU, random\n\n\n\n\n\n\nOptimize for common case \n\n\nWhere will the OS be used?\n\n\nWhat will the user want to execute on that machine?\n\n\nWhat are the workload requirements?\n\n\n\n\n\n\n\n\nUser/ Kernel Protection Boundary\n\n\n\n\nuser-level => applications [underprivileged mode]\n\n\nkernel-level => OS Kernel [privileged access, hardware access]\n\n\n\n\n\n\n\n\nUser-Kernel switch is supported by hardware.\n\n\nusing trap instructions\n\n\nsystem calls like:\n\n\nopen (file)\n\n\nsend (socket)\n\n\nmalloc (memory)\n\n\n\n\n\n\nsignals\n\n\n\n\n\n\n\n\nSystem call Flowcart\n\n\n\n\n\n\nTo make a system call, an application must:\n\n\nwrite arguments\n\n\nsave relevant data ast well defined location\n\n\nmake system calls using system call number\n\n\n\n\n\n\nIn synchronous mode : wait until system call completes.\n\n\n\n\nBasic OS services\n\n\n\n\nprocess management\n\n\nfile management\n\n\ndevice management\n\n\nmemory management\n\n\nstorage management\n\n\nsecurity\n\n\n\n\nLinux System Calls\n\n\n\n\n\n\n\n\nTask\n\n\nCommands\n\n\n\n\n\n\n\n\n\n\nProcess Control\n\n\nfork (); exit(); wait();\n\n\n\n\n\n\nFile Manipulation\n\n\nopen(); read(); write();\n\n\n\n\n\n\nDevice Manipulation\n\n\nioctl(); read(); write();\n\n\n\n\n\n\nInformation Maintenance\n\n\ngetpid(); alarm(); sleep();\n\n\n\n\n\n\nCommunication\n\n\npipe(); shmget(); mmap();\n\n\n\n\n\n\nProtection\n\n\nchmod(); umask(); chown();\n\n\n\n\n\n\n\n\nLinux Architecture",
+            "title": "Home"
+        },
+        {
+            "location": "/#operating-systems-overview",
+            "text": "Operating Systems  :   Direct operational resources [CPU, memory, devices]  Enforces working policies [Resource usage, access]  Mitigates difficulty of complex tasks [abstract hardware details (using system calls)]",
+            "title": "Operating Systems Overview"
+        },
+        {
+            "location": "/#what-is-an-operating-system",
+            "text": "Intermediate between Hardware and Software applications  Hides hardware complexity (Read/write file storage, send/receive socket network)  Handles resource management (CPU scheduling, Memory management)  Provide isolation and protection (allocate different parts of memory to different applications so that applications don't overwrite other memory locations)",
+            "title": "What is an Operating System?"
+        },
+        {
+            "location": "/#operating-system-definition",
+            "text": "An  Operating System  is a layer of systems software that:   directly has privileged access to the underlying hardware;  hides the hardware complexity;  manages hardware on behalf of one or more application according to some predifined policies.  In addition, it ensures that applications are isolated and protected from one another.",
+            "title": "Operating System definition:"
+        },
+        {
+            "location": "/#operating-system-examples",
+            "text": "Desktop  Embedded devices      Microsoft Windows  Android OS    MAC OS X (BSD)  iOS    LINUX  Symbian    ...  ...",
+            "title": "Operating System examples:"
+        },
+        {
+            "location": "/#os-elements",
+            "text": "Abstractions  (corresponds to applications that OS executes)  process, thread, file, socket,  memory page    Mechanisms   (on top of Abstractions)  create, schedule, open, write, allocate    Policies  (how mechanisms are used to manage underlying hardware)      Least Recently Used (LRU) , Earliest Deadline First (EDF), etc.",
+            "title": "OS Elements"
+        },
+        {
+            "location": "/#example",
+            "text": "Memory Management:   Abstractions : Memory page  Mechanisms : Allocate, map to a process  Policies : LRU",
+            "title": "Example :"
+        },
+        {
+            "location": "/#os-design-principles",
+            "text": "Seperation of mechanism and policy  implement flexible mechanisms to support many policies   e.g. LRU, LFU, random    Optimize for common case   Where will the OS be used?  What will the user want to execute on that machine?  What are the workload requirements?",
+            "title": "OS Design Principles"
+        },
+        {
+            "location": "/#user-kernel-protection-boundary",
+            "text": "user-level => applications [underprivileged mode]  kernel-level => OS Kernel [privileged access, hardware access]     User-Kernel switch is supported by hardware.  using trap instructions  system calls like:  open (file)  send (socket)  malloc (memory)    signals",
+            "title": "User/ Kernel Protection Boundary"
+        },
+        {
+            "location": "/#system-call-flowcart",
+            "text": "To make a system call, an application must:  write arguments  save relevant data ast well defined location  make system calls using system call number    In synchronous mode : wait until system call completes.",
+            "title": "System call Flowcart"
+        },
+        {
+            "location": "/#basic-os-services",
+            "text": "process management  file management  device management  memory management  storage management  security",
+            "title": "Basic OS services"
+        },
+        {
+            "location": "/#linux-system-calls",
+            "text": "Task  Commands      Process Control  fork (); exit(); wait();    File Manipulation  open(); read(); write();    Device Manipulation  ioctl(); read(); write();    Information Maintenance  getpid(); alarm(); sleep();    Communication  pipe(); shmget(); mmap();    Protection  chmod(); umask(); chown();",
+            "title": "Linux System Calls"
+        },
+        {
+            "location": "/#linux-architecture",
+            "text": "",
+            "title": "Linux Architecture"
+        },
+        {
+            "location": "/",
+            "text": "Operating Systems Overview\n\n\n\n\n\nOperating Systems\n :\n\n\n\n\nDirect operational resources [CPU, memory, devices]\n\n\nEnforces working policies [Resource usage, access]\n\n\nMitigates difficulty of complex tasks [abstract hardware details (using system calls)]\n\n\n\n\nWhat is an Operating System?\n\n\n\n\nIntermediate between Hardware and Software applications\n\n\nHides hardware complexity (Read/write file storage, send/receive socket network)\n\n\nHandles resource management (CPU scheduling, Memory management)\n\n\nProvide isolation and protection (allocate different parts of memory to different applications so that applications don't overwrite other memory locations)\n\n\n\n\nOperating System definition:\n\n\nAn \nOperating System\n is a layer of systems software that:\n\n\n\n\ndirectly has privileged access to the underlying hardware;\n\n\nhides the hardware complexity;\n\n\nmanages hardware on behalf of one or more application according to some predifined policies.\n\n\nIn addition, it ensures that applications are isolated and protected from one another.\n\n\n\n\nOperating System examples:\n\n\n\n\n\n\n\n\nDesktop\n\n\nEmbedded devices\n\n\n\n\n\n\n\n\n\n\nMicrosoft Windows\n\n\nAndroid OS\n\n\n\n\n\n\nMAC OS X (BSD)\n\n\niOS\n\n\n\n\n\n\nLINUX\n\n\nSymbian\n\n\n\n\n\n\n...\n\n\n...\n\n\n\n\n\n\n\n\nOS Elements\n\n\n\n\nAbstractions\n (corresponds to applications that OS executes)\n\n\nprocess, thread, file, socket,  memory page\n\n\n\n\n\n\nMechanisms\n  (on top of Abstractions)\n\n\ncreate, schedule, open, write, allocate\n\n\n\n\n\n\nPolicies\n (how mechanisms are used to manage underlying hardware)    \n\n\nLeast Recently Used (LRU) , Earliest Deadline First (EDF), etc.\n\n\n\n\n\n\n\n\nExample :\n\n\nMemory Management:\n\n\n\n\nAbstractions\n: Memory page\n\n\nMechanisms\n: Allocate, map to a process\n\n\nPolicies\n: LRU\n\n\n\n\nOS Design Principles\n\n\n\n\nSeperation of mechanism and policy\n\n\nimplement flexible mechanisms to support many policies \n\n\ne.g. LRU, LFU, random\n\n\n\n\n\n\nOptimize for common case \n\n\nWhere will the OS be used?\n\n\nWhat will the user want to execute on that machine?\n\n\nWhat are the workload requirements?\n\n\n\n\n\n\n\n\nUser/ Kernel Protection Boundary\n\n\n\n\nuser-level => applications [underprivileged mode]\n\n\nkernel-level => OS Kernel [privileged access, hardware access]\n\n\n\n\n\n\n\n\nUser-Kernel switch is supported by hardware.\n\n\nusing trap instructions\n\n\nsystem calls like:\n\n\nopen (file)\n\n\nsend (socket)\n\n\nmalloc (memory)\n\n\n\n\n\n\nsignals\n\n\n\n\n\n\n\n\nSystem call Flowcart\n\n\n\n\n\n\nTo make a system call, an application must:\n\n\nwrite arguments\n\n\nsave relevant data ast well defined location\n\n\nmake system calls using system call number\n\n\n\n\n\n\nIn synchronous mode : wait until system call completes.\n\n\n\n\nBasic OS services\n\n\n\n\nprocess management\n\n\nfile management\n\n\ndevice management\n\n\nmemory management\n\n\nstorage management\n\n\nsecurity\n\n\n\n\nLinux System Calls\n\n\n\n\n\n\n\n\nTask\n\n\nCommands\n\n\n\n\n\n\n\n\n\n\nProcess Control\n\n\nfork (); exit(); wait();\n\n\n\n\n\n\nFile Manipulation\n\n\nopen(); read(); write();\n\n\n\n\n\n\nDevice Manipulation\n\n\nioctl(); read(); write();\n\n\n\n\n\n\nInformation Maintenance\n\n\ngetpid(); alarm(); sleep();\n\n\n\n\n\n\nCommunication\n\n\npipe(); shmget(); mmap();\n\n\n\n\n\n\nProtection\n\n\nchmod(); umask(); chown();\n\n\n\n\n\n\n\n\nLinux Architecture",
+            "title": "Operating Systems Overview"
+        },
+        {
+            "location": "/#operating-systems-overview",
+            "text": "Operating Systems  :   Direct operational resources [CPU, memory, devices]  Enforces working policies [Resource usage, access]  Mitigates difficulty of complex tasks [abstract hardware details (using system calls)]",
+            "title": "Operating Systems Overview"
+        },
+        {
+            "location": "/#what-is-an-operating-system",
+            "text": "Intermediate between Hardware and Software applications  Hides hardware complexity (Read/write file storage, send/receive socket network)  Handles resource management (CPU scheduling, Memory management)  Provide isolation and protection (allocate different parts of memory to different applications so that applications don't overwrite other memory locations)",
+            "title": "What is an Operating System?"
+        },
+        {
+            "location": "/#operating-system-definition",
+            "text": "An  Operating System  is a layer of systems software that:   directly has privileged access to the underlying hardware;  hides the hardware complexity;  manages hardware on behalf of one or more application according to some predifined policies.  In addition, it ensures that applications are isolated and protected from one another.",
+            "title": "Operating System definition:"
+        },
+        {
+            "location": "/#operating-system-examples",
+            "text": "Desktop  Embedded devices      Microsoft Windows  Android OS    MAC OS X (BSD)  iOS    LINUX  Symbian    ...  ...",
+            "title": "Operating System examples:"
+        },
+        {
+            "location": "/#os-elements",
+            "text": "Abstractions  (corresponds to applications that OS executes)  process, thread, file, socket,  memory page    Mechanisms   (on top of Abstractions)  create, schedule, open, write, allocate    Policies  (how mechanisms are used to manage underlying hardware)      Least Recently Used (LRU) , Earliest Deadline First (EDF), etc.",
+            "title": "OS Elements"
+        },
+        {
+            "location": "/#example",
+            "text": "Memory Management:   Abstractions : Memory page  Mechanisms : Allocate, map to a process  Policies : LRU",
+            "title": "Example :"
+        },
+        {
+            "location": "/#os-design-principles",
+            "text": "Seperation of mechanism and policy  implement flexible mechanisms to support many policies   e.g. LRU, LFU, random    Optimize for common case   Where will the OS be used?  What will the user want to execute on that machine?  What are the workload requirements?",
+            "title": "OS Design Principles"
+        },
+        {
+            "location": "/#user-kernel-protection-boundary",
+            "text": "user-level => applications [underprivileged mode]  kernel-level => OS Kernel [privileged access, hardware access]     User-Kernel switch is supported by hardware.  using trap instructions  system calls like:  open (file)  send (socket)  malloc (memory)    signals",
+            "title": "User/ Kernel Protection Boundary"
+        },
+        {
+            "location": "/#system-call-flowcart",
+            "text": "To make a system call, an application must:  write arguments  save relevant data ast well defined location  make system calls using system call number    In synchronous mode : wait until system call completes.",
+            "title": "System call Flowcart"
+        },
+        {
+            "location": "/#basic-os-services",
+            "text": "process management  file management  device management  memory management  storage management  security",
+            "title": "Basic OS services"
+        },
+        {
+            "location": "/#linux-system-calls",
+            "text": "Task  Commands      Process Control  fork (); exit(); wait();    File Manipulation  open(); read(); write();    Device Manipulation  ioctl(); read(); write();    Information Maintenance  getpid(); alarm(); sleep();    Communication  pipe(); shmget(); mmap();    Protection  chmod(); umask(); chown();",
+            "title": "Linux System Calls"
+        },
+        {
+            "location": "/#linux-architecture",
+            "text": "",
+            "title": "Linux Architecture"
+        },
+        {
+            "location": "/2-Process-Management/",
+            "text": "Process and Process Management\n\n\nProcess\n: Instance of an executing program.\n\n\n\n\nState of execution\n\n\nprogram counter, stack pointer\n\n\n\n\n\n\nParts and temporary holding area\n\n\ndata, register state, occupies state in memory\n\n\n\n\n\n\nMay require special hardware\n\n\nI/O devices\n\n\n\n\n\n\n\n\nProcess is a state of a program when executing and loaded in memory (active state) as opposed to application (static state).\n\n\nWhat does a process look like?\n\n\n\n\nType of state\n\n\n\n\nText and Data\n\n\nstatic state when process loads first\n\n\n\n\n\n\nHeap \n\n\ndynamically created during execution\n\n\n\n\n\n\nStack\n\n\ngrows and shrinks \n\n\nLIFO queue (used to store task checkpoints to resume the original process after switching from another.)\n\n\n\n\n\n\n\n\nHow does the OS know what a process is doing?\n\n\nUsing:\n\n\n\n\nProgram counter\n\n\nCPU registers\n\n\nStack pointer\n\n\n\n\nProcess Control Block (PCB)\n\n\n\n\n\n\nPCB created when process is created\n\n\nCertain fields are updated when process state change e.g. memory mapping\n\n\nor other fields that change very frequently e.g. Program Counter\n\n\n\n\nHow is PCB used ?\n\n\n\n\nContext Switch\n\n\n\n\n\n\nMechanism used to switch from the context of one process to another in the CPU.\n\n\n\n\n\n\nThey are expensive!\n\n\n\n\ndirect costs: no of cycles for load and store instructions.\n\n\nindirect costs: \nCOLD\n cache (read more \nhere\n)\n\n\nTherefore limit frequency how context switching is done.\n\n\n\n\n\n\n\n\n\n\n\n\nWhen a cache is \nHOT\n, most process data is in the cache so the process performance will be at its best.\n\n\nSometimes there are situations where we have to Context Switch (higher priority process, timesharing, etc.)\n\n\nProcess Lifecycle\n\n\n\n\nCPU is able to execute a process when the process is in Running or Ready state.\n\n\nProcess Creation\n\n\nMechanisms:\n\n\n\n\n\n\nfork :\n\n\n\n\ncopies the parent PCB into new child PCB\n\n\nchild contains execution at instruction after fork\n\n\n\n\n\n\n\n\nexec :\n\n\n\n\nreplace child image\n\n\nload new program and start from first instruction\n\n\n\n\n\n\n\n\nWhat is the role of CPU scheduler?\n\n\nCPU scheduler determines which one of the currently ready processes will be dispatched to the CPU to start running, and how long it should run for.\n\n\nOS must :\n\n\n\n\npreempt => interrupt and save current context\n\n\nschedule => run scheduler to choose next process\n\n\ndispatch => dispatch process 2 switch into its context\n\n\n\n\nScheduling design decisions\n\n\n\n\n\n\nWhat are the appropriate timeslice values?\n\n\nMetrics to choose next process to run?\n\n\n\n\nI/O\n\n\nA process can make way in the ready queue in a number of ways.\n\n\n\n\nCan process interact?\n\n\nInter Process communication:\n\n\nIPC mechanisms:\n\n\n\n\ntransfer data/info between address space\n\n\nmaintain protection and isolation\n\n\nprovide flexibility and performance\n\n\n\n\nTwo types of IPC models:\n\n\n1. \nMessage Passing IPC\n\n\n\n\n\n\nOS provides communication channel line shared buffer\n\n\nProcesses can write(send), read(receive) msg to/from channel\n\n\n\n\nAdvantages\n: OS manages the channel\n\n\nDisadvantages\n: Overheads\n\n\n2. \nShared Memory IPC\n\n\n\n\n\n\nOS establishes a shared channel and maps it into each processes' address space\n\n\nProcesses directly write(send), read(receive) msg to/from this memory\n\n\n\n\nAdvantages\n: OS is out of the way after establishing the shared channel\n\n\nDisadvantages\n: Re-implementing a lot of code that could have been done by the OS\n\n\nOverall, \nshared memory\n based communication is better if mapping memory between two processes is ammortized over a large number of messages.",
+            "title": "Processes and Process Management"
+        },
+        {
+            "location": "/2-Process-Management/#process-and-process-management",
+            "text": "Process : Instance of an executing program.   State of execution  program counter, stack pointer    Parts and temporary holding area  data, register state, occupies state in memory    May require special hardware  I/O devices     Process is a state of a program when executing and loaded in memory (active state) as opposed to application (static state).",
+            "title": "Process and Process Management"
+        },
+        {
+            "location": "/2-Process-Management/#what-does-a-process-look-like",
+            "text": "",
+            "title": "What does a process look like?"
+        },
+        {
+            "location": "/2-Process-Management/#type-of-state",
+            "text": "Text and Data  static state when process loads first    Heap   dynamically created during execution    Stack  grows and shrinks   LIFO queue (used to store task checkpoints to resume the original process after switching from another.)",
+            "title": "Type of state"
+        },
+        {
+            "location": "/2-Process-Management/#how-does-the-os-know-what-a-process-is-doing",
+            "text": "Using:   Program counter  CPU registers  Stack pointer",
+            "title": "How does the OS know what a process is doing?"
+        },
+        {
+            "location": "/2-Process-Management/#process-control-block-pcb",
+            "text": "PCB created when process is created  Certain fields are updated when process state change e.g. memory mapping  or other fields that change very frequently e.g. Program Counter",
+            "title": "Process Control Block (PCB)"
+        },
+        {
+            "location": "/2-Process-Management/#how-is-pcb-used",
+            "text": "",
+            "title": "How is PCB used ?"
+        },
+        {
+            "location": "/2-Process-Management/#context-switch",
+            "text": "Mechanism used to switch from the context of one process to another in the CPU.    They are expensive!   direct costs: no of cycles for load and store instructions.  indirect costs:  COLD  cache (read more  here )  Therefore limit frequency how context switching is done.       When a cache is  HOT , most process data is in the cache so the process performance will be at its best.  Sometimes there are situations where we have to Context Switch (higher priority process, timesharing, etc.)",
+            "title": "Context Switch"
+        },
+        {
+            "location": "/2-Process-Management/#process-lifecycle",
+            "text": "CPU is able to execute a process when the process is in Running or Ready state.",
+            "title": "Process Lifecycle"
+        },
+        {
+            "location": "/2-Process-Management/#process-creation",
+            "text": "",
+            "title": "Process Creation"
+        },
+        {
+            "location": "/2-Process-Management/#mechanisms",
+            "text": "fork :   copies the parent PCB into new child PCB  child contains execution at instruction after fork     exec :   replace child image  load new program and start from first instruction",
+            "title": "Mechanisms:"
+        },
+        {
+            "location": "/2-Process-Management/#what-is-the-role-of-cpu-scheduler",
+            "text": "CPU scheduler determines which one of the currently ready processes will be dispatched to the CPU to start running, and how long it should run for.  OS must :   preempt => interrupt and save current context  schedule => run scheduler to choose next process  dispatch => dispatch process 2 switch into its context",
+            "title": "What is the role of CPU scheduler?"
+        },
+        {
+            "location": "/2-Process-Management/#scheduling-design-decisions",
+            "text": "What are the appropriate timeslice values?  Metrics to choose next process to run?",
+            "title": "Scheduling design decisions"
+        },
+        {
+            "location": "/2-Process-Management/#io",
+            "text": "A process can make way in the ready queue in a number of ways.",
+            "title": "I/O"
+        },
+        {
+            "location": "/2-Process-Management/#can-process-interact",
+            "text": "",
+            "title": "Can process interact?"
+        },
+        {
+            "location": "/2-Process-Management/#inter-process-communication",
+            "text": "IPC mechanisms:   transfer data/info between address space  maintain protection and isolation  provide flexibility and performance   Two types of IPC models:",
+            "title": "Inter Process communication:"
+        },
+        {
+            "location": "/2-Process-Management/#1-message-passing-ipc",
+            "text": "OS provides communication channel line shared buffer  Processes can write(send), read(receive) msg to/from channel   Advantages : OS manages the channel  Disadvantages : Overheads",
+            "title": "1. Message Passing IPC"
+        },
+        {
+            "location": "/2-Process-Management/#2-shared-memory-ipc",
+            "text": "OS establishes a shared channel and maps it into each processes' address space  Processes directly write(send), read(receive) msg to/from this memory   Advantages : OS is out of the way after establishing the shared channel  Disadvantages : Re-implementing a lot of code that could have been done by the OS  Overall,  shared memory  based communication is better if mapping memory between two processes is ammortized over a large number of messages.",
+            "title": "2. Shared Memory IPC"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/",
+            "text": "Threads and Concurrency\n\n\nThread\n:\n\n\n\n\nis an active\n\n\nentity executing unit of a process\n\n\n\n\n\n\nworks simultaneously with others\n\n\nmany threads execute together\n\n\n\n\n\n\nrequires coordination\n\n\nsharing of I/O devices, CPUs, memory\n\n\n\n\n\n\n\n\nProcess vs Thread\n\n\n\n\nWhy are threads useful?\n\n\n\n\nParallelization => Speedup\n\n\nSpecialization => Hot cache\n\n\nEfficiency => lower memory requirement & cheaper IPC\n\n\nTime for context switch in threads is less, since memory is shared, hence mapping is not required between virtual and physical memory.\n\n\nTherefore multithreading can be used to hide latency.\n\n\n\n\n\n\nBenefits to both applicatioons and OS code \n\n\nMultithreaded OS kernel\n\n\nthreads working on behalf of applications\n\n\nOS level services like daemons and drivers\n\n\n\n\n\n\n\n\n\n\n\n\nWhat do we need to support threads?\n\n\n\n\nThreads data structure\n\n\nIdentify threads, keep track of resource usage..\n\n\n\n\n\n\nMechanisms to create and manage threads\n\n\nMechanisms to safely coordinate among threads running concurrently in the same address space\n\n\n\n\nConcurrency control and Coordination\n\n\n\n\nMutual exclusion \n\n\nExclusive access to only one thread at a time\n\n\nmutex\n\n\n\n\n\n\nWaiting on other threads\n\n\nSpecific condition before proceeding\n\n\ncondition variable\n\n\n\n\n\n\nWaking up other threads from wait state\n\n\n\n\nThreads and Threads creation\n\n\n\n\n\n\nThread data structure: \n\n\n\n\nThread type, Thread ID, PC, SP, registers, stack, attributes.\n\n\n\n\n\n\n\n\nFork\n(proc, args)\n\n\n\n\ncreate a thread\n\n\nnot UNIX fork \n\n\n\n\n\n\n\n\nt1 = fork(proc, args)   \n\n\n\n\n\n\nJoin\n(thread)\n\n\nterminate a thread\n\n\n\n\n\n\n\n\nchild_result = join(t1)   \n\n\n\n\nExample:\n\n\nThread  t1;\nShared_List list;\nt1 = fork(safe_insert, 4);\nsafe_insert(6);\njoin(t1); //Optional\n\n\n\n\nThe list can be accessed by reading shared variable.\n\n\nMutual Exclusion\n\n\n\n\nMutex data structure:\n\n\nlocked?, owner, blocked_threads\n\n\n\n\n\n\n\n\nlock(mutex){\n    //Critical Section\n    //Only one thread can access at a time\n}\nunlock(mutex)\n\n\n\n\n\n\nProducer Consumer problem\n\n\nWhat if the processing you wish to perform with mutual exclusion needs to occur under certai conditions?\n\n\nFor e.g. The producer appends items to a list until the list is full, and the consumer has to print out all the items of the list once the list if full and then empty the list. Thus we have to execute the Consumer thread only under a certain condition (here- when the list becomes empty, print items).\n\n\nSolution: Use \nCondition Variables\n\n\n\n\n\n\nWait(mutex, condition)\n\n\n\n\nmutex is automatically released and reaquired on wait\n\n\nThe consumer applies \nWait\n until the list is full\n\n\n\n\n\n\n\n\nSignal(condition)    \n\n\n\n\nNotify only one thread waiting on condition\n\n\nThe Producer applies \nSignal\n to the Consumer thread when the list is full\n\n\n\n\n\n\nBroadcast(condition)    \n\n\nNotify all waiting threads\n\n\n\n\n\n\n\n\n    \n\n\nReaders / Writer problem\n\n\n\n\n0 or more readers can access a resource\n\n\n\n\n0 or 1 writer can write the resource concurrently at the same time\n\n\n\n\n\n\nOne solution:\n\n\n\n\nlock on resource\n\n\ngood for writer\n\n\ntoo restrictive for readers\n\n\n\n\n\n\n\n\n\n\n\n\nBetter solution:\n\n\n\n\n\n\nif ((read_count == 0) & (read_count == 0))\n    R okay, W okay\nif (read_count > 0)\n    R okay    \nif (read_count == 1)\n    R not-okay, W not-okay    \n\n\n\n\nState of shared resource:\n\n\n\n\nfree : resource_counter = 0\n\n\nreading : resource_counter > 0\n\n\nwriting : resource_counter = -1\n\n\n\n\nThus essentially we can apply mutex on the new proxy 'resource_counter' variable that represents the state of the shared resource.\n\n\nAvoiding common mistakes\n\n\n\n\nkeep track of mutex/lock variable used with a resource\n\n\ne.g. mutex_type m1; // mutex for file1\n\n\n\n\n\n\ncheck that you are always and correctly using lock and unlock     - Compilers can be used as they generate errors/warnings to correct this type of mistake    \n\n\nUse a single mutex to access a single resource\n\n\ncheck that you are signalling correct condition\n\n\ncheck that you are not using signal when broadcast is needed\n\n\nsignal : only 1 thread is will proceed, remaining threads will wait\n\n\n\n\n\n\ncheck thread execution order to be controlled by signals to condition variables\n\n\n\n\nSpurious(Unnecessary) Wake ups\n\n\nWhen we wake up threads knowing they may not be able to proceed.\n\n\nDeadlocks\n\n\nTwo or more competing threads are said to be in a deadlock if they are waiting on each other to complete, but none of them ever do.\n\n\n\n\nHere T1 and T2 are in deadlock.\n\n\nHow to avoid this?\n\n\n\n\nUnlock T1 before locking T2\n\n\nFine-grained locking but T1 nad T2 may both be required\n\n\n\n\n\n\nUse one mega lock, get all locks upfront, then release at end\n\n\nFor some applications this may be ok. But generally its too restrictive and limits parallelism\n\n\n\n\n\n\nMaintain lock order\n\n\nfirst m_T1\n\n\nthen m_T2 \n\n\nthis will prevent cycles in wait graph\n\n\n\n\n\n\n\n\n\n\n\n\nA cycle in wait graph is necessary and sufficient for deadlock to occur.\n \n(thread-waiting-on-resource ---edge---> thread-owning-resource)\n\n\n\n\n\n\nDeadlock prevention => Expensive\n\nPre-check for cycles and then delay process or change code\n\n\n\n\n\n\nDeadlock Detection and Recovery => Rollback\n\n\n\n\n\n\nKernel vs User level Threads\n\n\n\n\nThree types of models:\n\n\n1. \nOne to One model\n:\n\n\n\n\nAdvantages\n: \n\n\n\n\nOS sees threads\n\n\nSynchronization\n\n\nBlocking\n\n\n\n\nDisadvantages\n: \n\n\n\n\nMust go to OS for all operations\n\n\nOS may have limits on policies, threads\n\n\nPortability\n\n\n\n\n2. \nMany to One model\n:\n\n\n\n\nAdvantages\n: \n\n\n\n\nTotally Portable \n\n\nDoesn't depend on OS limits and policies\n\n\n\n\nDisadvantages\n: \n\n\n\n\nOS may block entire process if one user-level thread blocks on I/O\n\n\n\n\n3. \nMany to Many model\n:\n\n\n\n\nAdvantages\n: \n\n\n\n\nBest of both worlds\n\n\nCan have bound or unbound threads\n\n\n\n\nDisadvantages\n: \n\n\n\n\nRequires coordination between user and kernel level thread managers\n\n\n\n\nMultithreading patterns\n\n\n1. Boss-Workers pattern\n\n\n\n\nBoss- assigns work\n\n\nWorkers- perform entire task\n\n\n\n\nThroughput of system is limited by boss thread. Hence boss thread must be kept efficient.\n\n\nThroughput = 1/boss-time-orders\n\n\nBoss assigns works by:\n1. Directly signalling specific works\n    - \n+\n workers don't need to sync\n    - \n-\n boss must keep track of everyone\n2. Placing work in queue\n    - \n+\n boss doesn't neeed to know details about workers\n    - \n-\n queue synchronization\n\n\nHow many workers?\n- on demand\n- pool of workers\n- static vs dynamic (i.e dynamically increasing size according to work)\n\n\nAdvantages\n: \n\n\n\n\nSimplicity\n\n\n\n\nDisadvantages\n: \n\n\n\n\nThread pool management\n\n\nLocality\n\n\n\n\n1B. Boss-Workers pattern variant\n\n\n\n\nHere workers are specialized for certain tasks opposite to the previous equally created workers\n\n\n\n\nAdvantages\n: \n\n Better locality\n\n Quality of Service management\n\n\nDisadvantages\n: \n* Load balancing\n\n\n2. Pipeline pattern\n\n\n\n\nThreads assigned one subtask in the system\n\n\nEntire task = Pipeline of threads\n\n\nMultiple tasks concurrently run in the system, in different pipeline stages\n\n\nThroughput depends on weakest link\n\n\nShared buffer based communication between stages\n\n\n\n\n3. Layered pattern\n\n\n\n\nLayers of threads are assigned group of related subtasks\n\n\nEnd to end task must pass up and down through all layers\n\n\n\n\nAdvantages\n: \n\n Specialization\n\n Less fine-grained than pipeline\n\n\nDisadvantages\n: \n\n Not suitable for all applications\n\n Synchronization\n\n\nExample:\n\n\nQ)\n For 6 step toy order application we have 2 solutions:\n\n\n\n\nBoss-workers solution\n\n\nPipeline solution\n\n\n\n\nBoth have 6 threads. In the boss-workers solution, a worker produces a toy order in 120 ms. In the pipeline solution, each of 6 stages take 20 ms.\n\n\nHow long will it take for these solutions to complete 10 toy orders and 11 toy orders?\n\n\nA)\n 6 threads means for Boss-workers, 1 thread is for boss, 5 for workers. In pipeline 6 threads are equally used.\n\n\nFor 10 toy orders:\n\n\nBoss-workers(10) = 120 + 120 = 240 ms\nPipeline(10) = 120 + (9*20) = 300 ms\n\n\n\n\nHere Boss-workers is better than Pipeline.\n\n\nFor 11 toy orders:\n\n\nBoss-workers(11) = 120 + 120 + 120 = 360 ms\nPipeline(11) = 120 + (10*20) = 320 ms\n\n\n\n\nHere Pipeline is better than Boss-workers.\n\n\nThis proves that choosing a better pattern depends on the number of threads and the work required to be done.\n\n\nPThreads\n\n\nPThreads == POSIX Threads\n\n\nPOSIX = Portable OS interface\n\n\nCompiling PThreads\n\n\n\n\n\n\ninclude\n in main file\n\n\n\n\nCompile source with -lpthread or -pthread\n\n\n\n\ngcc -o main main.c -lpthread\ngcc -o main main.c -pthread\n\n\n\n\n\n\nCheck return values of common examples\n\n\n\n\nPThread mutexes\n\n\n\n\nto solve mutual exclusion problems among concurrent threads\n\n\n\n\nSafety tips\n\n\n\n\nShared data should always be accessed through single mutex\n\n\nMutex scope must be visible to all\n\n\nGlobally order locks\n\n\nfor all threads, lock mutexes in order\n\n\n\n\n\n\nAlways unlock a mutex (correctly)\n\n\n\n\nThread Design Considerations\n\n\nKernel vs User Level Threads\n\n\n\n\nThread related data structures\n\n\n\n\nHard vs Light Process states\n\n\nPCB is divided into multiple data structures classified as follows:\n\n\n\n\nLight Process states\n\n\nSignal mask \n\n\nSystem call args\n\n\n\n\n\n\nHeavy Process states \n\n\nvirtual address mapping\n\n\n\n\n\n\n\n\nRationale for Multiple Data Structures:\n\n\n\n\n\n\n\n\nSingle PCB\n\n\nMultiple DS\n\n\n\n\n\n\n\n\n\n\nLarge continuos DS\n\n\nSmaller DS\n\n\n\n\n\n\nPrivate for each entity\n\n\nEasier to share\n\n\n\n\n\n\nSaved and restored on each context switch\n\n\nSave and Restore only what needs to change on context switch\n\n\n\n\n\n\nUpdate for any changes\n\n\nUser lever library need to only update portion of the state\n\n\n\n\n\n\n\n\n\n\nThus the following disadvantages for single PCB become advantages for Multiple DS : \n\n\nScalability\n\n\nOverheads\n\n\nPerformance\n\n\nFlexibility\n\n\n\n\nComparison of Interrupts and Signals\n\n\n\n\n\n\nHandled in specific ways\n        - interrupt and signal handlers\n\n\n\n\nCan be ignored\n\n\ninterrupt and signal mask\n\n\n\n\n\n\nExpected or unexpected    \n\n\nappear synchronously or asynchronously        \n\n\n\n\n\n\n\n\n\n\n\n\nDifference:\n\n\n\n\n\n\n\n\n\n\n\n\nInterrupts\n\n\nSignals\n\n\n\n\n\n\n\n\n\n\nEvents generated externally by components other than CPU (I/O devices, timers, other CPUs)\n\n\nEvents triggered by CPU and software running on it\n\n\n\n\n\n\nDetermined based on physical platform\n\n\nDetermined based on OS\n\n\n\n\n\n\nAppear asynchronously\n\n\nAppear synchronously or asynchronously\n\n\n\n\n\n\n\n\n\n\nSimilarities:\n\n\nHave a unique ID depending on h/w or OS\n\n\nCan be masked and disabled/suspended via corresponding mask\n\n\nper-CPU interrupt mask, preprocess signal mask\n\n\n\n\n\n\nif enabled, trigger corresponding to handler   \n\n\ninterrupt handler set for entire system by OS\n\n\nsignal handler set on per process basis by process\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAn interrupt is like a snowstorm alarm\n\nA signal is like a low battery warning\n\n\n\n\nInterrupts\n\n\n\n\nSignals\n\n\n\n\nHandlers / Actions\n\n\n\n\nDefault actions\n\n\nTerminate, ignore\n\n\nTerminate and core dump\n\n\nStop or continue\n\n\n\n\n\n\nProcess Installs Handler\n\n\nsignal(), sigaction()\n\n\nfor most signals, some cannot be \"caught\"\n\n\n\n\n\n\nSynchronous\n\n\nSIGSEGV (access to protected memory)\n\n\nSIGFPE (divided by zero)\n\n\nSIGKILL (kill, id)\n\n\ncan be directed to a specific thread\n\n\n\n\n\n\n\n\n\n\nAsynchronous\n*        \n\n\nSIGKILL (kill)\n\n\nSIGALARM\n\n\n\n\n\n\n\n\nWhy disable Interrupts or Signals\n\n\n\n\nHere PC: First instruction in handler\n\nSP : thread stack\n\n\nTo prevent deadlock,\n\n\n\n\nKeep handler code simple\n\n\navoid mutex\n\n\n-\n too restrictive\n\n\n\n\n\n\nControl interruptions by handler code\n\n\nUse interrupt/signal masks\n\n\n0011100110.. (0: disabled, 1: enabled)\n\n\n\n\n\n\n\n\nclear_field_in_mask(mask)\nlock(mutex)\n{\n\n#disabled => remaining pending\n\n}\nunlock(mutex)\nreset_field_in_mask(mask)\n\n#enabled => execute handler code\n\n\n\n\n\n\n\n\nInterrupt masks are per CPU \n\n\n\n\nif mask disables interrupt, hardware interrupt rounting mechanism will not deliver interrupt\n\n\n\n\n\n\n\n\nSignal are per execution context (User-level thread on top of Kernel-level thread)\n\n\n\n\nif mask disables signal, kernel sees mask and will not interrupt corresponding thread\n\n\n\n\n\n\n\n\nTypes of Signals\n\n\n\n\nOne-shot Signals\n\n\n\"n signals pending == 1 signal pending\" : atleast once \n\n\nmust be explicitly re-enabled\n\n\n\n\n\n\nRealtime Signals \n\n\n\"if n signals raised, then handler is called n times\"\n\n\n\n\n\n\n\n\nHandling interrupts as threads\n\n\n\n\nbut dynamic thread creation is expensive!\n\n\n\n\nDynamic decision\n\n\nif handler doesn't lock\n\n\nexecute on interrupted threads stack\n\n\n\n\n\n\nif handler can block\n\n\nturn into real thread        \n\n\n\n\n\n\n\n\n\n\nOptimization        \n\n\npre-create and pre-initialize thread structure for interrupt routines\n\n\n\n\n\n\n\n\nThreads and Signal Handling\n\n\n\n\nCase 1 :\n\n\n\n\nUser-Level-Thread mask = 1\n\n\nKernel-Level-Thread mask = 1\n\n\n\n\n\n\nCase 2 :\n\n\n\n\nUser-Level-Thread mask = 0\n\n\nKernel-Level-Thread mask = 1\n\n\nanother User-Level-Thread mask = 1\n\n\n\n\n\n\nCase 3 :\n\n\n\n\nUser-Level-Thread mask = 0\n\n\nKernel-Level-Thread mask = 1\n\n\nanother User-Level-Thread mask = 1\n\n\nanother Kernel-Level-Thread mask = 1\n\n\n\n\n\n\nCase 4 :\n\n\n\n\nUser-Level-Thread mask = 0\n\n\nKernel-Level-Thread mask = 1\n\n\nall User-Level-Thread mask = 0\n\n\n\n\n\n\nOptimize common case\n\n\n\n\nsignals less frequennt than signal mask updates\n\n\nsystem calls avoided\n\n\ncheaper to update user-level mask\n\n\n\n\n\n\nsignal handling more expensive    \n\n\n\n\nMulti-processing vs Multi-threading\n\n\nHow to best provide concurrency?\n\n\nMulti-Processing (MP)\n\n\nAdvantages\n \n\n\n\n\nSimple programming\n\n\n\n\nDisadvantages\n \n\n\n\n\nHigh memory usage\n\n\nCosts context switch\n\n\ncostly to maintain shared state (tricky port setup)\n\n\n\n\nMulti-Threading (MP)\n\n\nAdvantages\n \n\n\n\n\nShared address space\n\n\nShared state (no sys calls to other threads)\n\n\nCheap context switch\n\n\n\n\nDisadvantages\n \n\n\n\n\nComplex implementation\n\n\nRequires synchronization\n\n\nRequires underlying support for threads\n\n\n\n\nEvent Driven model\n\n\n\n\nFeatures:\n\n\n\n\nSingle address space\n\n\nSingle process\n\n\nSingle thread of control\n\n\n\n\nDispatcher : acts as a state machine and accepts any external events\n\n\nWhen call handler => jump to code\n\n\nThe handler:\n\n\n\n\nRuns to completion\n\n\nif they need to block\n\n\ninitiate blocking operation and pass control to dispatch loop\n\n\n\n\n\n\n\n\nConcurrent execution in Event-driven models\n\n\n\n\nMP & MT :  1 request per execution context (process/thread)\n\n\nEvent Driven : Many requests interleaved in an execution context\n\n\nSingle thread switches among processing of different requests\n\n\nProcess requests until wait is necessary\n\n\nthen switch to another request\n\n\n\n\n\n\n\n\nAdvantages\n    \n\n\n\n\nSingle address space\n\n\nSingle flow of control\n\n\nSmaller memory requirement\n\n\nEvent Driven model requires less memory than Boss-workers/Pipeline model, where the extra memory is required for helper thread for concurrent blocking I/O not for all concurrent requests.\n\n\n\n\n\n\nNo context switches\n\n\nNo synchronization\n\n\n\n\nDisadvantages\n    \n\n\n\n\nA blocking request/handler will block entire process\n\n\n\n\nAsynchronous I/O operations\n\n\nAsynchronous I/O operations fit well with Event-driven models   \n\n\nSince asynchronous calls are not easily avalible, helpers can be used to implement the async call functionality:\n\n\n\n\ndesignated for blocking I/O operations only\n\n\npipe/socket based communication with event dispatcher\n\n\nselect()/ poll() still okay\n\n\n\n\n\n\nhelper blocks, but main event loop (& process) will not\n\n\n\n\nAsymmetric Multi-Process Event Driven model (AMPED & AMTED)\n\n\nAdvantages\n\n\n\n\nResolve portability limitations of basic event driven model\n\n\nSmaller footprint than regular worker thread\n\n\n\n\nDisadvantages\n\n\n\n\nApplicability to certain classes of applications\n\n\nEvent routing on multi CPU systems\n\n\n\n\nEg \nApache Web Server\n\n\n\n\n\n\nCore : basic server skeleton\n\n\nModules : per functionality\n\n\nFlow of Control : Similar to Event Driven model\n\n\nBut its an combination of MP + MT,\n\n\neach process = boss/worker with dynamic thread pool\n\n\nnumber of processes can also be dynamically adjusted",
+            "title": "Threads and Concurrency"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#threads-and-concurrency",
+            "text": "Thread :   is an active  entity executing unit of a process    works simultaneously with others  many threads execute together    requires coordination  sharing of I/O devices, CPUs, memory",
+            "title": "Threads and Concurrency"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#process-vs-thread",
+            "text": "",
+            "title": "Process vs Thread"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#why-are-threads-useful",
+            "text": "Parallelization => Speedup  Specialization => Hot cache  Efficiency => lower memory requirement & cheaper IPC  Time for context switch in threads is less, since memory is shared, hence mapping is not required between virtual and physical memory.  Therefore multithreading can be used to hide latency.    Benefits to both applicatioons and OS code   Multithreaded OS kernel  threads working on behalf of applications  OS level services like daemons and drivers",
+            "title": "Why are threads useful?"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#what-do-we-need-to-support-threads",
+            "text": "Threads data structure  Identify threads, keep track of resource usage..    Mechanisms to create and manage threads  Mechanisms to safely coordinate among threads running concurrently in the same address space",
+            "title": "What do we need to support threads?"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#concurrency-control-and-coordination",
+            "text": "Mutual exclusion   Exclusive access to only one thread at a time  mutex    Waiting on other threads  Specific condition before proceeding  condition variable    Waking up other threads from wait state",
+            "title": "Concurrency control and Coordination"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#threads-and-threads-creation",
+            "text": "Thread data structure:    Thread type, Thread ID, PC, SP, registers, stack, attributes.     Fork (proc, args)   create a thread  not UNIX fork      t1 = fork(proc, args)      Join (thread)  terminate a thread     child_result = join(t1)",
+            "title": "Threads and Threads creation"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#example",
+            "text": "Thread  t1;\nShared_List list;\nt1 = fork(safe_insert, 4);\nsafe_insert(6);\njoin(t1); //Optional  The list can be accessed by reading shared variable.",
+            "title": "Example:"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#mutual-exclusion",
+            "text": "Mutex data structure:  locked?, owner, blocked_threads     lock(mutex){\n    //Critical Section\n    //Only one thread can access at a time\n}\nunlock(mutex)",
+            "title": "Mutual Exclusion"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#producer-consumer-problem",
+            "text": "What if the processing you wish to perform with mutual exclusion needs to occur under certai conditions?  For e.g. The producer appends items to a list until the list is full, and the consumer has to print out all the items of the list once the list if full and then empty the list. Thus we have to execute the Consumer thread only under a certain condition (here- when the list becomes empty, print items).  Solution: Use  Condition Variables    Wait(mutex, condition)   mutex is automatically released and reaquired on wait  The consumer applies  Wait  until the list is full     Signal(condition)       Notify only one thread waiting on condition  The Producer applies  Signal  to the Consumer thread when the list is full    Broadcast(condition)      Notify all waiting threads",
+            "title": "Producer Consumer problem"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#readers-writer-problem",
+            "text": "0 or more readers can access a resource   0 or 1 writer can write the resource concurrently at the same time    One solution:   lock on resource  good for writer  too restrictive for readers       Better solution:    if ((read_count == 0) & (read_count == 0))\n    R okay, W okay\nif (read_count > 0)\n    R okay    \nif (read_count == 1)\n    R not-okay, W not-okay      State of shared resource:   free : resource_counter = 0  reading : resource_counter > 0  writing : resource_counter = -1   Thus essentially we can apply mutex on the new proxy 'resource_counter' variable that represents the state of the shared resource.",
+            "title": "Readers / Writer problem"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#avoiding-common-mistakes",
+            "text": "keep track of mutex/lock variable used with a resource  e.g. mutex_type m1; // mutex for file1    check that you are always and correctly using lock and unlock     - Compilers can be used as they generate errors/warnings to correct this type of mistake      Use a single mutex to access a single resource  check that you are signalling correct condition  check that you are not using signal when broadcast is needed  signal : only 1 thread is will proceed, remaining threads will wait    check thread execution order to be controlled by signals to condition variables",
+            "title": "Avoiding common mistakes"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#spuriousunnecessary-wake-ups",
+            "text": "When we wake up threads knowing they may not be able to proceed.",
+            "title": "Spurious(Unnecessary) Wake ups"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#deadlocks",
+            "text": "Two or more competing threads are said to be in a deadlock if they are waiting on each other to complete, but none of them ever do.   Here T1 and T2 are in deadlock.",
+            "title": "Deadlocks"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#how-to-avoid-this",
+            "text": "Unlock T1 before locking T2  Fine-grained locking but T1 nad T2 may both be required    Use one mega lock, get all locks upfront, then release at end  For some applications this may be ok. But generally its too restrictive and limits parallelism    Maintain lock order  first m_T1  then m_T2   this will prevent cycles in wait graph       A cycle in wait graph is necessary and sufficient for deadlock to occur.  \n(thread-waiting-on-resource ---edge---> thread-owning-resource)    Deadlock prevention => Expensive \nPre-check for cycles and then delay process or change code    Deadlock Detection and Recovery => Rollback",
+            "title": "How to avoid this?"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#kernel-vs-user-level-threads",
+            "text": "Three types of models:",
+            "title": "Kernel vs User level Threads"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#1-one-to-one-model",
+            "text": "Advantages :    OS sees threads  Synchronization  Blocking   Disadvantages :    Must go to OS for all operations  OS may have limits on policies, threads  Portability",
+            "title": "1. One to One model:"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#2-many-to-one-model",
+            "text": "Advantages :    Totally Portable   Doesn't depend on OS limits and policies   Disadvantages :    OS may block entire process if one user-level thread blocks on I/O",
+            "title": "2. Many to One model:"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#3-many-to-many-model",
+            "text": "Advantages :    Best of both worlds  Can have bound or unbound threads   Disadvantages :    Requires coordination between user and kernel level thread managers",
+            "title": "3. Many to Many model:"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#multithreading-patterns",
+            "text": "1. Boss-Workers pattern   Boss- assigns work  Workers- perform entire task   Throughput of system is limited by boss thread. Hence boss thread must be kept efficient.  Throughput = 1/boss-time-orders  Boss assigns works by:\n1. Directly signalling specific works\n    -  +  workers don't need to sync\n    -  -  boss must keep track of everyone\n2. Placing work in queue\n    -  +  boss doesn't neeed to know details about workers\n    -  -  queue synchronization  How many workers?\n- on demand\n- pool of workers\n- static vs dynamic (i.e dynamically increasing size according to work)  Advantages :    Simplicity   Disadvantages :    Thread pool management  Locality   1B. Boss-Workers pattern variant   Here workers are specialized for certain tasks opposite to the previous equally created workers   Advantages :   Better locality  Quality of Service management  Disadvantages : \n* Load balancing  2. Pipeline pattern   Threads assigned one subtask in the system  Entire task = Pipeline of threads  Multiple tasks concurrently run in the system, in different pipeline stages  Throughput depends on weakest link  Shared buffer based communication between stages   3. Layered pattern   Layers of threads are assigned group of related subtasks  End to end task must pass up and down through all layers   Advantages :   Specialization  Less fine-grained than pipeline  Disadvantages :   Not suitable for all applications  Synchronization",
+            "title": "Multithreading patterns"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#example_1",
+            "text": "Q)  For 6 step toy order application we have 2 solutions:   Boss-workers solution  Pipeline solution   Both have 6 threads. In the boss-workers solution, a worker produces a toy order in 120 ms. In the pipeline solution, each of 6 stages take 20 ms.  How long will it take for these solutions to complete 10 toy orders and 11 toy orders?  A)  6 threads means for Boss-workers, 1 thread is for boss, 5 for workers. In pipeline 6 threads are equally used.  For 10 toy orders:  Boss-workers(10) = 120 + 120 = 240 ms\nPipeline(10) = 120 + (9*20) = 300 ms  Here Boss-workers is better than Pipeline.  For 11 toy orders:  Boss-workers(11) = 120 + 120 + 120 = 360 ms\nPipeline(11) = 120 + (10*20) = 320 ms  Here Pipeline is better than Boss-workers.  This proves that choosing a better pattern depends on the number of threads and the work required to be done.",
+            "title": "Example:"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#pthreads",
+            "text": "PThreads == POSIX Threads  POSIX = Portable OS interface",
+            "title": "PThreads"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#compiling-pthreads",
+            "text": "",
+            "title": "Compiling PThreads"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#include-in-main-file",
+            "text": "Compile source with -lpthread or -pthread   gcc -o main main.c -lpthread\ngcc -o main main.c -pthread   Check return values of common examples",
+            "title": "include in main file"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#pthread-mutexes",
+            "text": "to solve mutual exclusion problems among concurrent threads",
+            "title": "PThread mutexes"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#safety-tips",
+            "text": "Shared data should always be accessed through single mutex  Mutex scope must be visible to all  Globally order locks  for all threads, lock mutexes in order    Always unlock a mutex (correctly)",
+            "title": "Safety tips"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#thread-design-considerations",
+            "text": "",
+            "title": "Thread Design Considerations"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#kernel-vs-user-level-threads_1",
+            "text": "",
+            "title": "Kernel vs User Level Threads"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#thread-related-data-structures",
+            "text": "",
+            "title": "Thread related data structures"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#hard-vs-light-process-states",
+            "text": "PCB is divided into multiple data structures classified as follows:   Light Process states  Signal mask   System call args    Heavy Process states   virtual address mapping",
+            "title": "Hard vs Light Process states"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#rationale-for-multiple-data-structures",
+            "text": "Single PCB  Multiple DS      Large continuos DS  Smaller DS    Private for each entity  Easier to share    Saved and restored on each context switch  Save and Restore only what needs to change on context switch    Update for any changes  User lever library need to only update portion of the state      Thus the following disadvantages for single PCB become advantages for Multiple DS :   Scalability  Overheads  Performance  Flexibility",
+            "title": "Rationale for Multiple Data Structures:"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#comparison-of-interrupts-and-signals",
+            "text": "Handled in specific ways\n        - interrupt and signal handlers   Can be ignored  interrupt and signal mask    Expected or unexpected      appear synchronously or asynchronously               Difference:       Interrupts  Signals      Events generated externally by components other than CPU (I/O devices, timers, other CPUs)  Events triggered by CPU and software running on it    Determined based on physical platform  Determined based on OS    Appear asynchronously  Appear synchronously or asynchronously      Similarities:  Have a unique ID depending on h/w or OS  Can be masked and disabled/suspended via corresponding mask  per-CPU interrupt mask, preprocess signal mask    if enabled, trigger corresponding to handler     interrupt handler set for entire system by OS  signal handler set on per process basis by process        An interrupt is like a snowstorm alarm \nA signal is like a low battery warning",
+            "title": "Comparison of Interrupts and Signals"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#interrupts",
+            "text": "",
+            "title": "Interrupts"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#signals",
+            "text": "",
+            "title": "Signals"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#handlers-actions",
+            "text": "Default actions  Terminate, ignore  Terminate and core dump  Stop or continue    Process Installs Handler  signal(), sigaction()  for most signals, some cannot be \"caught\"    Synchronous  SIGSEGV (access to protected memory)  SIGFPE (divided by zero)  SIGKILL (kill, id)  can be directed to a specific thread      Asynchronous *          SIGKILL (kill)  SIGALARM",
+            "title": "Handlers / Actions"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#why-disable-interrupts-or-signals",
+            "text": "Here PC: First instruction in handler \nSP : thread stack  To prevent deadlock,   Keep handler code simple  avoid mutex  -  too restrictive    Control interruptions by handler code  Use interrupt/signal masks  0011100110.. (0: disabled, 1: enabled)     clear_field_in_mask(mask)\nlock(mutex)\n{\n\n#disabled => remaining pending\n\n}\nunlock(mutex)\nreset_field_in_mask(mask)\n\n#enabled => execute handler code    Interrupt masks are per CPU    if mask disables interrupt, hardware interrupt rounting mechanism will not deliver interrupt     Signal are per execution context (User-level thread on top of Kernel-level thread)   if mask disables signal, kernel sees mask and will not interrupt corresponding thread",
+            "title": "Why disable Interrupts or Signals"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#types-of-signals",
+            "text": "One-shot Signals  \"n signals pending == 1 signal pending\" : atleast once   must be explicitly re-enabled    Realtime Signals   \"if n signals raised, then handler is called n times\"",
+            "title": "Types of Signals"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#handling-interrupts-as-threads",
+            "text": "but dynamic thread creation is expensive!   Dynamic decision  if handler doesn't lock  execute on interrupted threads stack    if handler can block  turn into real thread              Optimization          pre-create and pre-initialize thread structure for interrupt routines",
+            "title": "Handling interrupts as threads"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#threads-and-signal-handling",
+            "text": "Case 1 :   User-Level-Thread mask = 1  Kernel-Level-Thread mask = 1    Case 2 :   User-Level-Thread mask = 0  Kernel-Level-Thread mask = 1  another User-Level-Thread mask = 1    Case 3 :   User-Level-Thread mask = 0  Kernel-Level-Thread mask = 1  another User-Level-Thread mask = 1  another Kernel-Level-Thread mask = 1    Case 4 :   User-Level-Thread mask = 0  Kernel-Level-Thread mask = 1  all User-Level-Thread mask = 0    Optimize common case   signals less frequennt than signal mask updates  system calls avoided  cheaper to update user-level mask    signal handling more expensive",
+            "title": "Threads and Signal Handling"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#multi-processing-vs-multi-threading",
+            "text": "How to best provide concurrency?",
+            "title": "Multi-processing vs Multi-threading"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#multi-processing-mp",
+            "text": "Advantages     Simple programming   Disadvantages     High memory usage  Costs context switch  costly to maintain shared state (tricky port setup)",
+            "title": "Multi-Processing (MP)"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#multi-threading-mp",
+            "text": "Advantages     Shared address space  Shared state (no sys calls to other threads)  Cheap context switch   Disadvantages     Complex implementation  Requires synchronization  Requires underlying support for threads",
+            "title": "Multi-Threading (MP)"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#event-driven-model",
+            "text": "Features:   Single address space  Single process  Single thread of control   Dispatcher : acts as a state machine and accepts any external events  When call handler => jump to code  The handler:   Runs to completion  if they need to block  initiate blocking operation and pass control to dispatch loop",
+            "title": "Event Driven model"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#concurrent-execution-in-event-driven-models",
+            "text": "MP & MT :  1 request per execution context (process/thread)  Event Driven : Many requests interleaved in an execution context  Single thread switches among processing of different requests  Process requests until wait is necessary  then switch to another request     Advantages        Single address space  Single flow of control  Smaller memory requirement  Event Driven model requires less memory than Boss-workers/Pipeline model, where the extra memory is required for helper thread for concurrent blocking I/O not for all concurrent requests.    No context switches  No synchronization   Disadvantages        A blocking request/handler will block entire process",
+            "title": "Concurrent execution in Event-driven models"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#asynchronous-io-operations",
+            "text": "Asynchronous I/O operations fit well with Event-driven models     Since asynchronous calls are not easily avalible, helpers can be used to implement the async call functionality:   designated for blocking I/O operations only  pipe/socket based communication with event dispatcher  select()/ poll() still okay    helper blocks, but main event loop (& process) will not",
+            "title": "Asynchronous I/O operations"
+        },
+        {
+            "location": "/3-Threads-and-Concurrency/#asymmetric-multi-process-event-driven-model-amped-amted",
+            "text": "Advantages   Resolve portability limitations of basic event driven model  Smaller footprint than regular worker thread   Disadvantages   Applicability to certain classes of applications  Event routing on multi CPU systems   Eg  Apache Web Server    Core : basic server skeleton  Modules : per functionality  Flow of Control : Similar to Event Driven model  But its an combination of MP + MT,  each process = boss/worker with dynamic thread pool  number of processes can also be dynamically adjusted",
+            "title": "Asymmetric Multi-Process Event Driven model (AMPED &amp; AMTED)"
+        },
+        {
+            "location": "/4-Scheduling/",
+            "text": "Scheduling\n\n\nOperating System perform scheduling in the following simple ways:\n\n\n\n\nDispatch orders immediately\n\n\nscheduling is simple FIFO (First-Come-First-Serve)\n\n\n\n\n\n\nDispatch simple orders first\n\n\nmaximize number of orders processed over time\n\n\nmaximize throughput (SJF)\n\n\n\n\n\n\nDispatch complex orders first\n\n\nmaximize utilization of CPU, devices, memory\n\n\n\n\n\n\n\n\nCPU Scheduler\n\n\n\n\nDecides how and when process (and their threads) access shared CPUs\n\n\nSchedules tasks running at user level processes/threads as well as kernel level threads\n\n\nChooses one of the ready tasks to run on CPU\n\n\nRuns when\n\n\nCPU becomes idle\n\n\nnew task becomes ready\n\n\ntimeslice expired timeout\n\n\n\n\n\n\n\n\nContext switch, enter user mode, set PC and go! <= Thread is dispatched on CPU.\n\n\n\n\nWhich task should be selected?\n\n\nScheduling policy/algorithm\n\n\n\n\n\n\nHow is this done?\n\n\nDepends on runqueue data structure\n\n\n\n\n\n\n\n\n\"Run-to-completion\" Scheduling\n\n\n\n\nInitial assumptions\n\n\ngroup of tasks/jobs\n\n\nknown execution time\n\n\nno preemption\n\n\nsingle CPU\n\n\n\n\n\n\nMetrics\n\n\nthroughput\n\n\naverage job completion time\n\n\naverage job wait time\n\n\nCPU utilization\n\n\n\n\n\n\n\n\nScheduling algorithms:\n\n\n1. First Come First Serve (FCFS)\n\n\n\n\nSchedules tasks in order of arrival\n\n\n\n\nrunqueue = queue(FIFO)\n\n\n\n\nIf T1, T2, T3 arrive in the given order and T1 has execution time 1s, T2 10s and T3 1s then :\n\n\n\n\nThroughput = 3/(1+10+1) = 3/12 = 0.25s\n\n\nAverage completion time = (1 + 11 + 12)/3 = 8s\n\n\nAverage wait time = (1+1+11)/3 = 4s\n\n\n\n\n2. Shortest Job First (SJF)\n\n\n\n\nSchedules tasks in order of execution time\n\n\nTherefore for the above example, T1(1s) > T3(1s) > T2(10s)\n\n\n\n\nrunqueue = ordered(queue)\n\n//or\n\nrunqueue = tree()\n\n\n\n\nFor SJF,\n\n\n\n\nThroughput = 3/(1+10+1) = 3/12 = 0.25s\n\n\nAverage completion time = (1 + 2 + 12)/3 = 5s\n\n\nAverage wait time = (0+1+2)/3 = 1s\n\n\n\n\nPreemptive Scheduling\n\n\n\n\nSJF + Preemption\n\n\n\n\nT2 arrives first.\n\n\n\n\nPriority Scheduling\n\n\n\n\nTasks have different priority levels\n\n\nRun highest priority task next (preemption)\n\n\n\n\n\n\nrunqueue = per priority_queue()\n\n//or \n\nrunqueue = tree() ordered on priority\n\n\n\n\n\n\nlow priority task stuck in runqueue => starvation\n\n\n\"priority aging\" \n\n\npriority = f(actual priority, time spent in runqueue)\n\n\neventually tasks will run\n\n\nprevents starvation\n\n\n\n\n\n\n\n\n3. Round-Robin Scheduling\n\n\n\n\nPick up the first task from queue (like FCFS)\n\n\nTask may yield to wait on I/O (unlike FCFCS)\n\n\n\n\n\n\n\n\n\n\nTimeslicing\n\n\n\n\nTimeslice = max amount of uninterrupted time given to a task\n\n\ntask may run less than timeslice\n\n\nhas to wait on I/O sync\n\n\nwill be placed on queue\n\n\n\n\n\n\nhigher priority task becomes runnable\n\n\n\n\n\n\nusing timeslice tasks are interleaved\n\n\ntimesharing the CPU\n\n\nCPU bound tasks => preemption after timeslice\n\n\n\n\n\n\n\n\n    \n\n\nAdvantages\n\n\n\n\nShort tasks finish sooner\n\n\nMore responsive\n\n\nLengthy I/O operations initiated sooner\n\n\nbest to keep timeslice > context-switch-time\n\n\n\n\n\n\n\n\nDisdvantages\n    \n\n\n\n\nOverheads\n\n\n\n\nHow long should a timeslice be be?\n\n\n\n\nshould balance benefits and overheads\n\n\n\n\nFor CPU bound tasks:\n\n\n    \n\n\n\n\nHence, for CPU bound tasks, larger timeslice values are better\n\n\n\n\nFor I/O bound tasks:\n\n\n    \n\n\n\n\nHence, for I/O bound tasks, smaller timeslice values are better\n\n\nKeeps CPU and I/P devices busy, I/O bound tasks run quickly, makes I/O requests responds to a user.\n\n\n\n\n\n\n\n\nSummary\n\n\n\n\n\n\nCPU bound tasks prefer longer timeslices\n\n\n\n\nlimits context switching overheads\n\n\nkeeps CPU utilization and throughput\n\n\n\n\n\n\n\n\nI/O bound tasks prefer smaller timeslices \n\n\n\n\nHowever, if all the tasks in contention are I/O bound, it may not make such a difference\n\n\nIf a portion of them are I/O smaller timeslices keeps CPU and device utilization high\n\n\nProvides better user-perceived performance",
+            "title": "Scheduling"
+        },
+        {
+            "location": "/4-Scheduling/#scheduling",
+            "text": "Operating System perform scheduling in the following simple ways:   Dispatch orders immediately  scheduling is simple FIFO (First-Come-First-Serve)    Dispatch simple orders first  maximize number of orders processed over time  maximize throughput (SJF)    Dispatch complex orders first  maximize utilization of CPU, devices, memory",
+            "title": "Scheduling"
+        },
+        {
+            "location": "/4-Scheduling/#cpu-scheduler",
+            "text": "Decides how and when process (and their threads) access shared CPUs  Schedules tasks running at user level processes/threads as well as kernel level threads  Chooses one of the ready tasks to run on CPU  Runs when  CPU becomes idle  new task becomes ready  timeslice expired timeout     Context switch, enter user mode, set PC and go! <= Thread is dispatched on CPU.   Which task should be selected?  Scheduling policy/algorithm    How is this done?  Depends on runqueue data structure",
+            "title": "CPU Scheduler"
+        },
+        {
+            "location": "/4-Scheduling/#run-to-completion-scheduling",
+            "text": "Initial assumptions  group of tasks/jobs  known execution time  no preemption  single CPU    Metrics  throughput  average job completion time  average job wait time  CPU utilization",
+            "title": "\"Run-to-completion\" Scheduling"
+        },
+        {
+            "location": "/4-Scheduling/#scheduling-algorithms",
+            "text": "",
+            "title": "Scheduling algorithms:"
+        },
+        {
+            "location": "/4-Scheduling/#1-first-come-first-serve-fcfs",
+            "text": "Schedules tasks in order of arrival   runqueue = queue(FIFO)  If T1, T2, T3 arrive in the given order and T1 has execution time 1s, T2 10s and T3 1s then :   Throughput = 3/(1+10+1) = 3/12 = 0.25s  Average completion time = (1 + 11 + 12)/3 = 8s  Average wait time = (1+1+11)/3 = 4s",
+            "title": "1. First Come First Serve (FCFS)"
+        },
+        {
+            "location": "/4-Scheduling/#2-shortest-job-first-sjf",
+            "text": "Schedules tasks in order of execution time  Therefore for the above example, T1(1s) > T3(1s) > T2(10s)   runqueue = ordered(queue)\n\n//or\n\nrunqueue = tree()  For SJF,   Throughput = 3/(1+10+1) = 3/12 = 0.25s  Average completion time = (1 + 2 + 12)/3 = 5s  Average wait time = (0+1+2)/3 = 1s",
+            "title": "2. Shortest Job First (SJF)"
+        },
+        {
+            "location": "/4-Scheduling/#preemptive-scheduling",
+            "text": "SJF + Preemption   T2 arrives first.",
+            "title": "Preemptive Scheduling"
+        },
+        {
+            "location": "/4-Scheduling/#priority-scheduling",
+            "text": "Tasks have different priority levels  Run highest priority task next (preemption)    runqueue = per priority_queue()\n\n//or \n\nrunqueue = tree() ordered on priority   low priority task stuck in runqueue => starvation  \"priority aging\"   priority = f(actual priority, time spent in runqueue)  eventually tasks will run  prevents starvation",
+            "title": "Priority Scheduling"
+        },
+        {
+            "location": "/4-Scheduling/#3-round-robin-scheduling",
+            "text": "Pick up the first task from queue (like FCFS)  Task may yield to wait on I/O (unlike FCFCS)",
+            "title": "3. Round-Robin Scheduling"
+        },
+        {
+            "location": "/4-Scheduling/#timeslicing",
+            "text": "Timeslice = max amount of uninterrupted time given to a task  task may run less than timeslice  has to wait on I/O sync  will be placed on queue    higher priority task becomes runnable    using timeslice tasks are interleaved  timesharing the CPU  CPU bound tasks => preemption after timeslice           Advantages   Short tasks finish sooner  More responsive  Lengthy I/O operations initiated sooner  best to keep timeslice > context-switch-time     Disdvantages        Overheads",
+            "title": "Timeslicing"
+        },
+        {
+            "location": "/4-Scheduling/#how-long-should-a-timeslice-be-be",
+            "text": "should balance benefits and overheads",
+            "title": "How long should a timeslice be be?"
+        },
+        {
+            "location": "/4-Scheduling/#for-cpu-bound-tasks",
+            "text": "Hence, for CPU bound tasks, larger timeslice values are better",
+            "title": "For CPU bound tasks:"
+        },
+        {
+            "location": "/4-Scheduling/#for-io-bound-tasks",
+            "text": "Hence, for I/O bound tasks, smaller timeslice values are better  Keeps CPU and I/P devices busy, I/O bound tasks run quickly, makes I/O requests responds to a user.",
+            "title": "For I/O bound tasks:"
+        },
+        {
+            "location": "/4-Scheduling/#summary",
+            "text": "CPU bound tasks prefer longer timeslices   limits context switching overheads  keeps CPU utilization and throughput     I/O bound tasks prefer smaller timeslices    However, if all the tasks in contention are I/O bound, it may not make such a difference  If a portion of them are I/O smaller timeslices keeps CPU and device utilization high  Provides better user-perceived performance",
+            "title": "Summary"
+        },
+        {
+            "location": "/5-Memory-Management/",
+            "text": "Memory Management\n\n\nOperating systems:\n\n\n\n\nuses intelligently size containers\n\n\nmemory pages of segments\n\n\n\n\n\n\nNot all parts are needed at once \n\n\ntasks operate on subset of memory\n\n\n\n\n\n\nOptimized for performance\n\n\nreduce time to access state in memory\n\n\nleads to better performance!\n\n\n\n\n\n\n\n\n\n\n\n\nMemory Management Goals\n\n\n\n\nVirtual vs Physical memory\n\n\n\n\nAllocate \n\n\nallocation, replacement\n\n\n\n\n\n\nArbitrate\n\n\naddress translation and validation\n\n\n\n\n\n\n\n\nPage-based Memory Management\n\n\n\n\nAllocate => pages => page frames\n\n\nArbitrate => page tables\n\n\n\n\nSegment-based Memory Management\n\n\n\n\nAllocate => segments\n\n\nArbitrate => segment registers\n\n\n\n\nHardware Support\n\n\n\n\nMemory Management Unit (MMU)\n\n\n\n\ntranslate virtual to physical address \n\n\nreports faults (illegal access, permission, not present in memory)\n\n\n\n\nRegisters\n\n\n\n\npointers to page tables\n\n\nbase and limit size, number of segments\n\n\n\n\nCache\n\n\n\n\nTranslation lookaside buffer\n\n\nValid VA-PA translations using TLB\n\n\n\n\nTranslation\n\n\n\n\nActual PA generation done in hardware\n\n\n\n\nPage Tables\n\n\n\n\n\n\nOS creates page table per process\n\n\nOn context switch, switch to valid page table\n\n\nUpdates register that points to correct page table.\n    E.g CR3 on x86 architecture\n\n\n\n\nPage Table Entry (PTE)\n\n\n\n\nFlags\n\n\n\n\nPresent (valid/invalid)\n\n\nDirty (written to)\n\n\nAccessed (for read or write)\n\n\nProtection bits => RWX\n\n\n\n\nPage Table Entry on x86\n\n\n\n\nFlags\n\n\n\n\nPresent \n\n\nDirty \n\n\nAccessed\n\n\nR/W permission bit 0: R only, 1: R/W\n\n\nU/S permission bit 0: usermode, 1: superviser mode only\n\n\nothers: caching related info (write through, caching disabled)\n\n\nunused: for future use\n\n\n\n\nPage faults\n\n\n\n\nPage Table Size\n\n\n\n\n\n\n32 bit architecture\n\n\nPage Table Entry (PTE) = 4 Bytes, including PFN + flags\n\n\nVirtual Page Number (VPN) = 2^32/page_size\n\n\nPage size = 4KB (...8KB, 2MB, 4MB, 1GB)\n\n\n\n\n\n\n\n\nTherefore Page Table Size = (2^32 * 2^12)*4B = 4MB (per process)\n\n\n\n\nfor 64 bit architecture\n\n\nPage Table Entry (PTE) = 8 Bytes\n\n\nPage size = 4KB\n\n\n\n\n\n\n\n\nPage Table Size = (2^64 * 2^12)*8B = 32PB (per process!)\n\n\n\n\nprocesses don't use entire address space\n\n\neven on 32 bit architecture, it will not always use all 4GB\n\n\n\n\nBut Page Table assumes an entry per VPN regardless, of whether corresponding virtual memory is needed or not.\n\n\nHierarchical Page Tables\n\n\n\n\nOn malloc, a new internal page table may be allocated.\n\n\nAddress split:\n\n\n\n  \n\n    \nPage Number\n\n    \noffset\n\n  \n\n  \n\n    \nP1\n\n    \nP2\n\n    \nd\n\n  \n\n  \n\n    \n12\n\n    \n10\n\n    \n10\n\n  \n\n\n\n\n\n\n\ninner table addresses => 2^10 * page_size = 2^10*2^10 = 1MB\n\n\ndon't need an inner table for each 1MB virtual memory gap\n\n\n\n\nAdditional Layers\n\n\n\n\npage table directory pointer (3rd level)\n\n\n\n\npage table directory map (4th level)\n\n\n\n\n\n\nImportant on 64 bit architectures\n\n\n\n\nlarger and more sparse => larger gaps would save more internal page table components\n\n\n\n\n\n\nTradeoffs of Multilevel Page Tables\n\n\nAdvantages\n\n\n\n\nSmaller internal page tables/directories \n\n\nGranularity of coverage\n\n\nPotentially reduced page table size\n\n\n\n\n\n\n\n\nDisadvantages\n\n\n\n\nMore memory accesses required for translation\n\n\nincreased translation latency\n\n\n\n\nOverheads of Address Translation\n\n\nFor each memory reference :\n\n\n\n\n\n\n\n\nSingle level page table\n\n\nFour level page table\n\n\n\n\n\n\n\n\n\n\nx1 access to PTE\n\n\nx4 accesses to PTE\n\n\n\n\n\n\nx1 access to mem\n\n\nx1 access to mem\n\n\n\n\n\n\n\n\nwhich results in slowdown.\n\n\nPage Table Cache\n\n\n\n\nTranslation Lookaside Buffer\n\n\n\n\nMMU level address translation cache\n\n\nOn TLB miss => page table access from memory\n\n\nhas protection/validity bits\n\n\n\n\nsmall number of cached address => high TLB hit rate\n\n\n\n\ntemporal and spatial locality\n\n\n\n\n\n\n\n\nExample\n\n\n\n\nx86 Core i7\n\n\nper core : 64-entry data TLB \n 128-entry instruction TLB \n\n\n512-entry shared second-level TLB \n\n\n\n\n\n\n\n\n\n\n\n\nInverted Page Tables\n\n\n\n\nHashing Page Tables\n\n\n\n\nSegmentation\n\n\nSegmentation is the process of mapping virtual to physical memory using segments.\n\n\n\n\nSegments: arbitrary granularity (size)\n\n\ne.g. code, heap, data, stack..\n\n\naddress = segment - selector + offset\n\n\n\n\n\n\nSegment\n\n\ncontiguous physical memory\n\n\nsegment size = segment base + limit registers\n\n\n\n\n\n\n\n\n\n\nSegmentation + Paging\n\n\n\n\nPage Size\n\n\n\n\n10 bit offset => 1 KB page size [2^10]\n\n\n12 bit offset => 4 KB page size [2^12]\n\n\n\n\nIn real world examples,\n\n\n\n\nLinux/x86 : 4 KB, 2MB, 1GB\n\n\nSolaris/Sparse: 8kB, 4MB, 2GB\n\n\n\n\n\n\n\n\n\n\n\n\nLarge\n\n\n\n\n\n\n\n\n\n\npage size\n\n\n2 MB\n\n\n\n\n\n\noffset bits\n\n\n21 bits\n\n\n\n\n\n\nreduction factor on page table size\n\n\nx512\n\n\n\n\n\n\n\n\nAdvantages\n\n\n\n\nlarger pages\n\n\nfewer page table entries, smaller page tables, more TLB hits\n\n\n\n\n\n\n\n\nDisadvantages\n\n\n\n\ninternal fragmentation => wastes memory\n\n\n\n\nMemory Allocation\n\n\n\n\n\n\nMemory allocator\n\n\n\n\ndetermines VA to PA mapping\n\n\naddress translation, page tables\n    => simply determine PA from VA and check validity/permsissions \n\n\n\n\n\n\n\n\nKernel Level Allocators\n\n\n\n\nkernel state, static process state\n\n\n\n\n\n\nUser Level Allocators\n\n\ndynamic process state (heap), malloc/free\n\n\ne.g. d/malloc, jemalloc, Hoard, tcmalloc\n\n\n\n\n\n\n\n\nDemand Paging\n\n\n\n\nVirtual Memory >> Physical Memory\n\n\nvirtual memory page is not always in physical memory\n\n\nphysical page frame saved and restored to/from secondary storage\n\n\n\n\n\n\n\n\nDemand paging:\n\n\n\n\npages swapped in/out of memory & a swap partition (e.g. on a disk)\n\n\n\n\n\n\n\n\nOriginal PA != PA after swapping\n\n\nif page is \"pinned\", swapping is disabled\n\n\n\n\n\n\n\n\nWhen pages should be swapped?\n\n\n\n\npage(out) daemon\n\n\nwhen memory usage is above threshold\n\n\nwhen CPU usage is below threshold\n\n\n\n\nWhich page should be swapped out?\n\n\n\n\npages that won't be used\n\n\nhistory based prediction\n\n\nLeast Recently Used (LRU policy). Access bit tracks if page is referenced.\n\n\n\n\n\n\npage that don't need to be written out\n\n\nDirty bit to track if modified\n\n\n\n\n\n\navoid non-swappable pages    \n\n\n\n\nCheckpointing\n\n\n\n\nFailure and Recovery management technique\n\n\nperiodically save process state\n\n\nfailure may be unavoidable but can restart from checkpoint, so recovery would be faster\n\n\n\n\n\n\n\n\nSimple Approach\n\n\n\n\npause and save\n\n\n\n\nBetter Approach\n\n\n\n\nwrite-protect and copy everything at once \n\n\ncopy diffs of dirties pages for incremental checkpoints\n\n\nrebuild from multiple diffs, or in background\n\n\n\n\n\n\n\n\nCheckpointing can also be used in other services:\n\n\n\n\n\n\nDebugging\n\n\n\n\nRewind-Replay\n\n\nrewind = restart from checkpoint \n\n\ngradually go back to earlier checkpoints until error is found\n\n\n\n\n\n\n\n\nMigration\n\n\n\n\ncontinue on another machine\n\n\ndisaster recovery\n\n\nconsolidation\n\n\nrepeated checkpoints in a fast loop until pause and copy becomes acceptable (or unavoidable)",
+            "title": "Memory Management"
+        },
+        {
+            "location": "/5-Memory-Management/#memory-management",
+            "text": "Operating systems:   uses intelligently size containers  memory pages of segments    Not all parts are needed at once   tasks operate on subset of memory    Optimized for performance  reduce time to access state in memory  leads to better performance!",
+            "title": "Memory Management"
+        },
+        {
+            "location": "/5-Memory-Management/#memory-management-goals",
+            "text": "",
+            "title": "Memory Management Goals"
+        },
+        {
+            "location": "/5-Memory-Management/#virtual-vs-physical-memory",
+            "text": "Allocate   allocation, replacement    Arbitrate  address translation and validation",
+            "title": "Virtual vs Physical memory"
+        },
+        {
+            "location": "/5-Memory-Management/#page-based-memory-management",
+            "text": "Allocate => pages => page frames  Arbitrate => page tables",
+            "title": "Page-based Memory Management"
+        },
+        {
+            "location": "/5-Memory-Management/#segment-based-memory-management",
+            "text": "Allocate => segments  Arbitrate => segment registers",
+            "title": "Segment-based Memory Management"
+        },
+        {
+            "location": "/5-Memory-Management/#hardware-support",
+            "text": "",
+            "title": "Hardware Support"
+        },
+        {
+            "location": "/5-Memory-Management/#memory-management-unit-mmu",
+            "text": "translate virtual to physical address   reports faults (illegal access, permission, not present in memory)",
+            "title": "Memory Management Unit (MMU)"
+        },
+        {
+            "location": "/5-Memory-Management/#registers",
+            "text": "pointers to page tables  base and limit size, number of segments",
+            "title": "Registers"
+        },
+        {
+            "location": "/5-Memory-Management/#cache",
+            "text": "Translation lookaside buffer  Valid VA-PA translations using TLB",
+            "title": "Cache"
+        },
+        {
+            "location": "/5-Memory-Management/#translation",
+            "text": "Actual PA generation done in hardware",
+            "title": "Translation"
+        },
+        {
+            "location": "/5-Memory-Management/#page-tables",
+            "text": "OS creates page table per process  On context switch, switch to valid page table  Updates register that points to correct page table.\n    E.g CR3 on x86 architecture",
+            "title": "Page Tables"
+        },
+        {
+            "location": "/5-Memory-Management/#page-table-entry-pte",
+            "text": "",
+            "title": "Page Table Entry (PTE)"
+        },
+        {
+            "location": "/5-Memory-Management/#flags",
+            "text": "Present (valid/invalid)  Dirty (written to)  Accessed (for read or write)  Protection bits => RWX",
+            "title": "Flags"
+        },
+        {
+            "location": "/5-Memory-Management/#page-table-entry-on-x86",
+            "text": "",
+            "title": "Page Table Entry on x86"
+        },
+        {
+            "location": "/5-Memory-Management/#flags_1",
+            "text": "Present   Dirty   Accessed  R/W permission bit 0: R only, 1: R/W  U/S permission bit 0: usermode, 1: superviser mode only  others: caching related info (write through, caching disabled)  unused: for future use",
+            "title": "Flags"
+        },
+        {
+            "location": "/5-Memory-Management/#page-faults",
+            "text": "",
+            "title": "Page faults"
+        },
+        {
+            "location": "/5-Memory-Management/#page-table-size",
+            "text": "32 bit architecture  Page Table Entry (PTE) = 4 Bytes, including PFN + flags  Virtual Page Number (VPN) = 2^32/page_size  Page size = 4KB (...8KB, 2MB, 4MB, 1GB)     Therefore Page Table Size = (2^32 * 2^12)*4B = 4MB (per process)   for 64 bit architecture  Page Table Entry (PTE) = 8 Bytes  Page size = 4KB     Page Table Size = (2^64 * 2^12)*8B = 32PB (per process!)   processes don't use entire address space  even on 32 bit architecture, it will not always use all 4GB   But Page Table assumes an entry per VPN regardless, of whether corresponding virtual memory is needed or not.",
+            "title": "Page Table Size"
+        },
+        {
+            "location": "/5-Memory-Management/#hierarchical-page-tables",
+            "text": "On malloc, a new internal page table may be allocated.",
+            "title": "Hierarchical Page Tables"
+        },
+        {
+            "location": "/5-Memory-Management/#address-split",
+            "text": "Page Number \n     offset \n   \n   \n     P1 \n     P2 \n     d \n   \n   \n     12 \n     10 \n     10 \n      inner table addresses => 2^10 * page_size = 2^10*2^10 = 1MB  don't need an inner table for each 1MB virtual memory gap   Additional Layers   page table directory pointer (3rd level)   page table directory map (4th level)    Important on 64 bit architectures   larger and more sparse => larger gaps would save more internal page table components",
+            "title": "Address split:"
+        },
+        {
+            "location": "/5-Memory-Management/#tradeoffs-of-multilevel-page-tables",
+            "text": "Advantages   Smaller internal page tables/directories   Granularity of coverage  Potentially reduced page table size     Disadvantages   More memory accesses required for translation  increased translation latency",
+            "title": "Tradeoffs of Multilevel Page Tables"
+        },
+        {
+            "location": "/5-Memory-Management/#overheads-of-address-translation",
+            "text": "For each memory reference :     Single level page table  Four level page table      x1 access to PTE  x4 accesses to PTE    x1 access to mem  x1 access to mem     which results in slowdown.",
+            "title": "Overheads of Address Translation"
+        },
+        {
+            "location": "/5-Memory-Management/#page-table-cache",
+            "text": "",
+            "title": "Page Table Cache"
+        },
+        {
+            "location": "/5-Memory-Management/#translation-lookaside-buffer",
+            "text": "MMU level address translation cache  On TLB miss => page table access from memory  has protection/validity bits   small number of cached address => high TLB hit rate   temporal and spatial locality     Example   x86 Core i7  per core : 64-entry data TLB   128-entry instruction TLB   512-entry shared second-level TLB",
+            "title": "Translation Lookaside Buffer"
+        },
+        {
+            "location": "/5-Memory-Management/#inverted-page-tables",
+            "text": "",
+            "title": "Inverted Page Tables"
+        },
+        {
+            "location": "/5-Memory-Management/#hashing-page-tables",
+            "text": "",
+            "title": "Hashing Page Tables"
+        },
+        {
+            "location": "/5-Memory-Management/#segmentation",
+            "text": "Segmentation is the process of mapping virtual to physical memory using segments.   Segments: arbitrary granularity (size)  e.g. code, heap, data, stack..  address = segment - selector + offset    Segment  contiguous physical memory  segment size = segment base + limit registers",
+            "title": "Segmentation"
+        },
+        {
+            "location": "/5-Memory-Management/#segmentation-paging",
+            "text": "",
+            "title": "Segmentation + Paging"
+        },
+        {
+            "location": "/5-Memory-Management/#page-size",
+            "text": "10 bit offset => 1 KB page size [2^10]  12 bit offset => 4 KB page size [2^12]   In real world examples,   Linux/x86 : 4 KB, 2MB, 1GB  Solaris/Sparse: 8kB, 4MB, 2GB       Large      page size  2 MB    offset bits  21 bits    reduction factor on page table size  x512     Advantages   larger pages  fewer page table entries, smaller page tables, more TLB hits     Disadvantages   internal fragmentation => wastes memory",
+            "title": "Page Size"
+        },
+        {
+            "location": "/5-Memory-Management/#memory-allocation",
+            "text": "Memory allocator   determines VA to PA mapping  address translation, page tables\n    => simply determine PA from VA and check validity/permsissions      Kernel Level Allocators   kernel state, static process state    User Level Allocators  dynamic process state (heap), malloc/free  e.g. d/malloc, jemalloc, Hoard, tcmalloc",
+            "title": "Memory Allocation"
+        },
+        {
+            "location": "/5-Memory-Management/#demand-paging",
+            "text": "Virtual Memory >> Physical Memory  virtual memory page is not always in physical memory  physical page frame saved and restored to/from secondary storage",
+            "title": "Demand Paging"
+        },
+        {
+            "location": "/5-Memory-Management/#demand-paging_1",
+            "text": "pages swapped in/out of memory & a swap partition (e.g. on a disk)     Original PA != PA after swapping  if page is \"pinned\", swapping is disabled",
+            "title": "Demand paging:"
+        },
+        {
+            "location": "/5-Memory-Management/#when-pages-should-be-swapped",
+            "text": "page(out) daemon  when memory usage is above threshold  when CPU usage is below threshold",
+            "title": "When pages should be swapped?"
+        },
+        {
+            "location": "/5-Memory-Management/#which-page-should-be-swapped-out",
+            "text": "pages that won't be used  history based prediction  Least Recently Used (LRU policy). Access bit tracks if page is referenced.    page that don't need to be written out  Dirty bit to track if modified    avoid non-swappable pages",
+            "title": "Which page should be swapped out?"
+        },
+        {
+            "location": "/5-Memory-Management/#checkpointing",
+            "text": "Failure and Recovery management technique  periodically save process state  failure may be unavoidable but can restart from checkpoint, so recovery would be faster",
+            "title": "Checkpointing"
+        },
+        {
+            "location": "/5-Memory-Management/#simple-approach",
+            "text": "pause and save",
+            "title": "Simple Approach"
+        },
+        {
+            "location": "/5-Memory-Management/#better-approach",
+            "text": "write-protect and copy everything at once   copy diffs of dirties pages for incremental checkpoints  rebuild from multiple diffs, or in background     Checkpointing can also be used in other services:    Debugging   Rewind-Replay  rewind = restart from checkpoint   gradually go back to earlier checkpoints until error is found     Migration   continue on another machine  disaster recovery  consolidation  repeated checkpoints in a fast loop until pause and copy becomes acceptable (or unavoidable)",
+            "title": "Better Approach"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/",
+            "text": "Inter Process Communication\n\n\n\n\nProcesses share memory\n\n\ndata in shared messages\n\n\n\n\n\n\nProcesses exchange messages\n\n\nmessage passing via sockets\n\n\n\n\n\n\nRequires synchronization\n\n\nmutex, waiting\n\n\n\n\n\n\n\n\nInter Process Communication\n(IPC) is an OS supported mechanism for interaction among processes (coordination and communication)   \n\n\n\n\nMessage Passing\n\n\ne.g. sockets, pips, msgs, queues\n\n\n\n\n\n\nMemory based IPC \n\n\nshared memory, memory mapped files\n\n\n\n\n\n\nHigher level semantics\n\n\nfiles, \nRPC\n\n\n\n\n\n\nSynchronization primitives\n\n\n\n\nMessage Passing\n\n\n\n\nSend/Receive messages \n\n\nOS creates and maintains a channel\n\n\nbuffer, FIFO queue\n\n\n\n\n\n\nOS provides interfaces to processes\n\n\na port\n\n\nprocesses send/write messages to this port\n\n\nprocesses receive/read messages from this port\n\n\n\n\n\n\n\n\n\n\n\n\nKernel required to \n\n\nestablish communication\n\n\nperform each IPC operation\n\n\nsend: system call + data copy\n\n\nreceive: system call + data copy\n\n\n\n\n\n\nRequest-response:\n    4x user/ kernel crossings + \n\n    4x data copies\n\n\n\n\nAdvantages\n \n\n\n\n\nsimplicity : kernel does channel management and synchronization\n\n\n\n\nDisadvantages\n \n\n\n\n\nOverheads \n\n\n\n\nForms of Message Passing IPC\n\n\n1. Pipes\n\n\n\n\nCarry byte stream between 2 process\n\n\ne.g connect output from 1 process to input of another\n\n\n\n\n    \n\n\n2. Message queues\n\n\n\n\nCarry \"messages\" among processes\n\n\nOS management includes priorities, scheduling of message delivery \n\n\nAPIs : Sys-V and POSIX\n\n\n\n\n        \n\n\n3. Sockets\n\n\n\n\nsend() and recv() : pass message buffers\n\n\nsocket() : create kernel level socket buffer\n\n\nassociated neccessary kernel processing (TCP-IP,..)\n\n\nIf different machines, channel between processes and network devices\n\n\nIf same machine, bypass full protocol stack\n\n\n\n\n        \n\n\nShared Memory IPC\n\n\n\n\nread and write to shared memory region\n\n\nOS establishes shared channel between the processes\n\n\nphysical pages mapped into virtual address space\n\n\nVA(P1) and VA(P2) map to same physical address\n\n\nVA(P1) != VA(P2)\n\n\nphysical mempry doesn't need to be contiguous\n\n\n\n\n\n\nAPIs : SysV, POSIX, memory mapped files, Android ashmem   \n\n\n\n\n\n\nAdvantages\n\n\n\n\nSystem calls only for setup data copies potentially reduced (but not eliminated)\n\n\n\n\nDisdvantages\n\n\n\n\nexplicit synchronization\n\n\ncommunication protocol, shared buffer management\n\n\nprogrammer's responsibility\n\n\n\n\n\n\n\n\nWhich is better?\n\n\nOverheads for\n\n1. Message Passing : must perform multiple copies\n2. Shared Memory : must establish all mappings among processes' address space and shared memory pages\n\n\nThus, it depends.\n\n\nCopy vs Map\n\n\nGoal for both is to transfer data from one into target saddress space\n\n\n\n\n\n\n\n\nCopy (Message Passing)\n\n\nMap (Shared Memory)\n\n\n\n\n\n\n\n\n\n\nCPU cycles to copy data to/from port\n\n\nCPU cycles to map memory into address space\n\n\n\n\n\n\n\n\nCPU to copy data to channel\n\n\n\n\n\n\n\n\nIf channel setup once, use many times (good payoff)\n\n\n\n\n\n\n\n\nCan perform well for 1 time use\n\n\n\n\n\n\n\n\n\n\nLarge Data: t(Copy) >> t(Map)\n\n\ne.g. tradeoff exercised in Window \"Local\" Procedure Calls (LPC)\n\n\n\n\n\n\n\n\nShared Memory and Synchronization\n\n\nUse threads accessing shared state in a single addressing space, but for process\n\n\nSynchronization method:\n\n\n\n\nmechanism supported by processing threading library (pthreads)\n\n\nOS supported IPC for sync\n\n\n\n\nEither method must coordinate\n\n\n\n\nno of concurrent access to shared segment\n\n\nwhen data is available and ready for consumption\n\n\n\n\nIPC Synchronization\n\n\n\n\n\n\n\n\nMessage Queues\n\n\nSemaphores\n\n\n\n\n\n\n\n\n\n\nImplement \"mutual exclusion\" via send/receive\n\n\nOS supported synchronization construct\n\n\n\n\n\n\n\n\nbinary construct (either allow process or not)\n\n\n\n\n\n\n\n\nLike mutex, if value = 0, stop; if value = 1, decrement(lock) and proceed",
+            "title": "Inter-Process Communication"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#inter-process-communication",
+            "text": "Processes share memory  data in shared messages    Processes exchange messages  message passing via sockets    Requires synchronization  mutex, waiting     Inter Process Communication (IPC) is an OS supported mechanism for interaction among processes (coordination and communication)      Message Passing  e.g. sockets, pips, msgs, queues    Memory based IPC   shared memory, memory mapped files    Higher level semantics  files,  RPC    Synchronization primitives",
+            "title": "Inter Process Communication"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#message-passing",
+            "text": "Send/Receive messages   OS creates and maintains a channel  buffer, FIFO queue    OS provides interfaces to processes  a port  processes send/write messages to this port  processes receive/read messages from this port       Kernel required to   establish communication  perform each IPC operation  send: system call + data copy  receive: system call + data copy    Request-response:\n    4x user/ kernel crossings +  \n    4x data copies   Advantages     simplicity : kernel does channel management and synchronization   Disadvantages     Overheads",
+            "title": "Message Passing"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#forms-of-message-passing-ipc",
+            "text": "",
+            "title": "Forms of Message Passing IPC"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#1-pipes",
+            "text": "Carry byte stream between 2 process  e.g connect output from 1 process to input of another",
+            "title": "1. Pipes"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#2-message-queues",
+            "text": "Carry \"messages\" among processes  OS management includes priorities, scheduling of message delivery   APIs : Sys-V and POSIX",
+            "title": "2. Message queues"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#3-sockets",
+            "text": "send() and recv() : pass message buffers  socket() : create kernel level socket buffer  associated neccessary kernel processing (TCP-IP,..)  If different machines, channel between processes and network devices  If same machine, bypass full protocol stack",
+            "title": "3. Sockets"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#shared-memory-ipc",
+            "text": "read and write to shared memory region  OS establishes shared channel between the processes  physical pages mapped into virtual address space  VA(P1) and VA(P2) map to same physical address  VA(P1) != VA(P2)  physical mempry doesn't need to be contiguous    APIs : SysV, POSIX, memory mapped files, Android ashmem       Advantages   System calls only for setup data copies potentially reduced (but not eliminated)   Disdvantages   explicit synchronization  communication protocol, shared buffer management  programmer's responsibility",
+            "title": "Shared Memory IPC"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#which-is-better",
+            "text": "Overheads for \n1. Message Passing : must perform multiple copies\n2. Shared Memory : must establish all mappings among processes' address space and shared memory pages  Thus, it depends.",
+            "title": "Which is better?"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#copy-vs-map",
+            "text": "Goal for both is to transfer data from one into target saddress space     Copy (Message Passing)  Map (Shared Memory)      CPU cycles to copy data to/from port  CPU cycles to map memory into address space     CPU to copy data to channel     If channel setup once, use many times (good payoff)     Can perform well for 1 time use      Large Data: t(Copy) >> t(Map)  e.g. tradeoff exercised in Window \"Local\" Procedure Calls (LPC)",
+            "title": "Copy vs Map"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#shared-memory-and-synchronization",
+            "text": "Use threads accessing shared state in a single addressing space, but for process  Synchronization method:   mechanism supported by processing threading library (pthreads)  OS supported IPC for sync   Either method must coordinate   no of concurrent access to shared segment  when data is available and ready for consumption",
+            "title": "Shared Memory and Synchronization"
+        },
+        {
+            "location": "/6-Inter-Process-Communication/#ipc-synchronization",
+            "text": "Message Queues  Semaphores      Implement \"mutual exclusion\" via send/receive  OS supported synchronization construct     binary construct (either allow process or not)     Like mutex, if value = 0, stop; if value = 1, decrement(lock) and proceed",
+            "title": "IPC Synchronization"
+        },
+        {
+            "location": "/7-Synchronization/",
+            "text": "Synchronization\n\n\nWaiting for other processes, so that they can continue working together\n\n\n\n\nmay repeatedly check to continue\n\n\nsync using spinlocks\n\n\n\n\n\n\nmay wait for a signal to continue\n\n\nsync using mutexes and condition vatiables\n\n\n\n\n\n\nwaiting hurts performance\n\n\nCPUs wste cycles for checking; cache effects\n\n\n\n\n\n\n\n\nLimitation of mutextes and condition variables\n\n\n\n\nError prone/correctness/ease of use\n\n\nunlock wrong mutex, signal wrong condition variable\n\n\n\n\n\n\nLack of expressive power\n\n\nhelper variables for access or priority control\n\n\n\n\n\n\n\n\nLow-level support: hardware atmoic instructions\n\n\nSynchronization constructs\n\n\n\n\nSpinlocks (basic sync construct)\n\n\nSpinlock is like a mutex \n\n\nmutual exclusion\n\n\nlock and unlock(free)\n\n\n\n\n\n\nbut, lock == busy => spinning\n\n\n\n\n\n\nSemaphores\n\n\ncommon sync construct in OS kernels\n\n\nlike a traffic light: Stop and Go\n\n\nlike mutex, but more general\n\n\n\n\n\n\n\n\nSemaphore == integer value\n\n\n\n\non init\n\n\nassigned a max value (positive int) => max count\n\n\n\n\n\n\non try(wait)\n\n\nif non-zero, decrement and proceed => counting semaphore\n\n\n\n\n\n\nif initialized with 1\n\n\nsemaphore == mutex(binary semaphore)\n\n\n\n\n\n\non exit(post)\n\n\nincrement\n\n\n\n\n\n\n\n\nSyncing different types of accesses\n\n\nReader/Writer locks\n\n\n\n\n\n\nread (don't modify)\n\n\nwrite (always modify)\n\n\n\n\n\n\nshared access\n\n\nexclusive access\n\n\n\n\n\n\n\n\n\nRW locks\n\n\nspecify type of access, then lock behaves accordingly\n\n\n\n\n\n\n\n\nMonitors (highlevel construct)\n\n\n\n\nshared resource\n\n\nentry resource\n\n\npossible condition variables\n\n\nOn entry:\n\n\nlock, check\n\n\n\n\n\n\nOn exit:\n\n\nunlock, check, signal\n\n\n\n\n\n\n\n\nMore synchroniaztion constructs\n\n\n\n\nserializers\n\n\npath expressions\n\n\nbarriers\n\n\nrendezvous points\n\n\noptimistic wait-free sync (RCU) [Read Copy Update]\n\n\n\n\nAll need hardware support.\n\n\nNeed for hardware support\n\n\n\n\nProblem \n\n\nconcurrent check/update on different CPUs can overlap\n\n\n\n\n\n\n\n\nAtomic instructions\n\n\nCritical section with hardware supported synchronization\n\n\nHardware specific\n\n\n\n\n\n\ntest-and-set\n\n\n\n\nreturns(tests) original values and sets new-value!= 1 (busy) automatically\n\n\nfirst thread: test-and-set(lock) => 0 : free\n\n\nnext ones: test-and-set(lock) => 1 busy\n\n\nreset lock to 1, but that's okay\n\n\n\n\n\n\n+\n : Latency \n\n\n+\n : minimal (Atomic)\n\n\n+\n : Delay potentially min\n\n\n-\n : Contention processors go to memory on each spin \n        - To reduce contention, introduce delay\n          - Static(based on a fixed value) or Dynamic(backoff based, random delay)\n\n\n\n\n\n\n\n\nread-and-increment\n\n\n\n\ncompare-and-swap\n\n\n\n\nGuarantees\n\n\n\n\natomicity\n\n\nmutual exclusion\n\n\nqueue all concurrent instructions but one\n\n\n\n\nShared Memory Multiprocessors\n\n\nAlso called symmetric multiprocessors (SMP)\n\n\n\n\n\n\nCaches \n\n\nhide memory latency, \"memory\" further away due to contention\n\n\nno-write, write-through, write-back   \n\n\n\n\n\n\n\n\nCache Coherence",
+            "title": "Synchronization"
+        },
+        {
+            "location": "/7-Synchronization/#synchronization",
+            "text": "Waiting for other processes, so that they can continue working together   may repeatedly check to continue  sync using spinlocks    may wait for a signal to continue  sync using mutexes and condition vatiables    waiting hurts performance  CPUs wste cycles for checking; cache effects",
+            "title": "Synchronization"
+        },
+        {
+            "location": "/7-Synchronization/#limitation-of-mutextes-and-condition-variables",
+            "text": "Error prone/correctness/ease of use  unlock wrong mutex, signal wrong condition variable    Lack of expressive power  helper variables for access or priority control     Low-level support: hardware atmoic instructions",
+            "title": "Limitation of mutextes and condition variables"
+        },
+        {
+            "location": "/7-Synchronization/#synchronization-constructs",
+            "text": "Spinlocks (basic sync construct)  Spinlock is like a mutex   mutual exclusion  lock and unlock(free)    but, lock == busy => spinning    Semaphores  common sync construct in OS kernels  like a traffic light: Stop and Go  like mutex, but more general     Semaphore == integer value   on init  assigned a max value (positive int) => max count    on try(wait)  if non-zero, decrement and proceed => counting semaphore    if initialized with 1  semaphore == mutex(binary semaphore)    on exit(post)  increment",
+            "title": "Synchronization constructs"
+        },
+        {
+            "location": "/7-Synchronization/#syncing-different-types-of-accesses",
+            "text": "",
+            "title": "Syncing different types of accesses"
+        },
+        {
+            "location": "/7-Synchronization/#readerwriter-locks",
+            "text": "read (don't modify)  write (always modify)    shared access  exclusive access     RW locks  specify type of access, then lock behaves accordingly",
+            "title": "Reader/Writer locks"
+        },
+        {
+            "location": "/7-Synchronization/#monitors-highlevel-construct",
+            "text": "shared resource  entry resource  possible condition variables  On entry:  lock, check    On exit:  unlock, check, signal",
+            "title": "Monitors (highlevel construct)"
+        },
+        {
+            "location": "/7-Synchronization/#more-synchroniaztion-constructs",
+            "text": "serializers  path expressions  barriers  rendezvous points  optimistic wait-free sync (RCU) [Read Copy Update]   All need hardware support.",
+            "title": "More synchroniaztion constructs"
+        },
+        {
+            "location": "/7-Synchronization/#need-for-hardware-support",
+            "text": "Problem   concurrent check/update on different CPUs can overlap",
+            "title": "Need for hardware support"
+        },
+        {
+            "location": "/7-Synchronization/#atomic-instructions",
+            "text": "Critical section with hardware supported synchronization",
+            "title": "Atomic instructions"
+        },
+        {
+            "location": "/7-Synchronization/#hardware-specific",
+            "text": "test-and-set   returns(tests) original values and sets new-value!= 1 (busy) automatically  first thread: test-and-set(lock) => 0 : free  next ones: test-and-set(lock) => 1 busy  reset lock to 1, but that's okay    +  : Latency   +  : minimal (Atomic)  +  : Delay potentially min  -  : Contention processors go to memory on each spin \n        - To reduce contention, introduce delay\n          - Static(based on a fixed value) or Dynamic(backoff based, random delay)     read-and-increment   compare-and-swap",
+            "title": "Hardware specific"
+        },
+        {
+            "location": "/7-Synchronization/#guarantees",
+            "text": "atomicity  mutual exclusion  queue all concurrent instructions but one",
+            "title": "Guarantees"
+        },
+        {
+            "location": "/7-Synchronization/#shared-memory-multiprocessors",
+            "text": "Also called symmetric multiprocessors (SMP)    Caches   hide memory latency, \"memory\" further away due to contention  no-write, write-through, write-back",
+            "title": "Shared Memory Multiprocessors"
+        },
+        {
+            "location": "/7-Synchronization/#cache-coherence",
+            "text": "",
+            "title": "Cache Coherence"
+        },
+        {
+            "location": "/8-IO-Management/",
+            "text": "I/O Management\n\n\nOperating system\n\n\n\n\nHas protocols \n\n\nInterfaces for device I/O\n\n\n\n\n\n\nHas dedicated handlers\n\n\nDevice drivers, interrupt handlers\n\n\n\n\n\n\nDecouple I/O details from core processing\n\n\nabstract I/O device detail from applications\n\n\n\n\n\n\n\n\nI/O Device Features\n\n\n\n\nControl registers (accessed by CPU)\n\n\nCommand\n\n\nData Transfers\n\n\nStatus\n\n\n\n\n\n\nMicrocontroller : device's CPU\n\n\nOn device memory\n\n\nOther logic\n\n\ne.g. analog to digital\n\n\n\n\n\n\n\n\nDevice drivers\n\n\n\n\nper each device type\n\n\nresponsible for device access management and control\n\n\nprovided by device manufacturers per OS /version\n\n\neach OS standardizes interfaces\n\n\ndevice independence\n\n\ndevice diversity\n\n\n\n\n\n\n\n\nTypes of devices\n\n\n\n\nBlock\n\n\ne.g. disk\n\n\nread/write blocks of data\n\n\ndirect access to arbitrary block\n\n\n\n\n\n\nCharacter\n\n\ne.g. keyboard\n\n\nget/put character\n\n\n\n\n\n\nNetwork devices\n\n\n\n\nOS representation of a device : special device file\n\n\nUNIX like systems:\n\n\n\n\n/dev\n\n\ntmpfs\n\n\ndevfs\n\n\n\n\nLinux supports a number of pseudo \"virtual\" devices that provide special functionality to a system.\n\n\nCPU device interactions\n\n\n\n\naccess device registers : memory load/store\n\n\n\n\nMemory mapped I/0\n\n\npart of 'host' physical memory dedicated for device interactions\n\n\nBase Address Registers (BAR)\n\n\n\n\n\n\nI/O Port\n\n\ndedicated in low instructions for device access\n\n\ntarget device (I/0 port) and value in register\n\n\n\n\n\n\n\n\nPath from Device to CPU\n\n\n\n\nInterrupt\n\n\nOverhead: Interrupt handling steps\n\n\n+: Can be generated as soon as possible\n\n\n\n\n\n\nPolling\n\n\nOverhead: Delay or CPU overhead\n\n\nwhen convenient for OS\n\n\n\n\n\n\n\n\nDevice access : Programmed I/O (PIO)\n\n\n\n\nNo additional hardware support\n\n\nCPU \"programs\" the device\n\n\nvia command registers\n\n\ndata movement\n\n\n\n\n\n\nE.g. NIC(Network Interface Card)\n\n\ndata = network packet\n\n\n\n\n\n\nWrite command to request packet information\n\n\nCopy packet to data registers\n\n\nRepeat until packet sent\n\n\n\n\nE.g. 1500B packet; 8 byte registers or bus => 1(for bus command) + 188(for data) = 189 CPU store instructions\n\n\nDirect Memory Access (DMA)\n\n\n\n\nRelies on DMA controller\n\n\nCPU \"programs\" the device\n\n\nvia command registers\n\n\nvia DMA controls\n\n\n\n\n\n\nE.g. NIC (data = network packet)\n\n\nWrite command to request packet information\n\n\nConfigure DMA controller with in memory address and size of packet buffer\n\n\n\n\nE.g. 1500B packet; 8 byte registers or bus => 1(for bus command) + 1(for DMA configuration) = total 2 CPU store instructions. Less steps, but DMA configuration is more complex.\n\n\nFor DMAs\n- data buffer must be in physical memory until transfer completes\n- pinning regions (non-swappable)\n\n\nTypical Device Access\n\n\n\n\n\n\nSystem call\n\n\nIn-kernel stack\n\n\nDriver Invocation\n\n\nDevice request configuration\n\n\nDevice performs request\n\n\n\n\nOS bypass\n\n\n\n\n\n\ndevice registers/data\n\n\ndirectly available\n\n\n\n\n\n\nOS configures\n\n\nthen gets out of the way\n\n\n\n\n\n\n\"user level driver\"\n\n\nin library\n\n\n\n\n\n\nOS retains coarse-grain control\n\n\nrelies on device features\n\n\nsufficient registers\n\n\ndemux capability\n\n\n\n\n\n\n\n\nWhat happens to a calling thread?\n\n\n\n\n\n\nSynchronous I/O operations\n\n\nprocess blocks\n\n\n\n\n\n\nAsynchronous I/O operations\n\n\nprocess continues\n\n\nLater, process checks and retrieves result\n\n\nOR\n\n\nprocess is notified that operation is completed and results are ready\n\n\n\n\n\n\n\n\nBlock Device Stack\n\n\nBlock device typical storage for files:\n\n\n\n\n\n\nprocesses use files => logical storage unit\n\n\nkernel file system (KFS)\n\n\nwhere how to find and access file\n\n\nOS specifies interface\n\n\n\n\n\n\ngeneric block layer\n\n\nOS standardized block interface\n\n\n\n\n\n\nDevice driver    \n\n\n\n\nVirtual File System\n\n\n\n\nVirtual File System Abstractions\n\n\n\n\nFile : Elements on which the VFS operates\n\n\nFile Descriptor : OS representation of file\n\n\nopen, read, write, send file , lock, close\n\n\n\n\n\n\ninode : Persistent representation of file \"index\"\n\n\nlist of all data blocks\n\n\ndevice, permissions, size\n\n\n\n\n\n\ndentry : Directory entry, corresponding to the single path component, \n\n\ndentry cache\n\n\n\n\n\n\nsuper block : file system specific information regarding the File System layout\n\n\n\n\nVFS on disk\n\n\n\n\nFile : data blocks on disk\n\n\ninode : track file blocks\n\n\nalso resides on disk in some block\n\n\n\n\n\n\nsuper block : overall map of disk blocks\n\n\ninode blocks\n\n\ndata blocks\n\n\nfree blocks\n\n\n\n\n\n\n\n\nInodes\n\n\nIndex of all disk blocks corresponding to a file\n\n\n\n\nFile : identified by inode\n\n\ninode : list of all blocks + other metadata\n\n\n\n\n+\n: Easy to perform sequential or random access\n\n\n-\n: Limit on file size\n\n\nInodes with indirect pointers\n\n\n\n\nIndex of all disk blocks corresponding to a file\n\n\nIndex contain:\n\n\nmetadata\n\n\npointers to blocks\n\n\n\n\n\n\nDirect pointer : Points to data block\n\n\n1 KB per entry\n\n\n\n\n\n\nIndirect pointer : Points to block of pointers\n\n\n256 KB per entry    \n\n\n\n\n\n\nDouble Indirect pointer : Points to block of block of pointers\n\n\n64 MB per entry    \n\n\n\n\n\n\n\n\n+\n: Small inode => large file size\n\n\n-\n: File access slowdown\n\n\nDisk access optimizations\n\n\nReducing file access overheads\n\n\n\n\nCaching/buffering : reducenumber of disk accesses\n\n\nbuffer cache in main menu\n\n\nread/write from cache\n\n\nperiodically flush to disk - fsync()\n\n\n\n\n\n\nI/O scheduling : reduce disk head movement\n\n\nmaximize sequential vs random access\n\n\n\n\n\n\nPrefetching : increases cache hits\n\n\nleverages locality\n\n\n\n\n\n\nJournaling/logging: reduce random access (ext3, ext4)\n\n\n\"describe\" write in log : block, offset, value..\n\n\nperiodically apply updates to proper disk locations",
+            "title": "I/O Management"
+        },
+        {
+            "location": "/8-IO-Management/#io-management",
+            "text": "Operating system   Has protocols   Interfaces for device I/O    Has dedicated handlers  Device drivers, interrupt handlers    Decouple I/O details from core processing  abstract I/O device detail from applications",
+            "title": "I/O Management"
+        },
+        {
+            "location": "/8-IO-Management/#io-device-features",
+            "text": "Control registers (accessed by CPU)  Command  Data Transfers  Status    Microcontroller : device's CPU  On device memory  Other logic  e.g. analog to digital",
+            "title": "I/O Device Features"
+        },
+        {
+            "location": "/8-IO-Management/#device-drivers",
+            "text": "per each device type  responsible for device access management and control  provided by device manufacturers per OS /version  each OS standardizes interfaces  device independence  device diversity",
+            "title": "Device drivers"
+        },
+        {
+            "location": "/8-IO-Management/#types-of-devices",
+            "text": "Block  e.g. disk  read/write blocks of data  direct access to arbitrary block    Character  e.g. keyboard  get/put character    Network devices   OS representation of a device : special device file  UNIX like systems:   /dev  tmpfs  devfs   Linux supports a number of pseudo \"virtual\" devices that provide special functionality to a system.",
+            "title": "Types of devices"
+        },
+        {
+            "location": "/8-IO-Management/#cpu-device-interactions",
+            "text": "access device registers : memory load/store   Memory mapped I/0  part of 'host' physical memory dedicated for device interactions  Base Address Registers (BAR)    I/O Port  dedicated in low instructions for device access  target device (I/0 port) and value in register",
+            "title": "CPU device interactions"
+        },
+        {
+            "location": "/8-IO-Management/#path-from-device-to-cpu",
+            "text": "Interrupt  Overhead: Interrupt handling steps  +: Can be generated as soon as possible    Polling  Overhead: Delay or CPU overhead  when convenient for OS",
+            "title": "Path from Device to CPU"
+        },
+        {
+            "location": "/8-IO-Management/#device-access-programmed-io-pio",
+            "text": "No additional hardware support  CPU \"programs\" the device  via command registers  data movement    E.g. NIC(Network Interface Card)  data = network packet    Write command to request packet information  Copy packet to data registers  Repeat until packet sent   E.g. 1500B packet; 8 byte registers or bus => 1(for bus command) + 188(for data) = 189 CPU store instructions",
+            "title": "Device access : Programmed I/O (PIO)"
+        },
+        {
+            "location": "/8-IO-Management/#direct-memory-access-dma",
+            "text": "Relies on DMA controller  CPU \"programs\" the device  via command registers  via DMA controls    E.g. NIC (data = network packet)  Write command to request packet information  Configure DMA controller with in memory address and size of packet buffer   E.g. 1500B packet; 8 byte registers or bus => 1(for bus command) + 1(for DMA configuration) = total 2 CPU store instructions. Less steps, but DMA configuration is more complex.  For DMAs\n- data buffer must be in physical memory until transfer completes\n- pinning regions (non-swappable)",
+            "title": "Direct Memory Access (DMA)"
+        },
+        {
+            "location": "/8-IO-Management/#typical-device-access",
+            "text": "System call  In-kernel stack  Driver Invocation  Device request configuration  Device performs request",
+            "title": "Typical Device Access"
+        },
+        {
+            "location": "/8-IO-Management/#os-bypass",
+            "text": "device registers/data  directly available    OS configures  then gets out of the way    \"user level driver\"  in library    OS retains coarse-grain control  relies on device features  sufficient registers  demux capability",
+            "title": "OS bypass"
+        },
+        {
+            "location": "/8-IO-Management/#what-happens-to-a-calling-thread",
+            "text": "Synchronous I/O operations  process blocks    Asynchronous I/O operations  process continues  Later, process checks and retrieves result  OR  process is notified that operation is completed and results are ready",
+            "title": "What happens to a calling thread?"
+        },
+        {
+            "location": "/8-IO-Management/#block-device-stack",
+            "text": "Block device typical storage for files:    processes use files => logical storage unit  kernel file system (KFS)  where how to find and access file  OS specifies interface    generic block layer  OS standardized block interface    Device driver",
+            "title": "Block Device Stack"
+        },
+        {
+            "location": "/8-IO-Management/#virtual-file-system",
+            "text": "",
+            "title": "Virtual File System"
+        },
+        {
+            "location": "/8-IO-Management/#virtual-file-system-abstractions",
+            "text": "File : Elements on which the VFS operates  File Descriptor : OS representation of file  open, read, write, send file , lock, close    inode : Persistent representation of file \"index\"  list of all data blocks  device, permissions, size    dentry : Directory entry, corresponding to the single path component,   dentry cache    super block : file system specific information regarding the File System layout",
+            "title": "Virtual File System Abstractions"
+        },
+        {
+            "location": "/8-IO-Management/#vfs-on-disk",
+            "text": "File : data blocks on disk  inode : track file blocks  also resides on disk in some block    super block : overall map of disk blocks  inode blocks  data blocks  free blocks",
+            "title": "VFS on disk"
+        },
+        {
+            "location": "/8-IO-Management/#inodes",
+            "text": "Index of all disk blocks corresponding to a file   File : identified by inode  inode : list of all blocks + other metadata   + : Easy to perform sequential or random access  - : Limit on file size",
+            "title": "Inodes"
+        },
+        {
+            "location": "/8-IO-Management/#inodes-with-indirect-pointers",
+            "text": "Index of all disk blocks corresponding to a file  Index contain:  metadata  pointers to blocks    Direct pointer : Points to data block  1 KB per entry    Indirect pointer : Points to block of pointers  256 KB per entry        Double Indirect pointer : Points to block of block of pointers  64 MB per entry         + : Small inode => large file size  - : File access slowdown",
+            "title": "Inodes with indirect pointers"
+        },
+        {
+            "location": "/8-IO-Management/#disk-access-optimizations",
+            "text": "Reducing file access overheads   Caching/buffering : reducenumber of disk accesses  buffer cache in main menu  read/write from cache  periodically flush to disk - fsync()    I/O scheduling : reduce disk head movement  maximize sequential vs random access    Prefetching : increases cache hits  leverages locality    Journaling/logging: reduce random access (ext3, ext4)  \"describe\" write in log : block, offset, value..  periodically apply updates to proper disk locations",
+            "title": "Disk access optimizations"
+        },
+        {
+            "location": "/9-Virtualization/",
+            "text": "Virtualization\n\n\nVirtualization allows concurrent execution of multiple OSs and their applications on the same physical machine.\n\n\n\n\n\n\nVirtual resources : each OS thinks that ot \"owns\" hardware resources\n\n\nVirtual machine (VM) : OS + applications + virtual resources (guest domain)\n\n\nVirtualization layer : management of physical hardware (virtual machine monitor, hypervisor)\n\n\n\n\nDefining Virtual Machine\n\n\nA Virtual Machine is an efficient, isolated duplicate of the real machine.\n\n\n\n\nSupported by a Virtual Machine Monitor (VMM):\n\n\nprovides environment essentially identical with the original machine\n\n\nprograms show only minor decrease in speed at worst\n\n\nVMM is in complete control of the system resources\n\n\n\n\n\n\n\n\nVMM goals\n\n\n\n\nFidelity\n\n\nPerformance\n\n\nSafety and Isolation\n\n\n\n\nVirtualization advantages\n\n\n\n\nconsolidation\n\n\ndecrease cost, improve manageability\n\n\n\n\n\n\nmigration\n\n\navailibility, reliability\n\n\n\n\n\n\nsecurity, debugging, support for legacy OS\n\n\n\n\nTwo main Virtualization Models:\n\n\n1. Bare-metal or Hypervisor based (Type 1)\n\n\n\n\n\n\nVMM (hypervisor) manages all hardware resources abd supports execution of VMs\n\n\nprivileged, secure VM to deal with devices (and other configuration and management tasks)\n\n\nAdopted by Xen(Opensource or Citriol Xen Server) and ESX (VMware)\n\n\n\n\n1. Hosted (Type 2)\n\n\n\n\n\n\nHost owns all hardware\n\n\nSpecial VMM modle provides hardware interfaces to VMs and deals with VM context switching\n\n\n\n\nVirtualization requirements\n\n\n\n\nPresent virtual platform interface to VMs\n\n\nvirtualize CPU, memory, devices\n\n\n\n\n\n\nProvide isolation across VMs\n\n\npreemption, MMU for address translation and validation\n\n\n\n\n\n\nProtect guest OS from applications\n\n\ncan't run guest OS and applications at same protection level\n\n\n\n\n\n\nProtect VMs from guest OS\n\n\ncan't run guest OS and VMMs at same protection level\n\n\n\n\n\n\n\n\nHardware protection levels\n\n\nCommodity hardware has more than two protection levels\n\n\n\n\n\n\nx86 has 4 protection levels (rings)\n\n\nring 3 : lowest privilege (applications)\n\n\nring 1 : OS\n\n\nring 0 : highest privilege (hypervisor)\n\n\n\n\n\n\nand 2 protection modes\n\n\nnon root : VMs \n\n\nring 3 : apps\n\n\nring 0 : OS\n\n\n\n\n\n\nroot : \n\n\nring 0 : hypervisor\n\n\n\n\n\n\n\n\n\n\n\n\nProcess Virtualization (Trap-and-Emulate)\n\n\n\n\nGuest instruments\n\n\nexecuted directly by hardware\n\n\nfor non-privileged operations : hardware speeds => efficiency\n\n\nfor privileged operations : trap to hypervisor\n\n\n\n\n\n\nHypervisor determines what needs to be done:\n\n\nif illegal operation : terminate VM\n\n\nif legal operation : emulate the behaviour the guest OS was expecting from the hardware\n\n\n\n\n\n\n\n\nProblems with Trap-and-Emulate\n\n\n\n\n17 privileged information do not trao but fail silently\n\n\nHypervisor doesn't know, so it doesn't try to change settings\n\n\nOS doesn't know, so assumes change was successful\n\n\n\n\nBinary Translation\n\n\nGoal\n : Full Virtualization i.e. guest OS is not modified\n\n\nApproach\n : Dynamic Binary Translation\n\n\n\n\nInspect code blocks to be executed\n\n\nIf needed, translate to alternate instruction sequence\n\n\ne.g. to emulate desired behaviour, possibly avoid traps\n\n\n\n\n\n\nOtherwise run at hardware speeds\n\n\ncache translated blocks to ammortize translation costs\n\n\n\n\n\n\n\n\nParavirtualization\n\n\nGoal\n : Performance; give up on modified guest OSs\n\n\nApproach\n : Paravirtualization : modify guest OSs so that \n\n\n\n\nit knows it is running virtualized\n\n\nit makes explicit calls to hyperisor (hypercalls)\n\n\nhypercalls (~ system calls)\n\n\npackage context information\n\n\nspecify desired hypercall\n\n\ntrap to VMM\n\n\n\n\n\n\nXen : opensource hypervisor\n\n\n\n\nMemory virtualization\n\n\n\n\nFull virtualization\n\n\nall guests expect contiguous physical memory starting at 0\n\n\nvirtual vs physical vs machine addresses and page frame numbers\n\n\nstill leverages hardware (MMU, TLB..)    \n\n\n\n\n\n\nOption 1\n\n\nguest page table : VA => PA\n\n\nhypervisor : PA => MA\n\n\ntoo expensive!\n\n\n\n\n\n\nOption 2\n\n\nguest page tables : VA => PA\n\n\nhypervisor shadow PT : VA => MA\n\n\nhypervisor maintains consistence\n\n\ne.g. invalidate on context switch, write protect guest PT to track new mappings\n\n\n\n\n\n\n\n\n\n\nParavirtualized \n\n\nguest aware of virtualization\n\n\nno longer strict requirement on contiguous physical memory starting at 0\n\n\nexplicitly registers page tables with hypervisor\n\n\ncan \"batch\" page tables updates to reduce VM exits\n\n\nother optimazations\n\n\n\n\n\n\n\n\nOverheads eliminated or reduced on newer platforms\n\n\nDevice Virtualization\n\n\n\n\nFor CPUs and Memory\n\n\nless diversity, Intruction-Set-Architecture(ISA) level\n\n\nStandardization of interface\n\n\n\n\n\n\nFor Devices\n\n\nhigh diversity\n\n\nlack of standard specification of device interface and behaviour\n\n\n\n\n\n\n\n\n3 key models for Device Virtualization:\n\n\n1. Pass through model\n\n\nApproach: VMM-level-driver configures device access permissions\n\n\n\n\nAdvantages\n\n\n\n\nVM provided with exclusive and direct (VMM bypass) access to the device\n\n\n\n\nDisadvantages\n\n\n\n\nDevice sharing difficult\n\n\nVMM must have exact type of device as what VM expects\n\n\nVM migration tricky\n\n\n\n\n2. Hypervisor - Direct model\n\n\nApproach: \n\n\n\n\nVMM interrupts all device accesses\n\n\nEmulate device operations\n\n\ntranslate to generic I/O operations\n\n\ntraverse VMM-resident I/O stack\n\n\ninvoke VMM-resident driver\n\n\n\n\n\n\n\n\n    \n\n\nAdvantages\n\n\n\n\nVM decoupled from physical device\n\n\nSharing, migration, dealing with device specifics\n\n\n\n\nDisadvantages\n\n\n\n\nLatency of device operations\n\n\nDevice driver ecosystem complexities in Hypervisor\n\n\n\n\n3. Split Device-Driver model\n\n\nApproach: \n\n\n\n\nDevice access control split between\n\n\nEmulate device operations\n\n\nfront-end driver in guest VM (device API)\n\n\nback-end driver in service VM (or Host)\n\n\nmodified guest drivers\n\n\ni.e. limited to paravirtualized guests\n\n\n\n\n\n\n\n\n\n\n\n\n          \n\n\nAdvantages\n\n\n\n\nEliminate emulation overhead\n\n\nAllow for better management of shared devices",
+            "title": "Virtualization"
+        },
+        {
+            "location": "/9-Virtualization/#virtualization",
+            "text": "Virtualization allows concurrent execution of multiple OSs and their applications on the same physical machine.    Virtual resources : each OS thinks that ot \"owns\" hardware resources  Virtual machine (VM) : OS + applications + virtual resources (guest domain)  Virtualization layer : management of physical hardware (virtual machine monitor, hypervisor)",
+            "title": "Virtualization"
+        },
+        {
+            "location": "/9-Virtualization/#defining-virtual-machine",
+            "text": "A Virtual Machine is an efficient, isolated duplicate of the real machine.   Supported by a Virtual Machine Monitor (VMM):  provides environment essentially identical with the original machine  programs show only minor decrease in speed at worst  VMM is in complete control of the system resources",
+            "title": "Defining Virtual Machine"
+        },
+        {
+            "location": "/9-Virtualization/#vmm-goals",
+            "text": "Fidelity  Performance  Safety and Isolation",
+            "title": "VMM goals"
+        },
+        {
+            "location": "/9-Virtualization/#virtualization-advantages",
+            "text": "consolidation  decrease cost, improve manageability    migration  availibility, reliability    security, debugging, support for legacy OS",
+            "title": "Virtualization advantages"
+        },
+        {
+            "location": "/9-Virtualization/#two-main-virtualization-models",
+            "text": "",
+            "title": "Two main Virtualization Models:"
+        },
+        {
+            "location": "/9-Virtualization/#1-bare-metal-or-hypervisor-based-type-1",
+            "text": "VMM (hypervisor) manages all hardware resources abd supports execution of VMs  privileged, secure VM to deal with devices (and other configuration and management tasks)  Adopted by Xen(Opensource or Citriol Xen Server) and ESX (VMware)",
+            "title": "1. Bare-metal or Hypervisor based (Type 1)"
+        },
+        {
+            "location": "/9-Virtualization/#1-hosted-type-2",
+            "text": "Host owns all hardware  Special VMM modle provides hardware interfaces to VMs and deals with VM context switching",
+            "title": "1. Hosted (Type 2)"
+        },
+        {
+            "location": "/9-Virtualization/#virtualization-requirements",
+            "text": "Present virtual platform interface to VMs  virtualize CPU, memory, devices    Provide isolation across VMs  preemption, MMU for address translation and validation    Protect guest OS from applications  can't run guest OS and applications at same protection level    Protect VMs from guest OS  can't run guest OS and VMMs at same protection level",
+            "title": "Virtualization requirements"
+        },
+        {
+            "location": "/9-Virtualization/#hardware-protection-levels",
+            "text": "Commodity hardware has more than two protection levels    x86 has 4 protection levels (rings)  ring 3 : lowest privilege (applications)  ring 1 : OS  ring 0 : highest privilege (hypervisor)    and 2 protection modes  non root : VMs   ring 3 : apps  ring 0 : OS    root :   ring 0 : hypervisor",
+            "title": "Hardware protection levels"
+        },
+        {
+            "location": "/9-Virtualization/#process-virtualization-trap-and-emulate",
+            "text": "Guest instruments  executed directly by hardware  for non-privileged operations : hardware speeds => efficiency  for privileged operations : trap to hypervisor    Hypervisor determines what needs to be done:  if illegal operation : terminate VM  if legal operation : emulate the behaviour the guest OS was expecting from the hardware",
+            "title": "Process Virtualization (Trap-and-Emulate)"
+        },
+        {
+            "location": "/9-Virtualization/#problems-with-trap-and-emulate",
+            "text": "17 privileged information do not trao but fail silently  Hypervisor doesn't know, so it doesn't try to change settings  OS doesn't know, so assumes change was successful",
+            "title": "Problems with Trap-and-Emulate"
+        },
+        {
+            "location": "/9-Virtualization/#binary-translation",
+            "text": "Goal  : Full Virtualization i.e. guest OS is not modified  Approach  : Dynamic Binary Translation   Inspect code blocks to be executed  If needed, translate to alternate instruction sequence  e.g. to emulate desired behaviour, possibly avoid traps    Otherwise run at hardware speeds  cache translated blocks to ammortize translation costs",
+            "title": "Binary Translation"
+        },
+        {
+            "location": "/9-Virtualization/#paravirtualization",
+            "text": "Goal  : Performance; give up on modified guest OSs  Approach  : Paravirtualization : modify guest OSs so that    it knows it is running virtualized  it makes explicit calls to hyperisor (hypercalls)  hypercalls (~ system calls)  package context information  specify desired hypercall  trap to VMM    Xen : opensource hypervisor",
+            "title": "Paravirtualization"
+        },
+        {
+            "location": "/9-Virtualization/#memory-virtualization",
+            "text": "Full virtualization  all guests expect contiguous physical memory starting at 0  virtual vs physical vs machine addresses and page frame numbers  still leverages hardware (MMU, TLB..)        Option 1  guest page table : VA => PA  hypervisor : PA => MA  too expensive!    Option 2  guest page tables : VA => PA  hypervisor shadow PT : VA => MA  hypervisor maintains consistence  e.g. invalidate on context switch, write protect guest PT to track new mappings      Paravirtualized   guest aware of virtualization  no longer strict requirement on contiguous physical memory starting at 0  explicitly registers page tables with hypervisor  can \"batch\" page tables updates to reduce VM exits  other optimazations     Overheads eliminated or reduced on newer platforms",
+            "title": "Memory virtualization"
+        },
+        {
+            "location": "/9-Virtualization/#device-virtualization",
+            "text": "For CPUs and Memory  less diversity, Intruction-Set-Architecture(ISA) level  Standardization of interface    For Devices  high diversity  lack of standard specification of device interface and behaviour",
+            "title": "Device Virtualization"
+        },
+        {
+            "location": "/9-Virtualization/#3-key-models-for-device-virtualization",
+            "text": "",
+            "title": "3 key models for Device Virtualization:"
+        },
+        {
+            "location": "/9-Virtualization/#1-pass-through-model",
+            "text": "Approach: VMM-level-driver configures device access permissions   Advantages   VM provided with exclusive and direct (VMM bypass) access to the device   Disadvantages   Device sharing difficult  VMM must have exact type of device as what VM expects  VM migration tricky",
+            "title": "1. Pass through model"
+        },
+        {
+            "location": "/9-Virtualization/#2-hypervisor-direct-model",
+            "text": "Approach:    VMM interrupts all device accesses  Emulate device operations  translate to generic I/O operations  traverse VMM-resident I/O stack  invoke VMM-resident driver           Advantages   VM decoupled from physical device  Sharing, migration, dealing with device specifics   Disadvantages   Latency of device operations  Device driver ecosystem complexities in Hypervisor",
+            "title": "2. Hypervisor - Direct model"
+        },
+        {
+            "location": "/9-Virtualization/#3-split-device-driver-model",
+            "text": "Approach:    Device access control split between  Emulate device operations  front-end driver in guest VM (device API)  back-end driver in service VM (or Host)  modified guest drivers  i.e. limited to paravirtualized guests                   Advantages   Eliminate emulation overhead  Allow for better management of shared devices",
+            "title": "3. Split Device-Driver model"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/",
+            "text": "Remote Procedure Calls\n\n\nExample : GetFile App\n\n\n\n\nClient Server\n\n\nCreate and init sockets\n\n\nAllocate and populate buffers\n\n\nInclude 'protocol' info\n\n\nGetFile, size\n\n\n\n\n\n\nCopy data into buffers\n\n\nfilename, file\n\n\n\n\n\n\ncommon steps related to remote IPC \n\n\n\n\nRemote Procedure Calls (RPC)\n\n\n\n\nIntended to simplify the development of cross address space and cross machine interactions\n\n\n\n\n+\n Higher-level interface for data movement and communication\n\n\n+\n Error handling\n\n\n+\n Hiding complexities of cross machine interactions\n\n\nRPC requirements\n\n\n\n\n\n\nClient/Server interactions\n\n\nProcedure Call Interface => RPC\n\n\nsync call semantics\n\n\n\n\n\n\nType checking \n\n\nerror handling \n\n\npacket bytes interpretation\n\n\n\n\n\n\nCross machine conversion\n\n\ne.g. big/little endian\n\n\n\n\n\n\nHigher level protocol\n\n\naccess control, fault tolerance, different transport protocols\n\n\n\n\n\n\n\n\nStructure of RPC\n\n\n\n\nRPC Steps:\n\n\n(-1.) register : server registers procedure, arg types, location\n\n(0.) bind : client finds and binds to desired server\n\n\n\n\ncall : client make RPC call; control passed to stub, client code blocks\n\n\nmarshal : client stub \"marshals\" args (serialize args into buffer)\n\n\nsend : client sends message to server\n\n\nreceive : server receives message; passes message to server stub; access control\n\n\nunmarshal : server stub \"unmarshals\" args (extract args from buffer)\n\n\nactual call : server stub calls local procedure implementation\n\n\nresult : server performs operation and computes result of RPC operation\n\n\n\n\n(same on return <=)\n\n\nInterface definition Language (IDL)\n\n\n\n\nUsed to describe the interface the server expects\n\n\nprocedure name, args, 2 result types\n\n\nversion number\n\n\n\n\n\n\n\n\nRPC can use IDL that is \n\n\n\n\nLanguage agnostic\n\n\nXDR in SunRPC\n\n\n\n\n\n\nLanguage specific\n\n\nJava in JavaRMI\n\n\n\n\n\n\n\n\nMarshalling\n\n\n\n\nUnmarshalling\n\n\n\n\nMarshalling/Unmarshalling routines are provided by RPC system compiler.\n\n\nBinding and Registry\n\n\n\n\nClient determines\n\n\nwhich\n server to connect to?\n\n\nservice name. version number\n\n\n\n\n\n\nhow\n to connect to that server?\n\n\nIP address, network protocol\n\n\n\n\n\n\n\n\n\n\nRegistry : database of available services\n\n\nsearch for service name to find server(which) and contact details(how)\n\n\ndistributed \n\n\nany RPC service can register\n\n\n\n\n\n\nmachine-specific\n\n\nfor services running on same machine\n\n\nclients must know machine addresses\n\n\nregistry provides port number needed for connection\n\n\n\n\n\n\n\n\n\n\nWho can provide a service?\n\n\nlookup registry for image processing\n\n\n\n\n\n\nWhat services do they provide?\n\n\ncompress/filter.. version number => IDL\n\n\n\n\n\n\nHow will they ship package?     \n\n\nTCP / UDP -> registry\n\n\n\n\n\n\n\n\nPointers\n\n\n\n\nProcedure interface : foo(int,int)\n\n\nin Local Calls : foo(x,y) => okay\n\n\nin Remote Calls : foo(x,y) => ?\n\n\n\n\nhere, y points to location in caller address space \n\n\n\n\nSolutions:\n\n\nNo pointers\n\n\nSerialize pointers; copy referenced (\"points to\") data structure to send buffer\n\n\n\n\n\n\n\n\nHandling Partial Failures\n\n\n\n\nSpecial RPC error notification (signal, exception..)\n\n\nCatch all possible ways in which RPC can (partially) fail\n\n\n\n\n\n\n\n\nRPC Design choice\n\n\n\n\nBinding => How to find the server\n\n\nIDL => How to talk to server; how to package data\n\n\nPointers as args => Disallow or serialize pointer data\n\n\nPartial failures => Special error notifications",
+            "title": "Remote Procedure Calls"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#remote-procedure-calls",
+            "text": "Example : GetFile App   Client Server  Create and init sockets  Allocate and populate buffers  Include 'protocol' info  GetFile, size    Copy data into buffers  filename, file    common steps related to remote IPC",
+            "title": "Remote Procedure Calls"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#remote-procedure-calls-rpc",
+            "text": "Intended to simplify the development of cross address space and cross machine interactions   +  Higher-level interface for data movement and communication  +  Error handling  +  Hiding complexities of cross machine interactions",
+            "title": "Remote Procedure Calls (RPC)"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#rpc-requirements",
+            "text": "Client/Server interactions  Procedure Call Interface => RPC  sync call semantics    Type checking   error handling   packet bytes interpretation    Cross machine conversion  e.g. big/little endian    Higher level protocol  access control, fault tolerance, different transport protocols",
+            "title": "RPC requirements"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#structure-of-rpc",
+            "text": "",
+            "title": "Structure of RPC"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#rpc-steps",
+            "text": "(-1.) register : server registers procedure, arg types, location \n(0.) bind : client finds and binds to desired server   call : client make RPC call; control passed to stub, client code blocks  marshal : client stub \"marshals\" args (serialize args into buffer)  send : client sends message to server  receive : server receives message; passes message to server stub; access control  unmarshal : server stub \"unmarshals\" args (extract args from buffer)  actual call : server stub calls local procedure implementation  result : server performs operation and computes result of RPC operation   (same on return <=)",
+            "title": "RPC Steps:"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#interface-definition-language-idl",
+            "text": "Used to describe the interface the server expects  procedure name, args, 2 result types  version number     RPC can use IDL that is    Language agnostic  XDR in SunRPC    Language specific  Java in JavaRMI",
+            "title": "Interface definition Language (IDL)"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#marshalling",
+            "text": "",
+            "title": "Marshalling"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#unmarshalling",
+            "text": "Marshalling/Unmarshalling routines are provided by RPC system compiler.",
+            "title": "Unmarshalling"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#binding-and-registry",
+            "text": "Client determines  which  server to connect to?  service name. version number    how  to connect to that server?  IP address, network protocol      Registry : database of available services  search for service name to find server(which) and contact details(how)  distributed   any RPC service can register    machine-specific  for services running on same machine  clients must know machine addresses  registry provides port number needed for connection      Who can provide a service?  lookup registry for image processing    What services do they provide?  compress/filter.. version number => IDL    How will they ship package?       TCP / UDP -> registry",
+            "title": "Binding and Registry"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#pointers",
+            "text": "Procedure interface : foo(int,int)  in Local Calls : foo(x,y) => okay  in Remote Calls : foo(x,y) => ?   here, y points to location in caller address space    Solutions:  No pointers  Serialize pointers; copy referenced (\"points to\") data structure to send buffer",
+            "title": "Pointers"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#handling-partial-failures",
+            "text": "Special RPC error notification (signal, exception..)  Catch all possible ways in which RPC can (partially) fail",
+            "title": "Handling Partial Failures"
+        },
+        {
+            "location": "/10-Remote-Procedure-Calls/#rpc-design-choice",
+            "text": "Binding => How to find the server  IDL => How to talk to server; how to package data  Pointers as args => Disallow or serialize pointer data  Partial failures => Special error notifications",
+            "title": "RPC Design choice"
+        },
+        {
+            "location": "/11-Distributed-File-Systems/",
+            "text": "Distributed File Systems\n\n\n\n\nAccessed via well defined interface\n\n\naccess via Virtual File Systems\n\n\n\n\n\n\nFocus on consistent state\n\n\ntracking state, file update, cache coherence\n\n\n\n\n\n\nMixed distribution models possible \n\n\nreplicates vs partitioned, peer-like systems\n\n\n\n\n\n\n\n\nDFS models\n\n\n\n\nClient Server on different machines\n\n\nFile server distributed on multiple machines \n\n\nreplicated (each server : all files)\n\n\npartitioned (each server : parts of files)\n\n\nboth (files partitioned, each partition replicates)\n\n\n\n\n\n\nFiles stored on and served from all machines (peers)\n\n\nblurred distinction between clients and servers\n\n\n\n\n\n\n\n\nRemote File Service : Extremes\n\n\n\n\n\n\n\n\nExtreme1 : Upload/Download\n\n\nlike FTP, SVN \n\n\n+\n local read/writes at client\n\n\n-\n entire file download/upload evn for small accesses\n\n\n-\n server gives up contro;\n\n\n\n\n\n\nExtreme2 : True Remote File Access\n\n\nEvery access to remote file, nothing done locally\n\n\n+\n file access centralized, easy to reason about consistency\n\n\n-\n every file operation pays network cost, limits server scalablity\n\n\n\n\n\n\n\n\nRemote File Service : A compromise\n\n\nA more practical Remote File access (with Caching)\n\n\n\n\nAllow clients to store parts of files locally (blocks)\n\n\n+\n low latency on file operations\n\n\n+\n server load reduces => more scalable\n\n\n\n\n\n\nForce clients to interact with server (frequently)   \n\n\n+\n server has insights into what clients are doing\n\n\n+\n server has control into which accesses can be permitted => easier to maintain consistency\n\n\n-\n server more complex, requires different file sharing semantics\n\n\n\n\n\n\n\n\nStateless vs Stateful File server\n\n\n\n\n\n\n\n\nStateless\n\n\nStateful\n\n\n\n\n\n\n\n\n\n\nKeeps no state; Okay with extreme models, but can't support 'practical' model\n\n\nKeeps client state needed for 'practical' model to track what is cached/accessed\n\n\n\n\n\n\n-\n Can't support caching and consistency management\n\n\n+\n Can support locking, caching, incremental operations\n\n\n\n\n\n\n-\n Every request self-contained. => more bits transferred\n\n\n-\n Overheads to maintain state and consistency. Depends on caching mechanism and consistency protocol.\n\n\n\n\n\n\n+\n No resources are used on server side (CPU, MM). On failure just restart\n\n\n-\n On failure, need checkpoining and recovery mechanisms\n\n\n\n\n\n\n\n\nCaching state in a DFS\n\n\n\n\nLocally clients maintain portion of state (e.g. file blocks)\n\n\nLocally clients perform operations on cached state (e.g. open/read/write)\n\n\nrequires coherent mechanisms\n\n\n\n\n\n\n\n\n\n\n\n\nSystem\n\n\nHow\n\n\nWhen\n\n\n\n\n\n\n\n\n\n\nSMP\n\n\nWrite-update/Write-invalidate\n\n\nOn write\n\n\n\n\n\n\nDFS\n\n\nClient/Server-driven\n\n\nOn demand, periodically, on open..\n\n\n\n\n\n\n\n\n\n\n\n\nFiles or File blocks can be (with 1 server and multiple clients) cached in:\n\n\n\n\nin client memory\n\n\non client  storage device (HDD/SDD)\n\n\nin buffer cache in memory on server\n\n\n(usefulness will depend on client load, request interleaving)\n\n\n\n\n\n\n\n\n\n\n\n\nFile Sharing Semantics in DFS\n\n\n\n\n\n\nSession semantics (between open-close => Session)\n\n\n\n\nwrite-back on close(), update on open()\n\n\neasy to reason, but may be insufficient\n\n\n\n\n\n\nPeriodic updates\n\n\nclient writes-back periodically\n\n\nclients have a \"lease\" on cached data (not exclusively necessary)\n\n\n\n\n\n\nservers invalidates periodically => provides biunds on \"inconsistency\"\n\n\naugment with flush()/sync() API\n\n\n\n\n\n\nImmutable files => never modify, new files created\n\n\nTransactions => all changes atomic\n\n\n\n\nReplication vs Partitioning\n\n\n\n\n\n\n\n\nReplication\n\n\nPartitioning\n\n\n\n\n\n\n\n\nEach machine holds all files\n\n\nEach machine has subset of files\n\n\n\n\n\n\nAdvantages\n\n\nLoad balancing, availibility, fault tolerance \n\n\nAvailibility vs single server DFS;\nScalability with file system size;\nsingle file writes simpler\n\n\n\n\n\n\nDisadvantages\n\n\nWrite becomes more complex\n- Synchronous to all\n- or, write to one, then propagate to others\nreplicas must be reconciled e.g. Voting\n\n\nOn failure, lose portion of data\nload balancing harder, if not balanced, then hot-spots possible\n\n\n\n\n\n\n\n\n\nCan combine both techniques\n\n\nReplicate each partition!",
+            "title": "Distributed File Systems"
+        },
+        {
+            "location": "/11-Distributed-File-Systems/#distributed-file-systems",
+            "text": "Accessed via well defined interface  access via Virtual File Systems    Focus on consistent state  tracking state, file update, cache coherence    Mixed distribution models possible   replicates vs partitioned, peer-like systems",
+            "title": "Distributed File Systems"
+        },
+        {
+            "location": "/11-Distributed-File-Systems/#dfs-models",
+            "text": "Client Server on different machines  File server distributed on multiple machines   replicated (each server : all files)  partitioned (each server : parts of files)  both (files partitioned, each partition replicates)    Files stored on and served from all machines (peers)  blurred distinction between clients and servers",
+            "title": "DFS models"
+        },
+        {
+            "location": "/11-Distributed-File-Systems/#remote-file-service-extremes",
+            "text": "Extreme1 : Upload/Download  like FTP, SVN   +  local read/writes at client  -  entire file download/upload evn for small accesses  -  server gives up contro;    Extreme2 : True Remote File Access  Every access to remote file, nothing done locally  +  file access centralized, easy to reason about consistency  -  every file operation pays network cost, limits server scalablity",
+            "title": "Remote File Service : Extremes"
+        },
+        {
+            "location": "/11-Distributed-File-Systems/#remote-file-service-a-compromise",
+            "text": "A more practical Remote File access (with Caching)   Allow clients to store parts of files locally (blocks)  +  low latency on file operations  +  server load reduces => more scalable    Force clients to interact with server (frequently)     +  server has insights into what clients are doing  +  server has control into which accesses can be permitted => easier to maintain consistency  -  server more complex, requires different file sharing semantics",
+            "title": "Remote File Service : A compromise"
+        },
+        {
+            "location": "/11-Distributed-File-Systems/#stateless-vs-stateful-file-server",
+            "text": "Stateless  Stateful      Keeps no state; Okay with extreme models, but can't support 'practical' model  Keeps client state needed for 'practical' model to track what is cached/accessed    -  Can't support caching and consistency management  +  Can support locking, caching, incremental operations    -  Every request self-contained. => more bits transferred  -  Overheads to maintain state and consistency. Depends on caching mechanism and consistency protocol.    +  No resources are used on server side (CPU, MM). On failure just restart  -  On failure, need checkpoining and recovery mechanisms",
+            "title": "Stateless vs Stateful File server"
+        },
+        {
+            "location": "/11-Distributed-File-Systems/#caching-state-in-a-dfs",
+            "text": "Locally clients maintain portion of state (e.g. file blocks)  Locally clients perform operations on cached state (e.g. open/read/write)  requires coherent mechanisms       System  How  When      SMP  Write-update/Write-invalidate  On write    DFS  Client/Server-driven  On demand, periodically, on open..       Files or File blocks can be (with 1 server and multiple clients) cached in:   in client memory  on client  storage device (HDD/SDD)  in buffer cache in memory on server  (usefulness will depend on client load, request interleaving)       File Sharing Semantics in DFS    Session semantics (between open-close => Session)   write-back on close(), update on open()  easy to reason, but may be insufficient    Periodic updates  client writes-back periodically  clients have a \"lease\" on cached data (not exclusively necessary)    servers invalidates periodically => provides biunds on \"inconsistency\"  augment with flush()/sync() API    Immutable files => never modify, new files created  Transactions => all changes atomic",
+            "title": "Caching state in a DFS"
+        },
+        {
+            "location": "/11-Distributed-File-Systems/#replication-vs-partitioning",
+            "text": "Replication  Partitioning     Each machine holds all files  Each machine has subset of files    Advantages  Load balancing, availibility, fault tolerance   Availibility vs single server DFS; Scalability with file system size; single file writes simpler    Disadvantages  Write becomes more complex - Synchronous to all - or, write to one, then propagate to others replicas must be reconciled e.g. Voting  On failure, lose portion of data load balancing harder, if not balanced, then hot-spots possible     Can combine both techniques  Replicate each partition!",
+            "title": "Replication vs Partitioning"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/",
+            "text": "Distributed Shared Memory\n\n\n\n\nMust decide placement\n\n\nplace memory (pages) close to relevant processes\n\n\n\n\n\n\nMust decide migration\n\n\nwhen to copy memory (pages) from remote to local\n\n\n\n\n\n\nMust decide sharing rules\n\n\nensure memory generations are properly ordered\n\n\n\n\n\n\n\n\n\"Peer\" Distribution Applications\n\n\n\n\nEach node \n\n\n\"owns\" state\n\n\nprovide service\n\n\n\n\n\n\nall nodes are \"peers\".\n\n\n\n\nExamples: Big-data analytics, web searches, context sharing or distributed shared memory (DSM)\n\n\nDistributed Shared Memory (DSM)\n\n\nDSM is a service that manages memory accross multiple nodes so that applications that are running on top will have an illusion that they are running on a shared memory.\n\n\n\n\nEach node \n\n\n\"owns\" state => memory\n\n\nprovide service\n\n\nmemory read/writes from any nodes\n\n\nconsistency protocols\n\n\n\n\n\n\npermits scaling beyond single machine memory limits\n\n\nmore \"shared\" memory at lower cost \n\n\nslower overall memory access\n\n\ncommodity interconnect technologies support this RDMA(Remote Direct Memory Access)\n\n\n\n\n\n\n\n\n\n\n\n\nHardware vs Software DSM\n\n\n\n\nHardware-supported (expensive!)\n\n\nrelies on interconnect\n\n\nOS manages larger physical memory \n\n\nNIC(Network Interface Cards) translate remote memory accesses to messages\n\n\nNICs involved in all aspects of memory management; support atomics..\n\n\n\n\n\n\nSoftware supported\n\n\neverything done by software\n\n\nOS,or language runtime\n\n\n\n\n\n\nHybrid (Software tasks in Hardware) DSM implementations\n\n\nprefetch pages\n\n\naddress translation (easier done in hardware)\n\n\ntriggering invalidations (easier done in hardware)\n\n\n\n\n\n\n\n\nDSM Design : Sharing Granularity\n\n\n\n\ncache line granularity?\n\n\noverheads too high for DSM\n\n\n\n\n\n\nvariable granularity [N]\n\n\npage granularity [Y] (OS level)\n\n\nobject granularity [Y] (Language runtime)\n\n\nbeware of false sharing E.g. x and y shared on same page\n\n\n\n\n\n\n\n\nWhat types of applications use DSM?\n\n\nApplication access algorithm\n- Single reader/ single writer (SRSW)\n- Multiple readers/ single writer (MRSW)\n- Multiple reader/ Multiple writers (MRMW)\n\n\nPerformance considerations\n\n\n\n\nDSM performance metric == access latency\n\n\nAchieving low latency through \n\n\nMigration\n\n\nmakes sense for SRSW\n\n\nrequires data movement\n\n\n\n\n\n\nReplication (caching)        \n\n\nmore general \n\n\nrequires consistency management\n\n\n\n\n\n\n\n\n\n\nHence, migration is okay for SRSW but not for all. \n\n\nCaching and Replication        \n\n\nCopies of data to incerease data access\n\n\nfor many concurrent writes, overheads too high but stil generally better than Migration\n\n\n\n\n\n\n\n\nConsistency Management\n\n\n\n\nIn SMP\n\n\nwrite invalidate\n\n\nwrite update \n\n\n\n\n\n\ncoherence operations triggered in each write \n\n\noverhead too high\n\n\n\n\n\n\nPush invalidations when data is written to \n\n\nProactive\n\n\nEager\n\n\nPessimistic\n\n\n\n\n\n\nPull modifications information periodically\n\n\non demand (reactive)\n\n\nlazy\n\n\noptimistic\n\n\n\n\n\n\nwhen these methods get triggered depends on the consistency model for the shared state\n\n\n\n\nDSM architecture (page-based, OS-supported)\n\n\n\n\nPage-based DSM architecture\n\n\ndistributed nodes, each with own local memory contribution\n\n\npool of pages from all nodes\n\n\neach page has IO (\"home\" node), page frame number\n\n\n\n\n\n\nif MRMW \n\n\nneed local caches for performances (latency)\n\n\n\"home\" or \"manager\" node drives coherence operations\n\n\nall nodes responsible for part if distributed memory (state) management\n\n\n\n\n\n\nHome node    \n\n\nkeeps state: page accessed, modifications, caching enabled/disabled, locked..\n\n\n\n\n\n\nCurrent owner\n\n\nowner may not be equal to home node\n\n\n\n\n\n\nExplicit replicas \n\n\nfor load balancing, performance, or reliability\n    home, manager node controls memory\n\n\n\n\n\n\n\n\nDSM metadata\n\n\n\n\nImplementing DSMs\n\n\n\n\nProblem : DSM must intercept access to DSM state \n\n\nto send remote messages requesting access\n\n\nto trigger coherence messages\n\n\n\n\n\n\noverheads should be avoided for local non-shared state (pages)\n\n\ndynamically engage and disengage DSM when necessary\n\n\nSolution : Use hardware MMU support!\n\n\ntrap in OS if mapping invalid or access denied\n\n\nremote address mapping -> trap and pass to DSM to send message\n\n\ncached content -> trap and pass to DSM to perform memory coherence operations\n\n\nother MMU information useful (e.g. Dirty page)  \n\n\n\n\n\n\n\n\nConsistency model\n\n\n\n\nAgreement between memory (state) and upper software layers\n\n\nMemory behaves correctly if and only if software follows specific rules\n\n\nMemory (state) guarantees to behave correctly\n\n\naccess ordering\n\n\npropagation/ visibility of updates\n\n\n\n\n\n\n\n\nOur notation\n\n\n\n\n\n\nR_m1(X) => X was read from memory location m1\n\n\nW_m1(Y) => Y was written to memory location m1\n\n\n\n\nStrict Consistency\n\n\nStrict Consistency => updates visible everywhere immediately\n\n\n\n\n\n\nIn practice\n\n\nEven on single SMP no guarantees on order without extra locking and synchronization\n\n\nin DS, latency and message reorder make this even harder\n\n\nHence almost impossible to guarantee strict consistency\n\n\n\n\n\n\n\n\nSequential Consistency\n\n\n\n\nSequential consistency =>\n\n\n\n\nmemory updates from different  processors may be arbitrarily interleaved\n\n\nAll processes will see the same interleaving\n\n\nOperations from the same process always appearin order they were issued\n\n\n\n\nCausal Consistency\n\n\n\n\n\n\nFor writes not causally related, \"concurrent\" writes doesnt gurantee.\n\n\nDon't permit arbitrary ordering from same process writer\n\n\n\n\nWeak Consistency\n\n\n\n\n\n\nUse of synchronization\n\n\nSynchronization point => operations that are available (R,W,Sync)\n\n\nall updates prior to a sync point will be visible\n\n\nno guarantee what happens in between\n\n\n\n\n\n\n\n\n+\n limit data movement of coherence operations\n\n\n-\n maintain extra state for additional operations\n\n\n\n\nVariations:\n\n\nSingle sync operation (sync)\n\n\nSeperate sync per surface of state (page)\n\n\nSeperate \"entry/acquire\" vs \"exit/release\" operations",
+            "title": "Distributed Shared Memory"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#distributed-shared-memory",
+            "text": "Must decide placement  place memory (pages) close to relevant processes    Must decide migration  when to copy memory (pages) from remote to local    Must decide sharing rules  ensure memory generations are properly ordered",
+            "title": "Distributed Shared Memory"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#peer-distribution-applications",
+            "text": "Each node   \"owns\" state  provide service    all nodes are \"peers\".   Examples: Big-data analytics, web searches, context sharing or distributed shared memory (DSM)",
+            "title": "\"Peer\" Distribution Applications"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#distributed-shared-memory-dsm",
+            "text": "DSM is a service that manages memory accross multiple nodes so that applications that are running on top will have an illusion that they are running on a shared memory.   Each node   \"owns\" state => memory  provide service  memory read/writes from any nodes  consistency protocols    permits scaling beyond single machine memory limits  more \"shared\" memory at lower cost   slower overall memory access  commodity interconnect technologies support this RDMA(Remote Direct Memory Access)",
+            "title": "Distributed Shared Memory (DSM)"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#hardware-vs-software-dsm",
+            "text": "Hardware-supported (expensive!)  relies on interconnect  OS manages larger physical memory   NIC(Network Interface Cards) translate remote memory accesses to messages  NICs involved in all aspects of memory management; support atomics..    Software supported  everything done by software  OS,or language runtime    Hybrid (Software tasks in Hardware) DSM implementations  prefetch pages  address translation (easier done in hardware)  triggering invalidations (easier done in hardware)",
+            "title": "Hardware vs Software DSM"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#dsm-design-sharing-granularity",
+            "text": "cache line granularity?  overheads too high for DSM    variable granularity [N]  page granularity [Y] (OS level)  object granularity [Y] (Language runtime)  beware of false sharing E.g. x and y shared on same page",
+            "title": "DSM Design : Sharing Granularity"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#what-types-of-applications-use-dsm",
+            "text": "Application access algorithm\n- Single reader/ single writer (SRSW)\n- Multiple readers/ single writer (MRSW)\n- Multiple reader/ Multiple writers (MRMW)",
+            "title": "What types of applications use DSM?"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#performance-considerations",
+            "text": "DSM performance metric == access latency  Achieving low latency through   Migration  makes sense for SRSW  requires data movement    Replication (caching)          more general   requires consistency management      Hence, migration is okay for SRSW but not for all.   Caching and Replication          Copies of data to incerease data access  for many concurrent writes, overheads too high but stil generally better than Migration",
+            "title": "Performance considerations"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#consistency-management",
+            "text": "In SMP  write invalidate  write update     coherence operations triggered in each write   overhead too high    Push invalidations when data is written to   Proactive  Eager  Pessimistic    Pull modifications information periodically  on demand (reactive)  lazy  optimistic    when these methods get triggered depends on the consistency model for the shared state",
+            "title": "Consistency Management"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#dsm-architecture-page-based-os-supported",
+            "text": "Page-based DSM architecture  distributed nodes, each with own local memory contribution  pool of pages from all nodes  each page has IO (\"home\" node), page frame number    if MRMW   need local caches for performances (latency)  \"home\" or \"manager\" node drives coherence operations  all nodes responsible for part if distributed memory (state) management    Home node      keeps state: page accessed, modifications, caching enabled/disabled, locked..    Current owner  owner may not be equal to home node    Explicit replicas   for load balancing, performance, or reliability\n    home, manager node controls memory",
+            "title": "DSM architecture (page-based, OS-supported)"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#dsm-metadata",
+            "text": "",
+            "title": "DSM metadata"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#implementing-dsms",
+            "text": "Problem : DSM must intercept access to DSM state   to send remote messages requesting access  to trigger coherence messages    overheads should be avoided for local non-shared state (pages)  dynamically engage and disengage DSM when necessary  Solution : Use hardware MMU support!  trap in OS if mapping invalid or access denied  remote address mapping -> trap and pass to DSM to send message  cached content -> trap and pass to DSM to perform memory coherence operations  other MMU information useful (e.g. Dirty page)",
+            "title": "Implementing DSMs"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#consistency-model",
+            "text": "Agreement between memory (state) and upper software layers  Memory behaves correctly if and only if software follows specific rules  Memory (state) guarantees to behave correctly  access ordering  propagation/ visibility of updates",
+            "title": "Consistency model"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#our-notation",
+            "text": "R_m1(X) => X was read from memory location m1  W_m1(Y) => Y was written to memory location m1",
+            "title": "Our notation"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#strict-consistency",
+            "text": "Strict Consistency => updates visible everywhere immediately    In practice  Even on single SMP no guarantees on order without extra locking and synchronization  in DS, latency and message reorder make this even harder  Hence almost impossible to guarantee strict consistency",
+            "title": "Strict Consistency"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#sequential-consistency",
+            "text": "Sequential consistency =>   memory updates from different  processors may be arbitrarily interleaved  All processes will see the same interleaving  Operations from the same process always appearin order they were issued",
+            "title": "Sequential Consistency"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#causal-consistency",
+            "text": "For writes not causally related, \"concurrent\" writes doesnt gurantee.  Don't permit arbitrary ordering from same process writer",
+            "title": "Causal Consistency"
+        },
+        {
+            "location": "/12-Distributed-Shared-Systems/#weak-consistency",
+            "text": "Use of synchronization  Synchronization point => operations that are available (R,W,Sync)  all updates prior to a sync point will be visible  no guarantee what happens in between     +  limit data movement of coherence operations  -  maintain extra state for additional operations   Variations:  Single sync operation (sync)  Seperate sync per surface of state (page)  Seperate \"entry/acquire\" vs \"exit/release\" operations",
+            "title": "Weak Consistency"
+        },
+        {
+            "location": "/about/",
+            "text": "Operating Systems Notes\n\n\nThis documentation regarding all the important OS concepts and notes was taken down by me while undertaking the Operating Systems course at my undergraduate school and also the \nIntroduction to Operating Systems\n course at Udacity. It contains summarized information and key points regarding the main OS concepts. \n\n\nYou can use these notes as references to quickly revise the basic fundamentals of Operating Systems.\n\n\nReferences :\n\n\n\n\nIntroduction to Operating Systems\n course at Udacity\n\n\nOS course at my undergraduate university.\n\n\nOperating System Concepts by Silberschatz, Galvin and Gagne, 9th Edition Textbook.",
+            "title": "About"
+        },
+        {
+            "location": "/about/#operating-systems-notes",
+            "text": "This documentation regarding all the important OS concepts and notes was taken down by me while undertaking the Operating Systems course at my undergraduate school and also the  Introduction to Operating Systems  course at Udacity. It contains summarized information and key points regarding the main OS concepts.   You can use these notes as references to quickly revise the basic fundamentals of Operating Systems.",
+            "title": "Operating Systems Notes"
+        },
+        {
+            "location": "/about/#references",
+            "text": "Introduction to Operating Systems  course at Udacity  OS course at my undergraduate university.  Operating System Concepts by Silberschatz, Galvin and Gagne, 9th Edition Textbook.",
+            "title": "References :"
+        }
+    ]
+}

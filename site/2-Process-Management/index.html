@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Processes and Process Management - Operating System Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Processes and Process Management";
+    var mkdocs_page_input_path = "2-Process-Management.md";
+    var mkdocs_page_url = "/2-Process-Management/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Operating System Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Operating Systems Overview</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Processes and Process Management</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#process-and-process-management">Process and Process Management</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#what-does-a-process-look-like">What does a process look like?</a></li>
+        
+            <li><a class="toctree-l3" href="#how-does-the-os-know-what-a-process-is-doing">How does the OS know what a process is doing?</a></li>
+        
+            <li><a class="toctree-l3" href="#process-control-block-pcb">Process Control Block (PCB)</a></li>
+        
+            <li><a class="toctree-l3" href="#how-is-pcb-used">How is PCB used ?</a></li>
+        
+            <li><a class="toctree-l3" href="#context-switch">Context Switch</a></li>
+        
+            <li><a class="toctree-l3" href="#process-lifecycle">Process Lifecycle</a></li>
+        
+            <li><a class="toctree-l3" href="#process-creation">Process Creation</a></li>
+        
+            <li><a class="toctree-l3" href="#what-is-the-role-of-cpu-scheduler">What is the role of CPU scheduler?</a></li>
+        
+            <li><a class="toctree-l3" href="#scheduling-design-decisions">Scheduling design decisions</a></li>
+        
+            <li><a class="toctree-l3" href="#io">I/O</a></li>
+        
+            <li><a class="toctree-l3" href="#can-process-interact">Can process interact?</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-Threads-and-Concurrency/">Threads and Concurrency</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-Scheduling/">Scheduling</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-Memory-Management/">Memory Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../6-Inter-Process-Communication/">Inter-Process Communication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-Synchronization/">Synchronization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../8-IO-Management/">I/O Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../9-Virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-Remote-Procedure-Calls/">Remote Procedure Calls</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11-Distributed-File-Systems/">Distributed File Systems</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12-Distributed-Shared-Systems/">Distributed Shared Memory</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Operating System Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Processes and Process Management</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="process-and-process-management">Process and Process Management</h1>
+<p><strong>Process</strong>: Instance of an executing program.</p>
+<ul>
+<li>State of execution<ul>
+<li>program counter, stack pointer</li>
+</ul>
+</li>
+<li>Parts and temporary holding area<ul>
+<li>data, register state, occupies state in memory</li>
+</ul>
+</li>
+<li>May require special hardware<ul>
+<li>I/O devices</li>
+</ul>
+</li>
+</ul>
+<p>Process is a state of a program when executing and loaded in memory (active state) as opposed to application (static state).</p>
+<h2 id="what-does-a-process-look-like">What does a process look like?</h2>
+<p><img alt="Process" src="../images/process.png" /></p>
+<h3 id="type-of-state">Type of state</h3>
+<ul>
+<li>Text and Data<ul>
+<li>static state when process loads first</li>
+</ul>
+</li>
+<li>Heap <ul>
+<li>dynamically created during execution</li>
+</ul>
+</li>
+<li>Stack<ul>
+<li>grows and shrinks </li>
+<li>LIFO queue (used to store task checkpoints to resume the original process after switching from another.)</li>
+</ul>
+</li>
+</ul>
+<h2 id="how-does-the-os-know-what-a-process-is-doing">How does the OS know what a process is doing?</h2>
+<p>Using:</p>
+<ul>
+<li>Program counter</li>
+<li>CPU registers</li>
+<li>Stack pointer</li>
+</ul>
+<h2 id="process-control-block-pcb">Process Control Block (PCB)</h2>
+<p><img alt="PCB" src="../images/pcb.png" /></p>
+<ul>
+<li>PCB created when process is created</li>
+<li>Certain fields are updated when process state change e.g. memory mapping</li>
+<li>or other fields that change very frequently e.g. Program Counter</li>
+</ul>
+<h2 id="how-is-pcb-used">How is PCB used ?</h2>
+<p><img alt="howpcbisused" src="../images/howpcbisused.png" /></p>
+<h2 id="context-switch">Context Switch</h2>
+<ul>
+<li>
+<p>Mechanism used to switch from the context of one process to another in the CPU.</p>
+</li>
+<li>
+<p>They are expensive!</p>
+<ul>
+<li>direct costs: no of cycles for load and store instructions.</li>
+<li>indirect costs: <strong>COLD</strong> cache (read more <a href="http://stackoverflow.com/questions/22756092/what-does-it-mean-by-cold-cache-and-warm-cache-concept">here</a>)<ul>
+<li>Therefore limit frequency how context switching is done.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>When a cache is <strong>HOT</strong>, most process data is in the cache so the process performance will be at its best.</p>
+<p>Sometimes there are situations where we have to Context Switch (higher priority process, timesharing, etc.)</p>
+<h2 id="process-lifecycle">Process Lifecycle</h2>
+<p><img alt="processlifecycle" src="../images/processlifecycle.png" /></p>
+<p>CPU is able to execute a process when the process is in Running or Ready state.</p>
+<h2 id="process-creation">Process Creation</h2>
+<h4 id="mechanisms">Mechanisms:</h4>
+<ul>
+<li>
+<p>fork :</p>
+<ul>
+<li>copies the parent PCB into new child PCB</li>
+<li>child contains execution at instruction after fork</li>
+</ul>
+</li>
+<li>
+<p>exec :</p>
+<ul>
+<li>replace child image</li>
+<li>load new program and start from first instruction</li>
+</ul>
+</li>
+</ul>
+<h2 id="what-is-the-role-of-cpu-scheduler">What is the role of CPU scheduler?</h2>
+<p>CPU scheduler determines which one of the currently ready processes will be dispatched to the CPU to start running, and how long it should run for.</p>
+<p>OS must :</p>
+<ul>
+<li>preempt =&gt; interrupt and save current context</li>
+<li>schedule =&gt; run scheduler to choose next process</li>
+<li>dispatch =&gt; dispatch process 2 switch into its context</li>
+</ul>
+<h2 id="scheduling-design-decisions">Scheduling design decisions</h2>
+<p><img alt="timeslice" src="../images/timeslice.png" /></p>
+<ul>
+<li>What are the appropriate timeslice values?</li>
+<li>Metrics to choose next process to run?</li>
+</ul>
+<h2 id="io">I/O</h2>
+<p>A process can make way in the ready queue in a number of ways.</p>
+<p><img alt="io" src="../images/io.png" /></p>
+<h2 id="can-process-interact">Can process interact?</h2>
+<h4 id="inter-process-communication">Inter Process communication:</h4>
+<p>IPC mechanisms:</p>
+<ul>
+<li>transfer data/info between address space</li>
+<li>maintain protection and isolation</li>
+<li>provide flexibility and performance</li>
+</ul>
+<p>Two types of IPC models:</p>
+<h4 id="1-message-passing-ipc">1. <strong>Message Passing IPC</strong></h4>
+<p><img alt="messagepassing" src="../images/messagepassing.png" /></p>
+<ul>
+<li>OS provides communication channel line shared buffer</li>
+<li>Processes can write(send), read(receive) msg to/from channel</li>
+</ul>
+<p><strong>Advantages</strong>: OS manages the channel<br>
+<strong>Disadvantages</strong>: Overheads</p>
+<h4 id="2-shared-memory-ipc">2. <strong>Shared Memory IPC</strong></h4>
+<p><img alt="sharedmemory" src="../images/sharedmemory.png" /></p>
+<ul>
+<li>OS establishes a shared channel and maps it into each processes' address space</li>
+<li>Processes directly write(send), read(receive) msg to/from this memory</li>
+</ul>
+<p><strong>Advantages</strong>: OS is out of the way after establishing the shared channel<br>
+<strong>Disadvantages</strong>: Re-implementing a lot of code that could have been done by the OS</p>
+<p>Overall, <strong>shared memory</strong> based communication is better if mapping memory between two processes is ammortized over a large number of messages.</p>
+<hr>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../3-Threads-and-Concurrency/" class="btn btn-neutral float-right" title="Threads and Concurrency">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Operating Systems Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../3-Threads-and-Concurrency/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

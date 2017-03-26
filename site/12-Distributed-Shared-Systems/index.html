@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Distributed Shared Memory - Operating System Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Distributed Shared Memory";
+    var mkdocs_page_input_path = "12-Distributed-Shared-Systems.md";
+    var mkdocs_page_url = "/12-Distributed-Shared-Systems/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Operating System Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Operating Systems Overview</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-Process-Management/">Processes and Process Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-Threads-and-Concurrency/">Threads and Concurrency</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-Scheduling/">Scheduling</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-Memory-Management/">Memory Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../6-Inter-Process-Communication/">Inter-Process Communication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-Synchronization/">Synchronization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../8-IO-Management/">I/O Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../9-Virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-Remote-Procedure-Calls/">Remote Procedure Calls</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11-Distributed-File-Systems/">Distributed File Systems</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Distributed Shared Memory</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#distributed-shared-memory">Distributed Shared Memory</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#peer-distribution-applications">"Peer" Distribution Applications</a></li>
+        
+            <li><a class="toctree-l3" href="#distributed-shared-memory-dsm">Distributed Shared Memory (DSM)</a></li>
+        
+            <li><a class="toctree-l3" href="#hardware-vs-software-dsm">Hardware vs Software DSM</a></li>
+        
+            <li><a class="toctree-l3" href="#dsm-design-sharing-granularity">DSM Design : Sharing Granularity</a></li>
+        
+            <li><a class="toctree-l3" href="#what-types-of-applications-use-dsm">What types of applications use DSM?</a></li>
+        
+            <li><a class="toctree-l3" href="#performance-considerations">Performance considerations</a></li>
+        
+            <li><a class="toctree-l3" href="#consistency-management">Consistency Management</a></li>
+        
+            <li><a class="toctree-l3" href="#dsm-architecture-page-based-os-supported">DSM architecture (page-based, OS-supported)</a></li>
+        
+            <li><a class="toctree-l3" href="#dsm-metadata">DSM metadata</a></li>
+        
+            <li><a class="toctree-l3" href="#implementing-dsms">Implementing DSMs</a></li>
+        
+            <li><a class="toctree-l3" href="#consistency-model">Consistency model</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Operating System Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Distributed Shared Memory</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="distributed-shared-memory">Distributed Shared Memory</h1>
+<ul>
+<li>Must decide placement<ul>
+<li>place memory (pages) close to relevant processes</li>
+</ul>
+</li>
+<li>Must decide migration<ul>
+<li>when to copy memory (pages) from remote to local</li>
+</ul>
+</li>
+<li>Must decide sharing rules<ul>
+<li>ensure memory generations are properly ordered</li>
+</ul>
+</li>
+</ul>
+<h2 id="peer-distribution-applications">"Peer" Distribution Applications</h2>
+<ul>
+<li>Each node <ul>
+<li>"owns" state</li>
+<li>provide service</li>
+</ul>
+</li>
+<li>all nodes are "peers".</li>
+</ul>
+<p>Examples: Big-data analytics, web searches, context sharing or distributed shared memory (DSM)</p>
+<h2 id="distributed-shared-memory-dsm">Distributed Shared Memory (DSM)</h2>
+<p>DSM is a service that manages memory accross multiple nodes so that applications that are running on top will have an illusion that they are running on a shared memory.</p>
+<ul>
+<li>Each node <ul>
+<li>"owns" state =&gt; memory</li>
+<li>provide service<ul>
+<li>memory read/writes from any nodes</li>
+<li>consistency protocols</li>
+</ul>
+</li>
+<li>permits scaling beyond single machine memory limits<ul>
+<li>more "shared" memory at lower cost </li>
+<li>slower overall memory access</li>
+<li>commodity interconnect technologies support this RDMA(Remote Direct Memory Access)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="hardware-vs-software-dsm">Hardware vs Software DSM</h2>
+<ul>
+<li>Hardware-supported (expensive!)<ul>
+<li>relies on interconnect</li>
+<li>OS manages larger physical memory </li>
+<li>NIC(Network Interface Cards) translate remote memory accesses to messages</li>
+<li>NICs involved in all aspects of memory management; support atomics..</li>
+</ul>
+</li>
+<li>Software supported<ul>
+<li>everything done by software</li>
+<li>OS,or language runtime</li>
+</ul>
+</li>
+<li>Hybrid (Software tasks in Hardware) DSM implementations<ul>
+<li>prefetch pages</li>
+<li>address translation (easier done in hardware)</li>
+<li>triggering invalidations (easier done in hardware)</li>
+</ul>
+</li>
+</ul>
+<h2 id="dsm-design-sharing-granularity">DSM Design : Sharing Granularity</h2>
+<ul>
+<li>cache line granularity?<ul>
+<li>overheads too high for DSM</li>
+</ul>
+</li>
+<li>variable granularity [N]</li>
+<li>page granularity [Y] (OS level)</li>
+<li>object granularity [Y] (Language runtime)<ul>
+<li>beware of false sharing E.g. x and y shared on same page</li>
+</ul>
+</li>
+</ul>
+<h2 id="what-types-of-applications-use-dsm">What types of applications use DSM?</h2>
+<p>Application access algorithm
+- Single reader/ single writer (SRSW)
+- Multiple readers/ single writer (MRSW)
+- Multiple reader/ Multiple writers (MRMW)</p>
+<h2 id="performance-considerations">Performance considerations</h2>
+<ul>
+<li>DSM performance metric == access latency</li>
+<li>Achieving low latency through <ul>
+<li>Migration<ul>
+<li>makes sense for SRSW</li>
+<li>requires data movement</li>
+</ul>
+</li>
+<li>Replication (caching)        <ul>
+<li>more general </li>
+<li>requires consistency management</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hence, migration is okay for SRSW but not for all. </li>
+<li>Caching and Replication        <ul>
+<li>Copies of data to incerease data access</li>
+<li>for many concurrent writes, overheads too high but stil generally better than Migration</li>
+</ul>
+</li>
+</ul>
+<h2 id="consistency-management">Consistency Management</h2>
+<ul>
+<li>In SMP<ul>
+<li>write invalidate</li>
+<li>write update </li>
+</ul>
+</li>
+<li>coherence operations triggered in each write <ul>
+<li>overhead too high</li>
+</ul>
+</li>
+<li>Push invalidations when data is written to <ol>
+<li>Proactive</li>
+<li>Eager</li>
+<li>Pessimistic</li>
+</ol>
+</li>
+<li>Pull modifications information periodically<ol>
+<li>on demand (reactive)</li>
+<li>lazy</li>
+<li>optimistic</li>
+</ol>
+</li>
+<li>when these methods get triggered depends on the consistency model for the shared state</li>
+</ul>
+<h2 id="dsm-architecture-page-based-os-supported">DSM architecture (page-based, OS-supported)</h2>
+<ul>
+<li>Page-based DSM architecture<ul>
+<li>distributed nodes, each with own local memory contribution</li>
+<li>pool of pages from all nodes</li>
+<li>each page has IO ("home" node), page frame number</li>
+</ul>
+</li>
+<li>if MRMW <ul>
+<li>need local caches for performances (latency)</li>
+<li>"home" or "manager" node drives coherence operations</li>
+<li>all nodes responsible for part if distributed memory (state) management</li>
+</ul>
+</li>
+<li>Home node    <ul>
+<li>keeps state: page accessed, modifications, caching enabled/disabled, locked..</li>
+</ul>
+</li>
+<li>Current owner<ul>
+<li>owner may not be equal to home node</li>
+</ul>
+</li>
+<li>Explicit replicas <ul>
+<li>for load balancing, performance, or reliability
+    home, manager node controls memory</li>
+</ul>
+</li>
+</ul>
+<h2 id="dsm-metadata">DSM metadata</h2>
+<p><img alt="metadata.png" src="../images/metadata.png" /></p>
+<h2 id="implementing-dsms">Implementing DSMs</h2>
+<ul>
+<li>Problem : DSM must intercept access to DSM state <ul>
+<li>to send remote messages requesting access</li>
+<li>to trigger coherence messages</li>
+</ul>
+</li>
+<li>overheads should be avoided for local non-shared state (pages)</li>
+<li>dynamically engage and disengage DSM when necessary</li>
+<li>Solution : Use hardware MMU support!<ul>
+<li>trap in OS if mapping invalid or access denied</li>
+<li>remote address mapping -&gt; trap and pass to DSM to send message</li>
+<li>cached content -&gt; trap and pass to DSM to perform memory coherence operations</li>
+<li>other MMU information useful (e.g. Dirty page)  </li>
+</ul>
+</li>
+</ul>
+<h2 id="consistency-model">Consistency model</h2>
+<ul>
+<li>Agreement between memory (state) and upper software layers</li>
+<li>Memory behaves correctly if and only if software follows specific rules</li>
+<li>Memory (state) guarantees to behave correctly<ul>
+<li>access ordering</li>
+<li>propagation/ visibility of updates</li>
+</ul>
+</li>
+</ul>
+<h3 id="our-notation">Our notation</h3>
+<p><img alt="notation.png" src="../images/notation.png" /></p>
+<ul>
+<li>R_m1(X) =&gt; X was read from memory location m1</li>
+<li>W_m1(Y) =&gt; Y was written to memory location m1</li>
+</ul>
+<h3 id="strict-consistency">Strict Consistency</h3>
+<p>Strict Consistency =&gt; updates visible everywhere immediately</p>
+<p><img alt="strict.png" src="../images/strict.png" /></p>
+<ul>
+<li>In practice<ul>
+<li>Even on single SMP no guarantees on order without extra locking and synchronization</li>
+<li>in DS, latency and message reorder make this even harder</li>
+<li>Hence almost impossible to guarantee strict consistency</li>
+</ul>
+</li>
+</ul>
+<h3 id="sequential-consistency">Sequential Consistency</h3>
+<p><img alt="seq.png" src="../images/seq.png" /></p>
+<p>Sequential consistency =&gt;</p>
+<ul>
+<li>memory updates from different  processors may be arbitrarily interleaved</li>
+<li>All processes will see the same interleaving</li>
+<li>Operations from the same process always appearin order they were issued</li>
+</ul>
+<h3 id="causal-consistency">Causal Consistency</h3>
+<p><img alt="causal.png" src="../images/causal.png" /></p>
+<ul>
+<li>For writes not causally related, "concurrent" writes doesnt gurantee.</li>
+<li>Don't permit arbitrary ordering from same process writer</li>
+</ul>
+<h3 id="weak-consistency">Weak Consistency</h3>
+<p><img alt="weak.png" src="../images/weak.png" /></p>
+<ul>
+<li>Use of synchronization<ul>
+<li>Synchronization point =&gt; operations that are available (R,W,Sync)</li>
+<li>all updates prior to a sync point will be visible</li>
+<li>no guarantee what happens in between</li>
+</ul>
+</li>
+</ul>
+<p><strong>+</strong> limit data movement of coherence operations</p>
+<p><strong>-</strong> maintain extra state for additional operations</p>
+<ul>
+<li>Variations:<ul>
+<li>Single sync operation (sync)</li>
+<li>Seperate sync per surface of state (page)</li>
+<li>Seperate "entry/acquire" vs "exit/release" operations
+<hr></li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about/" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../11-Distributed-File-Systems/" class="btn btn-neutral" title="Distributed File Systems"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../11-Distributed-File-Systems/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

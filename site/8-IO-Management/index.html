@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>I/O Management - Operating System Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "I/O Management";
+    var mkdocs_page_input_path = "8-IO-Management.md";
+    var mkdocs_page_url = "/8-IO-Management/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Operating System Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Operating Systems Overview</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-Process-Management/">Processes and Process Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-Threads-and-Concurrency/">Threads and Concurrency</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-Scheduling/">Scheduling</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-Memory-Management/">Memory Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../6-Inter-Process-Communication/">Inter-Process Communication</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-Synchronization/">Synchronization</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">I/O Management</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#io-management">I/O Management</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#io-device-features">I/O Device Features</a></li>
+        
+            <li><a class="toctree-l3" href="#device-drivers">Device drivers</a></li>
+        
+            <li><a class="toctree-l3" href="#types-of-devices">Types of devices</a></li>
+        
+            <li><a class="toctree-l3" href="#cpu-device-interactions">CPU device interactions</a></li>
+        
+            <li><a class="toctree-l3" href="#path-from-device-to-cpu">Path from Device to CPU</a></li>
+        
+            <li><a class="toctree-l3" href="#device-access-programmed-io-pio">Device access : Programmed I/O (PIO)</a></li>
+        
+            <li><a class="toctree-l3" href="#direct-memory-access-dma">Direct Memory Access (DMA)</a></li>
+        
+            <li><a class="toctree-l3" href="#typical-device-access">Typical Device Access</a></li>
+        
+            <li><a class="toctree-l3" href="#what-happens-to-a-calling-thread">What happens to a calling thread?</a></li>
+        
+            <li><a class="toctree-l3" href="#block-device-stack">Block Device Stack</a></li>
+        
+            <li><a class="toctree-l3" href="#virtual-file-system">Virtual File System</a></li>
+        
+            <li><a class="toctree-l3" href="#disk-access-optimizations">Disk access optimizations</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../9-Virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-Remote-Procedure-Calls/">Remote Procedure Calls</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11-Distributed-File-Systems/">Distributed File Systems</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12-Distributed-Shared-Systems/">Distributed Shared Memory</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Operating System Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>I/O Management</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="io-management">I/O Management</h1>
+<p>Operating system</p>
+<ul>
+<li>Has protocols <ul>
+<li>Interfaces for device I/O</li>
+</ul>
+</li>
+<li>Has dedicated handlers<ul>
+<li>Device drivers, interrupt handlers</li>
+</ul>
+</li>
+<li>Decouple I/O details from core processing<ul>
+<li>abstract I/O device detail from applications</li>
+</ul>
+</li>
+</ul>
+<h2 id="io-device-features">I/O Device Features</h2>
+<ul>
+<li>Control registers (accessed by CPU)<ul>
+<li>Command</li>
+<li>Data Transfers</li>
+<li>Status</li>
+</ul>
+</li>
+<li>Microcontroller : device's CPU</li>
+<li>On device memory</li>
+<li>Other logic<ul>
+<li>e.g. analog to digital</li>
+</ul>
+</li>
+</ul>
+<h2 id="device-drivers">Device drivers</h2>
+<ul>
+<li>per each device type</li>
+<li>responsible for device access management and control</li>
+<li>provided by device manufacturers per OS /version</li>
+<li>each OS standardizes interfaces<ul>
+<li>device independence</li>
+<li>device diversity</li>
+</ul>
+</li>
+</ul>
+<h2 id="types-of-devices">Types of devices</h2>
+<ul>
+<li>Block<ul>
+<li>e.g. disk</li>
+<li>read/write blocks of data</li>
+<li>direct access to arbitrary block</li>
+</ul>
+</li>
+<li>Character<ul>
+<li>e.g. keyboard</li>
+<li>get/put character</li>
+</ul>
+</li>
+<li>Network devices</li>
+</ul>
+<p>OS representation of a device : special device file</p>
+<p>UNIX like systems:</p>
+<ul>
+<li>/dev</li>
+<li>tmpfs</li>
+<li>devfs</li>
+</ul>
+<p>Linux supports a number of pseudo "virtual" devices that provide special functionality to a system.</p>
+<h2 id="cpu-device-interactions">CPU device interactions</h2>
+<p><img alt="iointeractions.png" src="../images/iointeractions.png" /></p>
+<p>access device registers : memory load/store</p>
+<ol>
+<li>Memory mapped I/0<ul>
+<li>part of 'host' physical memory dedicated for device interactions</li>
+<li>Base Address Registers (BAR)</li>
+</ul>
+</li>
+<li>I/O Port<ul>
+<li>dedicated in low instructions for device access</li>
+<li>target device (I/0 port) and value in register</li>
+</ul>
+</li>
+</ol>
+<h2 id="path-from-device-to-cpu">Path from Device to CPU</h2>
+<ol>
+<li>Interrupt<ul>
+<li>Overhead: Interrupt handling steps</li>
+<li>+: Can be generated as soon as possible</li>
+</ul>
+</li>
+<li>Polling<ul>
+<li>Overhead: Delay or CPU overhead</li>
+<li>when convenient for OS</li>
+</ul>
+</li>
+</ol>
+<h2 id="device-access-programmed-io-pio">Device access : Programmed I/O (PIO)</h2>
+<ul>
+<li>No additional hardware support</li>
+<li>CPU "programs" the device<ul>
+<li>via command registers</li>
+<li>data movement</li>
+</ul>
+</li>
+<li>E.g. NIC(Network Interface Card)<ul>
+<li>data = network packet</li>
+</ul>
+</li>
+<li>Write command to request packet information</li>
+<li>Copy packet to data registers</li>
+<li>Repeat until packet sent</li>
+</ul>
+<p>E.g. 1500B packet; 8 byte registers or bus =&gt; 1(for bus command) + 188(for data) = 189 CPU store instructions</p>
+<h2 id="direct-memory-access-dma">Direct Memory Access (DMA)</h2>
+<ul>
+<li>Relies on DMA controller</li>
+<li>CPU "programs" the device<ul>
+<li>via command registers</li>
+<li>via DMA controls</li>
+</ul>
+</li>
+<li>E.g. NIC (data = network packet)</li>
+<li>Write command to request packet information</li>
+<li>Configure DMA controller with in memory address and size of packet buffer</li>
+</ul>
+<p>E.g. 1500B packet; 8 byte registers or bus =&gt; 1(for bus command) + 1(for DMA configuration) = total 2 CPU store instructions. Less steps, but DMA configuration is more complex.</p>
+<p>For DMAs
+- data buffer must be in physical memory until transfer completes
+- pinning regions (non-swappable)</p>
+<h2 id="typical-device-access">Typical Device Access</h2>
+<p><img alt="typicaldeviceaccess.png" src="../images/typicaldeviceaccess.png" /></p>
+<ul>
+<li>System call</li>
+<li>In-kernel stack</li>
+<li>Driver Invocation</li>
+<li>Device request configuration</li>
+<li>Device performs request</li>
+</ul>
+<h3 id="os-bypass">OS bypass</h3>
+<p><img alt="osbypass.png" src="../images/osbypass.png" /></p>
+<ul>
+<li>device registers/data<ul>
+<li>directly available</li>
+</ul>
+</li>
+<li>OS configures<ul>
+<li>then gets out of the way</li>
+</ul>
+</li>
+<li>"user level driver"<ul>
+<li>in library</li>
+</ul>
+</li>
+<li>OS retains coarse-grain control</li>
+<li>relies on device features<ul>
+<li>sufficient registers</li>
+<li>demux capability</li>
+</ul>
+</li>
+</ul>
+<h2 id="what-happens-to-a-calling-thread">What happens to a calling thread?</h2>
+<p><img alt="access.png" src="../images/access.png" /></p>
+<ul>
+<li>Synchronous I/O operations<ul>
+<li>process blocks</li>
+</ul>
+</li>
+<li>Asynchronous I/O operations<ul>
+<li>process continues</li>
+<li>Later, process checks and retrieves result</li>
+<li>OR</li>
+<li>process is notified that operation is completed and results are ready</li>
+</ul>
+</li>
+</ul>
+<h2 id="block-device-stack">Block Device Stack</h2>
+<p>Block device typical storage for files:</p>
+<p><img alt="blockdevicestack.png" src="../images/blockdevicestack.png" /></p>
+<ul>
+<li>processes use files =&gt; logical storage unit</li>
+<li>kernel file system (KFS)<ul>
+<li>where how to find and access file</li>
+<li>OS specifies interface</li>
+</ul>
+</li>
+<li>generic block layer<ul>
+<li>OS standardized block interface</li>
+</ul>
+</li>
+<li>Device driver    </li>
+</ul>
+<h2 id="virtual-file-system">Virtual File System</h2>
+<p><img alt="vfs.png" src="../images/vfs.png" /></p>
+<h3 id="virtual-file-system-abstractions">Virtual File System Abstractions</h3>
+<ul>
+<li>File : Elements on which the VFS operates</li>
+<li>File Descriptor : OS representation of file<ul>
+<li>open, read, write, send file , lock, close</li>
+</ul>
+</li>
+<li>inode : Persistent representation of file "index"<ul>
+<li>list of all data blocks</li>
+<li>device, permissions, size</li>
+</ul>
+</li>
+<li>dentry : Directory entry, corresponding to the single path component, <ul>
+<li>dentry cache</li>
+</ul>
+</li>
+<li>super block : file system specific information regarding the File System layout</li>
+</ul>
+<h3 id="vfs-on-disk">VFS on disk</h3>
+<ul>
+<li>File : data blocks on disk</li>
+<li>inode : track file blocks<ul>
+<li>also resides on disk in some block</li>
+</ul>
+</li>
+<li>super block : overall map of disk blocks<ul>
+<li>inode blocks</li>
+<li>data blocks</li>
+<li>free blocks</li>
+</ul>
+</li>
+</ul>
+<h3 id="inodes">Inodes</h3>
+<p>Index of all disk blocks corresponding to a file</p>
+<ul>
+<li>File : identified by inode</li>
+<li>inode : list of all blocks + other metadata</li>
+</ul>
+<p><strong>+</strong>: Easy to perform sequential or random access<br>
+<strong>-</strong>: Limit on file size</p>
+<h3 id="inodes-with-indirect-pointers">Inodes with indirect pointers</h3>
+<ul>
+<li>Index of all disk blocks corresponding to a file</li>
+<li>Index contain:<ul>
+<li>metadata</li>
+<li>pointers to blocks</li>
+</ul>
+</li>
+<li>Direct pointer : Points to data block<ul>
+<li>1 KB per entry</li>
+</ul>
+</li>
+<li>Indirect pointer : Points to block of pointers<ul>
+<li>256 KB per entry    </li>
+</ul>
+</li>
+<li>Double Indirect pointer : Points to block of block of pointers<ul>
+<li>64 MB per entry    </li>
+</ul>
+</li>
+</ul>
+<p><strong>+</strong>: Small inode =&gt; large file size<br>
+<strong>-</strong>: File access slowdown</p>
+<h2 id="disk-access-optimizations">Disk access optimizations</h2>
+<p>Reducing file access overheads</p>
+<ol>
+<li>Caching/buffering : reducenumber of disk accesses<ul>
+<li>buffer cache in main menu</li>
+<li>read/write from cache</li>
+<li>periodically flush to disk - fsync()</li>
+</ul>
+</li>
+<li>I/O scheduling : reduce disk head movement<ul>
+<li>maximize sequential vs random access</li>
+</ul>
+</li>
+<li>Prefetching : increases cache hits<ul>
+<li>leverages locality</li>
+</ul>
+</li>
+<li>Journaling/logging: reduce random access (ext3, ext4)<ul>
+<li>"describe" write in log : block, offset, value..</li>
+<li>periodically apply updates to proper disk locations</li>
+</ul>
+</li>
+</ol>
+<hr>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../9-Virtualization/" class="btn btn-neutral float-right" title="Virtualization">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../7-Synchronization/" class="btn btn-neutral" title="Synchronization"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../7-Synchronization/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../9-Virtualization/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Inter-Process Communication - Operating System Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Inter-Process Communication";
+    var mkdocs_page_input_path = "6-Inter-Process-Communication.md";
+    var mkdocs_page_url = "/6-Inter-Process-Communication/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Operating System Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Operating Systems Overview</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../2-Process-Management/">Processes and Process Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../3-Threads-and-Concurrency/">Threads and Concurrency</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../4-Scheduling/">Scheduling</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../5-Memory-Management/">Memory Management</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Inter-Process Communication</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#inter-process-communication">Inter Process Communication</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#message-passing">Message Passing</a></li>
+        
+            <li><a class="toctree-l3" href="#shared-memory-ipc">Shared Memory IPC</a></li>
+        
+            <li><a class="toctree-l3" href="#which-is-better">Which is better?</a></li>
+        
+            <li><a class="toctree-l3" href="#copy-vs-map">Copy vs Map</a></li>
+        
+            <li><a class="toctree-l3" href="#shared-memory-and-synchronization">Shared Memory and Synchronization</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../7-Synchronization/">Synchronization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../8-IO-Management/">I/O Management</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../9-Virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../10-Remote-Procedure-Calls/">Remote Procedure Calls</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../11-Distributed-File-Systems/">Distributed File Systems</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../12-Distributed-Shared-Systems/">Distributed Shared Memory</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">About</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Operating System Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Inter-Process Communication</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="inter-process-communication">Inter Process Communication</h1>
+<ul>
+<li>Processes share memory<ul>
+<li>data in shared messages</li>
+</ul>
+</li>
+<li>Processes exchange messages<ul>
+<li>message passing via sockets</li>
+</ul>
+</li>
+<li>Requires synchronization<ul>
+<li>mutex, waiting</li>
+</ul>
+</li>
+</ul>
+<p><strong>Inter Process Communication</strong>(IPC) is an OS supported mechanism for interaction among processes (coordination and communication)   </p>
+<ul>
+<li>Message Passing<ul>
+<li>e.g. sockets, pips, msgs, queues</li>
+</ul>
+</li>
+<li>Memory based IPC <ul>
+<li>shared memory, memory mapped files</li>
+</ul>
+</li>
+<li>Higher level semantics<ul>
+<li>files, <a href="../10-Remote-Procedure-Calls/">RPC</a></li>
+</ul>
+</li>
+<li>Synchronization primitives</li>
+</ul>
+<h2 id="message-passing">Message Passing</h2>
+<ul>
+<li>Send/Receive messages </li>
+<li>OS creates and maintains a channel<ul>
+<li>buffer, FIFO queue</li>
+</ul>
+</li>
+<li>OS provides interfaces to processes<ul>
+<li>a port</li>
+<li>processes send/write messages to this port</li>
+<li>processes receive/read messages from this port</li>
+</ul>
+</li>
+</ul>
+<p><img alt="messagepassingipc.png" src="../images/messagepassingipc.png" /></p>
+<ul>
+<li>Kernel required to <ul>
+<li>establish communication</li>
+<li>perform each IPC operation</li>
+<li>send: system call + data copy</li>
+<li>receive: system call + data copy</li>
+</ul>
+</li>
+<li>Request-response:
+    4x user/ kernel crossings + <br>
+    4x data copies</li>
+</ul>
+<p><strong>Advantages</strong><br> </p>
+<ul>
+<li>simplicity : kernel does channel management and synchronization</li>
+</ul>
+<p><strong>Disadvantages</strong><br> </p>
+<ul>
+<li>Overheads </li>
+</ul>
+<h3 id="forms-of-message-passing-ipc">Forms of Message Passing IPC</h3>
+<h4 id="1-pipes">1. Pipes</h4>
+<ul>
+<li>Carry byte stream between 2 process</li>
+<li>e.g connect output from 1 process to input of another</li>
+</ul>
+<p><img alt="pipes.png" src="../images/pipes.png" />    </p>
+<h4 id="2-message-queues">2. Message queues</h4>
+<ul>
+<li>Carry "messages" among processes</li>
+<li>OS management includes priorities, scheduling of message delivery </li>
+<li>APIs : Sys-V and POSIX</li>
+</ul>
+<p><img alt="msgq.png" src="../images/msgq.png" />        </p>
+<h4 id="3-sockets">3. Sockets</h4>
+<ul>
+<li>send() and recv() : pass message buffers</li>
+<li>socket() : create kernel level socket buffer</li>
+<li>associated neccessary kernel processing (TCP-IP,..)</li>
+<li>If different machines, channel between processes and network devices</li>
+<li>If same machine, bypass full protocol stack</li>
+</ul>
+<p><img alt="sockets.png" src="../images/sockets.png" />        </p>
+<h2 id="shared-memory-ipc">Shared Memory IPC</h2>
+<ul>
+<li>read and write to shared memory region</li>
+<li>OS establishes shared channel between the processes<ol>
+<li>physical pages mapped into virtual address space</li>
+<li>VA(P1) and VA(P2) map to same physical address</li>
+<li>VA(P1) != VA(P2)</li>
+<li>physical mempry doesn't need to be contiguous</li>
+</ol>
+</li>
+<li>APIs : SysV, POSIX, memory mapped files, Android ashmem   </li>
+</ul>
+<p><img alt="sharedmemoryipc.png" src="../images/sharedmemoryipc.png" /></p>
+<p><strong>Advantages</strong><br></p>
+<ul>
+<li>System calls only for setup data copies potentially reduced (but not eliminated)</li>
+</ul>
+<p><strong>Disdvantages</strong><br></p>
+<ul>
+<li>explicit synchronization</li>
+<li>communication protocol, shared buffer management<ul>
+<li>programmer's responsibility</li>
+</ul>
+</li>
+</ul>
+<h2 id="which-is-better">Which is better?</h2>
+<p><strong>Overheads for</strong>
+1. Message Passing : must perform multiple copies
+2. Shared Memory : must establish all mappings among processes' address space and shared memory pages</p>
+<p>Thus, it depends.</p>
+<h2 id="copy-vs-map">Copy vs Map</h2>
+<p>Goal for both is to transfer data from one into target saddress space</p>
+<table>
+<thead>
+<tr>
+<th>Copy (Message Passing)</th>
+<th>Map (Shared Memory)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU cycles to copy data to/from port</td>
+<td>CPU cycles to map memory into address space</td>
+</tr>
+<tr>
+<td></td>
+<td>CPU to copy data to channel</td>
+</tr>
+<tr>
+<td></td>
+<td>If channel setup once, use many times (good payoff)</td>
+</tr>
+<tr>
+<td></td>
+<td>Can perform well for 1 time use</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Large Data: t(Copy) &gt;&gt; t(Map)<ul>
+<li>e.g. tradeoff exercised in Window "Local" Procedure Calls (LPC)</li>
+</ul>
+</li>
+</ul>
+<h2 id="shared-memory-and-synchronization">Shared Memory and Synchronization</h2>
+<p>Use threads accessing shared state in a single addressing space, but for process</p>
+<p>Synchronization method:</p>
+<ol>
+<li>mechanism supported by processing threading library (pthreads)</li>
+<li>OS supported IPC for sync</li>
+</ol>
+<p>Either method must coordinate</p>
+<ul>
+<li>no of concurrent access to shared segment</li>
+<li>when data is available and ready for consumption</li>
+</ul>
+<h3 id="ipc-synchronization">IPC Synchronization</h3>
+<table>
+<thead>
+<tr>
+<th>Message Queues</th>
+<th>Semaphores</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Implement "mutual exclusion" via send/receive</td>
+<td>OS supported synchronization construct</td>
+</tr>
+<tr>
+<td></td>
+<td>binary construct (either allow process or not)</td>
+</tr>
+<tr>
+<td></td>
+<td>Like mutex, if value = 0, stop; if value = 1, decrement(lock) and proceed</td>
+</tr>
+</tbody>
+</table>
+<hr>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../7-Synchronization/" class="btn btn-neutral float-right" title="Synchronization">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../5-Memory-Management/" class="btn btn-neutral" title="Memory Management"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../5-Memory-Management/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../7-Synchronization/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>
