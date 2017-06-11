@@ -29,7 +29,7 @@ The notes cover the following concepts:
 
 ## References :
 
-* [Introduction to Operating Systems](https://www.udacity.com/course/introduction-to-operating-systems--ud923) course at Udacity
+* [Introduction to Operating Systems](https://www.udacity.com/course/introduction-to-operating-systems--ud923) course at Udacity.
 * OS course at my undergraduate university.
 * Operating System Concepts by Silberschatz, Galvin and Gagne, 9th Edition Textbook.
 
