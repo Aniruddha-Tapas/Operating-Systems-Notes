@@ -121,6 +121,10 @@ runqueue = tree() ordered on priority
 
 ![rr3](images/rr3.png)
 
+### 4. Shortest Remaining Time First (SRTF)
+
+* Chooses the process with the shortest CPU burst remaining and executes that one. If processes come in during execution that have less remaining time, the current one is preempted and the new one executed. Therefore, it can lead to starvation.
+
 #### Timeslicing
 
 * Timeslice = max amount of uninterrupted time given to a task
