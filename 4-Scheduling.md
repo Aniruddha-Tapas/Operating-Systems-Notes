@@ -55,11 +55,13 @@ If T1, T2, T3 arrive in the given order and T1 has execution time 1s, T2 10s and
 * Throughput = 3/(1+10+1) = 3/12 = 0.25s
 * Average completion time = (1 + 11 + 12)/3 = 8s
 * Average wait time = (1+1+11)/3 = 4s
+* Starvation NOT possible
 
 ### 2. Shortest Job First (SJF)
 
 * Schedules tasks in order of execution time
 * Therefore for the above example, T1(1s) > T3(1s) > T2(10s)
+* Starvation possible
 
 ```
 runqueue = ordered(queue)
@@ -78,6 +80,7 @@ For SJF,
 ### Preemptive Scheduling
 
 * SJF + Preemption
+* Starvation is possible
 
 T2 arrives first.
 
@@ -87,6 +90,7 @@ T2 arrives first.
 
 * Tasks have different priority levels
 * Run highest priority task next (preemption)
+* Starvation is possible
 
 ![priority](images/priority.png)
 
@@ -108,6 +112,7 @@ runqueue = tree() ordered on priority
 
 * Pick up the first task from queue (like FCFS)
 * Task may yield to wait on I/O (unlike FCFCS)
+* Starvation is NOT possible
 
 
 ![rr1](images/rr1.png)
@@ -115,6 +120,10 @@ runqueue = tree() ordered on priority
 ![rr2](images/rr2.png)
 
 ![rr3](images/rr3.png)
+
+### 4. Shortest Remaining Time First (SRTF)
+
+* Chooses the process with the shortest CPU burst remaining and executes that one. If processes come in during execution that have less remaining time, the current one is preempted and the new one executed. Therefore, it can lead to starvation.
 
 #### Timeslicing
 
