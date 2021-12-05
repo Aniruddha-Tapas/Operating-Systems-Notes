@@ -163,7 +163,7 @@ Here T1 and T2 are in deadlock.
 ### How to avoid this?
 
 1. Unlock T1 before locking T2
-	- Fine-grained locking but T1 nad T2 may both be required
+	- Fine-grained locking but T1 and T2 may both be required
 2. Use one mega lock, get all locks upfront, then release at end
 	- For some applications this may be ok. But generally its too restrictive and limits parallelism
 3. Maintain lock order
