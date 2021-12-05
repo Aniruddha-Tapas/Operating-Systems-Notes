@@ -90,9 +90,9 @@ unlock(mutex)
 
 ## Producer Consumer problem
 
-What if the processing you wish to perform with mutual exclusion needs to occur under certai conditions?
+What if the processing you wish to perform with mutual exclusion needs to occur under certain conditions?
 
-For e.g. The producer appends items to a list until the list is full, and the consumer has to print out all the items of the list once the list if full and then empty the list. Thus we have to execute the Consumer thread only under a certain condition (here- when the list becomes empty, print items).
+For e.g. The producer appends items to a list until the list is full, and the consumer has to print out all the items of the list once the list is full and then empty the list. Thus we have to execute the Consumer thread only under a certain condition (here- when the list becomes empty, print items).
 
 Solution: Use **Condition Variables**
 
@@ -121,7 +121,7 @@ Solution: Use **Condition Variables**
 - Better solution:
 
 ```
-if ((read_count == 0) & (read_count == 0))
+if ((read_count == 0) & (writer_count == 0))
 	R okay, W okay
 if (read_count > 0)
 	R okay    
